@@ -1,0 +1,13 @@
+stages:
+  - appium
+
+
+appium_job:
+  stage: appium
+  tags:
+    - android-host-1
+  script:
+    - appium --address 0.0.0.0 --port 4723 &
+  after_script:
+    - python3 telegram_bot/client.py -n appium_job
+  retry: 2

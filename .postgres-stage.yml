@@ -1,0 +1,36 @@
+stages:
+  - postgres
+  - grafana
+
+
+postgres_job:
+  stage: postgres
+  tags:
+    - ios-host-1
+  before_script:
+    - docker-compose -f ./db/docker-compose.yml up -d || true
+  script:
+    - docker exec postgres_container bash -c 'psql -h localhost -U n.permyakov postgres -f create_database.sql'
+    - docker exec postgres_container bash -c 'psql -h localhost -U n.permyakov metric_autotests -f create_tables.sql'
+  after_script:
+    - python3 telegram_bot/client.py -n postgres_job
+
+grafana_job:
+  stage: grafana
+  tags:
+    - ios-host-1
+  before_script:
+    - |
+      'response=$(curl -X POST -H "Content-Type: application/json" \
+      -d '{ "name": "apikeycurl", "role": "Admin" }' \
+      http://n.permyakov:$IOS_HOST_PASSWORD@localhost:3000/api/auth/keys)'
+    - |
+      curl --location --request  POST "http://localhost:3000/api/dashboards/db" \
+      --header "Authorization: Bearer ${response:35:88}" \
+      --header "Content-Type: application/json" \
+      --data "@db/setting_dashboards.json"
+  script:
+    - docker exec postgres_container bash -c 'psql -h localhost -U n.permyakov postgres -f create_database.sql'
+    - docker exec postgres_container bash -c 'psql -h localhost -U n.permyakov metric_autotests -f create_tables.sql'
+  after_script:
+    - python3 telegram_bot/client.py -n postgres_job

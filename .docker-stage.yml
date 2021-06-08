@@ -1,0 +1,15 @@
+stages:
+  - docker
+
+
+docker_job:
+  stage: docker
+  tags:
+    - android-host-1
+  image: kochetkovma/allure-server:latest
+  script:
+    - docker start lera || true
+    # docker run -p 8080:8080 --name lera kochetkovma/allure-server:latest
+  after_script:
+    - python3 telegram_bot/client.py -n docker_job
+  retry: 2

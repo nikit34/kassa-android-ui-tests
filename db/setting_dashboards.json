@@ -1,0 +1,470 @@
+{
+    "dashboard": {
+        "__inputs": [],
+        "__requires": [
+            {
+            "type": "grafana",
+            "id": "grafana",
+            "name": "Grafana",
+            "version": "7.5.7"
+            },
+            {
+            "type": "panel",
+            "id": "graph",
+            "name": "Graph",
+            "version": ""
+            },
+            {
+            "type": "panel",
+            "id": "piechart",
+            "name": "Pie chart v2",
+            "version": ""
+            }
+        ],
+        "annotations": {
+            "list": [
+            {
+                "builtIn": 1,
+                "datasource": "-- Grafana --",
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+            ]
+        },
+        "editable": true,
+        "gnetId": null,
+        "graphTooltip": 0,
+        "id": null,
+        "links": [],
+        "panels": [
+            {
+            "collapsed": true,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 2,
+            "panels": [],
+            "title": "Time Series",
+            "type": "row"
+            },
+            {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 10,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                "format": "time_series",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": false,
+                "rawSql": "SELECT\n  click AS \"time\",\n  click\nFROM click_timeout\nORDER BY 1",
+                "refId": "A",
+                "select": [
+                    [
+                    {
+                        "params": [
+                        "click"
+                        ],
+                        "type": "column"
+                    }
+                    ]
+                ],
+                "table": "click_timeout",
+                "timeColumn": "click",
+                "timeColumnType": "float4",
+                "where": []
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "click",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+                },
+                {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+            },
+            {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 12,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                "format": "time_series",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": false,
+                "rawSql": "SELECT\n  find_element AS \"time\",\n  id_test\nFROM find_element_timeout\nORDER BY 1",
+                "refId": "A",
+                "select": [
+                    [
+                    {
+                        "params": [
+                        "id_test"
+                        ],
+                        "type": "column"
+                    }
+                    ]
+                ],
+                "table": "find_element_timeout",
+                "timeColumn": "find_element",
+                "timeColumnType": "float4",
+                "where": []
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "find_element",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+                },
+                {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+            },
+            {
+            "collapsed": true,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 9
+            },
+            "id": 4,
+            "panels": [],
+            "title": "Relative Distribution",
+            "type": "row"
+            },
+            {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                "color": {
+                    "mode": "palette-classic"
+                },
+                "mappings": [],
+                "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                    {
+                        "color": "green",
+                        "value": null
+                    },
+                    {
+                        "color": "red",
+                        "value": 80
+                    }
+                    ]
+                }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 10
+            },
+            "id": 6,
+            "options": {
+                "displayLabels": [],
+                "legend": {
+                "displayMode": "list",
+                "placement": "right",
+                "values": []
+                },
+                "pieType": "pie",
+                "reduceOptions": {
+                "calcs": [
+                    "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+                },
+                "text": {}
+            },
+            "pluginVersion": "7.5.7",
+            "targets": [
+                {
+                "format": "time_series",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT\n  ct.date_time as \"time\",\n  ct.click,\n  nt.name_test\nFROM click_timeout ct, name_test nt\nWHERE\n  ct.id_test = nt.id_test;",
+                "refId": "A",
+                "select": [
+                    [
+                    {
+                        "params": [
+                        "click"
+                        ],
+                        "type": "column"
+                    }
+                    ]
+                ],
+                "table": "click_timeout",
+                "timeColumn": "click",
+                "timeColumnType": "float4",
+                "where": [
+                    {
+                    "name": "$__unixEpochFilter",
+                    "params": [],
+                    "type": "macro"
+                    }
+                ]
+                }
+            ],
+            "title": "click",
+            "type": "piechart"
+            },
+            {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                "color": {
+                    "mode": "palette-classic"
+                },
+                "mappings": [],
+                "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                    {
+                        "color": "green",
+                        "value": null
+                    },
+                    {
+                        "color": "red",
+                        "value": 80
+                    }
+                    ]
+                }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 10
+            },
+            "id": 8,
+            "options": {
+                "displayLabels": [],
+                "legend": {
+                "displayMode": "list",
+                "placement": "right",
+                "values": []
+                },
+                "pieType": "pie",
+                "reduceOptions": {
+                "calcs": [
+                    "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+                },
+                "text": {}
+            },
+            "pluginVersion": "7.5.7",
+            "targets": [
+                {
+                "format": "time_series",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT\n  fet.date_time as \"time\",\n  fet.find_element,\n  nt.name_test\nFROM find_element_timeout fet, name_test nt\nWHERE\n  fet.id_test = nt.id_test;\n",
+                "refId": "A",
+                "select": [
+                    [
+                    {
+                        "params": [
+                        "value"
+                        ],
+                        "type": "column"
+                    }
+                    ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                    {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                    }
+                ]
+                }
+            ],
+            "title": "find_element",
+            "type": "piechart"
+            }
+        ],
+        "refresh": "5s",
+        "schemaVersion": 27,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+            "list": []
+        },
+        "time": {
+            "from": "1970-01-01T00:00:00.000Z",
+            "to": "1970-01-01T00:00:00.004Z"
+        },
+        "timepicker": {},
+        "timezone": "",
+        "title": "Autotests Metrics",
+        "uid": "T3sGpx3Gk",
+        "version": 2
+    },
+    "overwrite": true
+}
