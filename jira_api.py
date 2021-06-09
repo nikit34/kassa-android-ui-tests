@@ -10,7 +10,7 @@ class JiraAPI:
         self.project_id = project_id
         self.jira = JIRA(
             options={'server': self.SERVER},
-            basic_auth=(self.USER, os.environ['IOS_HOST_PASSWORD'])
+            basic_auth=(self.USER, os.environ['ANDROID_HOST_PASSWORD'])
         )
         self.issues = []
 

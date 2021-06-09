@@ -24,7 +24,7 @@ def compilation_description(part_link):
 
 
 def get_sprint_id():
-    body_sprints = requests.get('https://jira.rambler-co.ru/rest/agile/1.0/board/747/sprint?state=future', auth=('n.permyakov', os.environ['IOS_HOST_PASSWORD']))
+    body_sprints = requests.get('https://jira.rambler-co.ru/rest/agile/1.0/board/747/sprint?state=future', auth=('n.permyakov', os.environ['ANDROID_HOST_PASSWORD']))
     values_sprints = body_sprints.json()['values']
     max_num_sprint = 0
     current_id = 0

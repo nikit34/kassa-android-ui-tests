@@ -23,7 +23,7 @@ grafana_job:
     - |
       'response=$(curl -X POST -H "Content-Type: application/json" \
       -d '{ "name": "apikeycurl", "role": "Admin" }' \
-      http://n.permyakov:$IOS_HOST_PASSWORD@localhost:3000/api/auth/keys)'
+      http://n.permyakov:$ANDROID_HOST_PASSWORD@localhost:3000/api/auth/keys)'
     - |
       curl --location --request  POST "http://localhost:3000/api/dashboards/db" \
       --header "Authorization: Bearer ${response:35:88}" \

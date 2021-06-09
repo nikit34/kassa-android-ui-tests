@@ -63,7 +63,7 @@ app_job:
     - touch project/local.properties
     - echo sdk.dir=/home/npermyakov/Android/Sdk > project/local.properties
   after_script:
-    - echo $IOS_HOST_PASSWORD | sudo -S killall ssh-agent
+    - echo $ANDROID_HOST_PASSWORD | sudo -S killall ssh-agent
     - python3 telegram_bot/client.py -n app_job
   cache:
     untracked: true
@@ -129,9 +129,9 @@ install_job:
     - android-host
   before_script:
     - adb reboot
-    - echo $IOS_HOST_PASSWORD | sudo -S apt-get update || true
+    - echo $ANDROID_HOST_PASSWORD | sudo -S apt-get update || true
   script:
-    - echo $IOS_HOST_PASSWORD | sudo -S adb install ./app/app-kassa-release.apk
+    - echo $ANDROID_HOST_PASSWORD | sudo -S adb install ./app/app-kassa-release.apk
   after_script:
     - python3 telegram_bot/client.py -n install_job
   artifacts:
@@ -165,7 +165,7 @@ pytest_job:
   before_script:
     - rm -r ./allure-results && mkdir ./allure-results || mkdir ./allure-results || true
   script:
-    - echo $IOS_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-release.apk
+    - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-release.apk
     - python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host
     - coverage xml
   after_script:

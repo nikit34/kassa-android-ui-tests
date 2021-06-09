@@ -6,7 +6,7 @@ services:
     image: postgres:12
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-n.permyakov}
-      POSTGRES_PASSWORD: $IOS_HOST_PASSWORD
+      POSTGRES_PASSWORD: $ANDROID_HOST_PASSWORD
       PGDATA: /data/postgres
     volumes:
        - postgres:/data/postgres
@@ -24,7 +24,7 @@ services:
     environment:
       GF_USERS_DEFAULT_THEME: "light"
       GF_SECURITY_ADMIN_USER: ${ADMIN_USER:-n.permyakov}
-      GF_SECURITY_ADMIN_PASSWORD: $IOS_HOST_PASSWORD
+      GF_SECURITY_ADMIN_PASSWORD: $ANDROID_HOST_PASSWORD
     ports:
       - "3000:3000"
     links:
@@ -38,7 +38,7 @@ services:
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-n.permyakov@rambler-co.ru}
-      PGADMIN_DEFAULT_PASSWORD: $IOS_HOST_PASSWORD
+      PGADMIN_DEFAULT_PASSWORD: $ANDROID_HOST_PASSWORD
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
        - pgadmin:/root/.pgadmin

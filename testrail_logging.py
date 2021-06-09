@@ -15,7 +15,7 @@ class Testrail:
         pytest.run_id = self.get_run_id(project_id)
 
     def connect_testrail(self):
-        self.client = TestRailAPI('http://testrail.rambler-co.ru/', 'n.permyakov', os.environ['IOS_HOST_PASSWORD'])
+        self.client = TestRailAPI('http://testrail.rambler-co.ru/', 'n.permyakov', os.environ['ANDROID_HOST_PASSWORD'])
 
     def get_project_id(self):
         projects = self.client.projects.get_projects()
