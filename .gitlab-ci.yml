@@ -37,7 +37,7 @@ clear_job:
   tags:
     - android-host
   before_script:
-    - adb -s emulator-5554 emu kill || true
+    - adb -s localhost:5555 emu kill || true
     - adb kill-server || true
   script:
     - killall appium || true

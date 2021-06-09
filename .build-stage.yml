@@ -7,9 +7,12 @@ build_job:
   tags:
     - android-host-1
   script:
-    - /home/npermyakov/Android/Sdk/emulator/emulator -avd $ANDROID_NAME_SIMULATOR -no-window
-    - chmod 777 ./bootanim.sh
-    - ./bootanim.sh
+    - |
+      docker run \
+      -e ADBKEY="$(cat ~/.android/adbkey)" \
+      --device /dev/kvm \
+      --publish 8554:8554/tcp \
+      --publish 5555:5555/tcp  \
+      us-docker.pkg.dev/android-emulator-268719/images/30-google-x64:30.1.2
   after_script:
-    - adb shell input keyevent 82
     - python3 telegram_bot/client.py -n build_job
