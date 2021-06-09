@@ -7,7 +7,7 @@ build_job:
   tags:
     - android-host-1
   script:
-    - /home/npermyakov/Android/Sdk/emulator/emulator -avd $ANDROID_NAME_SIMULATOR -no-window
+    - /home/npermyakov/Android/Sdk/emulator/emulator -avd $ANDROID_NAME_SIMULATOR #-no-window
     - chmod 777 ./bootanim.sh
     - ./bootanim.sh
   after_script:
