@@ -148,8 +148,8 @@ setup_job:
     - ios-host
   script:
     - python3 -m pip install wheel
-    - python3 -m pip install Pillow
     - python3 -m pip install -r requirements.txt
+    - python3 -m pip install Pillow
   after_script:
     - python3 telegram_bot/client.py -n setup_job
   cache:
