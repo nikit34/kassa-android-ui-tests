@@ -41,7 +41,6 @@ clear_job:
     - adb kill-server || true
   script:
     - killall appium || true
-    - yes | rm -r ./project && mkdir ./project || mkdir ./project || true
     - yes | rm -r ./app && mkdir ./app || mkdir ./app || true
   after_script:
     - adb start-server
@@ -54,10 +53,9 @@ app_job:
   variables:
     PROJECT_REPO: "git@gitlab.rambler.ru:android-dev/kassa-2.git"
   before_script:
-    - export ANDROID_HOME=$HOME/Android/Sdk
-    - export PATH=$PATH:$ANDROID_HOME/tools
     - eval "$(ssh-agent -s)"
     - ssh-add /home/npermyakov/.ssh/id_rsa
+    - yes | rm -r ./project && mkdir ./project || mkdir ./project || true
   script:
     - git clone --branch develop $PROJECT_REPO project
     - touch project/local.properties
@@ -86,9 +84,9 @@ compile_job:
   tags:
     - android-host
   before_script:
+    - export ANDROID_HOME=$HOME/Android/Sdk
+    - export PATH=$PATH:$ANDROID_HOME/tools
     - export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
-    - yes | rm -r ./app && mkdir ./app || mkdir ./app || true
-    - yes | rm -r ./project/app && mkdir ./project/app || mkdir ./project/app || true
   script:
     - cd project
     - ./gradlew clean
