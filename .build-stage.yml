@@ -8,5 +8,6 @@ build_job:
     - android-host-1
   script:
     - DISPLAY=:0 xterm -e '/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_3a_API_30'
+    - echo 111
   after_script:
     - python3 telegram_bot/client.py -n build_job
