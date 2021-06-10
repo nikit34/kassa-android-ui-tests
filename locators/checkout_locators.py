@@ -1,7 +1,10 @@
 from selenium.webdriver.common.by import By
 
 
-class CheckoutPageLocators:
-    total_price = (By.ID, 'ru.rambler.kassa.beta:id/totalPriceTv')
-    checkout_section_title = (By.ID, 'ru.rambler.kassa.beta:id/checkoutSectionTitle')
-    continue_btn = (By.ID, 'ru.rambler.kassa.beta:id/continueBtn')
+class CheckoutPageLocators(By):
+    def __init__(self):
+        super(By, self).__init__()
+
+        self.total_price = (self.ID, 'ru.rambler.kassa.beta:id/totalPriceTv')
+        self.checkout_section_title = (self.ID, 'ru.rambler.kassa.beta:id/checkoutSectionTitle')
+        self.continue_btn = (self.ID, 'ru.rambler.kassa.beta:id/continueBtn')

@@ -4,7 +4,7 @@ import allure
 from time import sleep
 from datetime import datetime
 
-from screens.FeaturerMoviesPage import MoviesPage
+from screens.MoviesPage import MoviesPage
 from screens.SeatSelectionPage import SeatSelectionPage
 from screens.CheckOutPage import CheckOutPage
 from screens.InfoPage import InfoPage

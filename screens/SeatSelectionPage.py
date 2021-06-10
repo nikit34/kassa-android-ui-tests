@@ -3,18 +3,22 @@ from PIL import Image
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import NoSuchElementException
 
-from .action import Action
-from .base import Page, Wait
 from locators.seat_selection_locators import SeatSelectionLocators
+from templates.action import Action
+from templates.base import Wait
+from templates.statistic import RecordTimeout
 
 
-class SeatSelectionPage(Page, Wait):
+class SeatSelectionPage(RecordTimeout, Wait):
     def __init__(self, driver):
-        self.driver = driver
-        super(Page, self).__init__()
-        super(Wait, self).__init__()
+        super().__init__(driver)
 
         self.act = Action(driver)
+
+        self.repeat = '0'
+        self.extra_interval = 50
+
+        self.seat_selection_locators = SeatSelectionLocators()
 
     def set_custom_wait(self, wait):
         self.set_wait(self.driver, wait)
@@ -55,7 +59,7 @@ class SeatSelectionPage(Page, Wait):
             actions.perform()
             sleep(1)
             try:
-                self.find_element(*SeatSelectionLocators.continue_btn)
+                self.find_element(*self.seat_selection_locators.continue_btn)
                 break
             except (NoSuchElementException, AssertionError) as error:
                 error.args = ('classters invalid')

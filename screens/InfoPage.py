@@ -1,11 +1,13 @@
-from .base import Page, Wait
-from .action import Action
+from templates.base import Wait
+from templates.statistic import RecordTimeout
+from templates.action import Action
 
-
-class InfoPage(Page, Wait):
+class InfoPage(RecordTimeout, Wait):
     def __init__(self, driver):
-        self.driver = driver
-        super(Page, self).__init__()
+        super().__init__(driver)
 
         self.act = Action(driver)
+
+        self.repeat = '0'
+        self.extra_interval = 50
 

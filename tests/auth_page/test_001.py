@@ -1,7 +1,7 @@
 import pytest
 import allure
 
-from screens.FeaturerMoviesPage import MoviesPage
+from screens.MoviesPage import MoviesPage
 from screens.AuthPage import AuthPage
 from screens.OnboardingPage import OnboardingPage
 from locators.onboarding_locators import OnboardingPageLocators
@@ -20,15 +20,16 @@ class TestAuthPage:
 
     def test_001_auth_onboard_page_is_opened(self, driver):
         with allure.step("OnboardingPage"):
-            # self.onboarding_page = OnboardingPage(driver)
-            # self.onboarding_page.set_custom_wait(20)
+            self.onboarding_page = OnboardingPage(driver)
+            self.onboarding_page.set_custom_wait(20)
+        with allure.step("MoviesPage"):
             self.movie_page = MoviesPage(driver)
-        with allure.step("Setup custom waiting for each page"):
             self.movie_page.set_custom_wait(15)
-        self.movie_page.waiting_main()
-        self.movie_page.pass_popup()
-        self.movie_page.click(*self.common_locators.tab_profile)
-        self.auth_page = AuthPage(driver)
-        self.auth_page.pass_popup()
-        self.auth_page.find_element(*self.auth_locators.settings_btn)
-        self.auth_page.find_element(*self.auth_locators.login_button)
+            self.movie_page.waiting_main()
+            self.movie_page.pass_popup()
+            self.movie_page.click(*self.common_locators.tab_profile)
+        with allure.step("AuthPage"):
+            self.auth_page = AuthPage(driver)
+            self.auth_page.pass_popup()
+            self.auth_page.find_element(*self.auth_locators.settings_btn)
+            self.auth_page.find_element(*self.auth_locators.login_button)

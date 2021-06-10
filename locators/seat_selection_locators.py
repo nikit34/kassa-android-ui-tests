@@ -1,13 +1,16 @@
 from selenium.webdriver.common.by import By
 
 
-class SeatSelectionLocators:
-    back_button = (By.ID, 'ru.rambler.kassa.beta:id/leftIconContainer')
-    place_name = (By.ID, 'ru.rambler.kassa.beta:id/tvPlaceName')
-    place_sessions_rv = (By.ID, 'ru.rambler.kassa.beta:id/rvPlaceSessions')
-    place_session = (By.ID, 'ru.rambler.kassa.beta:id/layoutPlaceSession')  # find_elements # selected
-    place_session_tag = (By.ID, 'ru.rambler.kassa.beta:id/tvPlaceSessionTag')
-    place_session_time = (By.ID, 'ru.rambler.kassa.beta:id/tvPlaceSessionTime')
-    place_session_price = (By.ID, 'ru.rambler.kassa.beta:id/tvPlaceSessionPrice')
-    hall_scheme = (By.ID, 'ru.rambler.kassa.beta:id/fragmentContainer')
-    continue_btn = (By.ID, 'ru.rambler.kassa.beta:id/continueBtn')
+class SeatSelectionLocators(By):
+    def __init__(self):
+        super(By, self).__init__()
+
+        self.back_button = (self.ID, 'ru.rambler.kassa.beta:id/leftIconContainer')
+        self.place_name = (self.ID, 'ru.rambler.kassa.beta:id/tvPlaceName')
+        self.place_sessions_rv = (self.ID, 'ru.rambler.kassa.beta:id/rvPlaceSessions')
+        self.place_session = (self.ID, 'ru.rambler.kassa.beta:id/layoutPlaceSession')  # find_elements # selected
+        self.place_session_tag = (self.ID, 'ru.rambler.kassa.beta:id/tvPlaceSessionTag')
+        self.place_session_time = (self.ID, 'ru.rambler.kassa.beta:id/tvPlaceSessionTime')
+        self.place_session_price = (self.ID, 'ru.rambler.kassa.beta:id/tvPlaceSessionPrice')
+        self.hall_scheme = (self.ID, 'ru.rambler.kassa.beta:id/fragmentContainer')
+        self.continue_btn = (self.ID, 'ru.rambler.kassa.beta:id/continueBtn')
