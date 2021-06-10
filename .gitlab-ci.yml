@@ -125,9 +125,10 @@ install_job:
   tags:
     - android-host
   before_script:
+    - chmod 777 ./bootanim.sh
     - ./bootanim.sh
-    - echo $ANDROID_HOST_PASSWORD | sudo -S apt-get update || true
   script:
+    - echo $ANDROID_HOST_PASSWORD | sudo -S apt-get update || true
     - echo $ANDROID_HOST_PASSWORD | sudo -S adb install ./app/app-kassa-release.apk
   after_script:
     - python3 telegram_bot/client.py -n install_job
