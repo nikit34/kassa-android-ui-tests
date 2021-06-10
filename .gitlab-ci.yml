@@ -86,11 +86,10 @@ compile_job:
   tags:
     - android-host
   before_script:
-    - touch ~/.android/repositories.cfg
     - export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
-  script:
-    - echo y ; echo y ; echo y ; echo y ; echo y ; echo y | /home/npermyakov/Android/Sdk/tools/bin/sdkmanager --licenses
     - yes | rm -r ./app && mkdir ./app || mkdir ./app || true
+    - yes | rm -r ./project/app && mkdir ./project/app || mkdir ./project/app || true
+  script:
     - cd project
     - ./gradlew clean
     - ./gradlew app:assembleKassa
