@@ -6,7 +6,7 @@ stages:
 postgres_job:
   stage: postgres
   tags:
-    - ios-host-1
+    - android-host-1
   before_script:
     - docker-compose -f ./db/docker-compose.yml up -d || true
   script:

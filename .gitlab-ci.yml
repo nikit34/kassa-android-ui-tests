@@ -128,7 +128,6 @@ install_job:
   tags:
     - android-host
   before_script:
-    - adb reboot
     - ./bootanim.sh
     - echo $ANDROID_HOST_PASSWORD | sudo -S apt-get update || true
   script:
