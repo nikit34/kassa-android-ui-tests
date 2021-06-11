@@ -124,9 +124,6 @@ install_job:
   stage: install
   tags:
     - android-host
-  before_script:
-    - chmod 777 ./bootanim.sh
-    - ./bootanim.sh
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S apt-get update || true
     - echo $ANDROID_HOST_PASSWORD | sudo -S adb install ./app/app-kassa-release.apk
