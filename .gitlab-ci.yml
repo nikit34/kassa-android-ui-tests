@@ -140,7 +140,7 @@ install_job:
 setup_job:
   stage: setup
   tags:
-    - ios-host
+    - android-host
   script:
     - python3 -m pip install wheel
     - python3 -m pip install -r requirements.txt
@@ -156,7 +156,7 @@ setup_job:
 pytest_job:
   stage: test
   tags:
-    - ios-host
+    - android-host
   before_script:
     - rm -r ./allure-results && mkdir ./allure-results || mkdir ./allure-results || true
   script:
@@ -183,7 +183,7 @@ pytest_job:
 history_job:
   stage: history
   tags:
-    - ios-host
+    - android-host
   before_script:
     - mkdir -p ./public/history || true
   script:
@@ -205,7 +205,7 @@ history_job:
 generate_job:
   stage: generate
   tags:
-    - ios-host
+    - android-host
   before_script:
     - rm -r ./allure-report && mkdir ./allure-report || mkdir ./allure-report || true
   script:
@@ -234,7 +234,7 @@ docker_job:
 upload_job:
   stage: upload
   tags:
-    - ios-host
+    - android-host
   image: kochetkovma/allure-server:latest
   before_script:
     - lsof -P | grep ':8080' | awk '{print $2}' | xargs kill -9 || true
@@ -263,7 +263,7 @@ upload_job:
 pages:
   stage: deploy
   tags:
-    - ios-host
+    - android-host
   before_script:
     - rm -r ./public && mkdir ./public || mkdir ./public || true
   script:
