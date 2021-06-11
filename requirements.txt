@@ -61,7 +61,6 @@ pyflakes==2.1.1
 PyGetWindow==0.0.9
 PyJWT==2.0.1
 PyMsgBox==1.0.9
-pynput==1.7.3
 pyOpenSSL==20.0.1
 pyparsing==2.4.6
 pyperclip==1.8.2
