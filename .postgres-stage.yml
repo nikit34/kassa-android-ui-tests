@@ -18,7 +18,7 @@ postgres_job:
 grafana_job:
   stage: grafana
   tags:
-    - ios-host-1
+    - android-host-1
   before_script:
     - |
       'response=$(curl -X POST -H "Content-Type: application/json" \
