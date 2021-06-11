@@ -5,6 +5,7 @@ stages:
   - clone
   - build
   - environment
+  - compile
   - install
   - setup
   - test
@@ -79,8 +80,20 @@ build_job:
     include:
       - local: .build-stage.yml
 
-compile_job:
+appium_job:
   stage: environment
+  trigger:
+    include:
+      - local: .appium-stage.yml
+
+postgres_job:
+  stage: environment
+  trigger:
+    include:
+      - local: .postgres-stage.yml
+
+compile_job:
+  stage: compile
   tags:
     - android-host
   before_script:
@@ -107,18 +120,6 @@ compile_job:
     policy: pull
   rules:
     - if: '$WITHOUT_TESTS != "True"'
-
-appium_job:
-  stage: environment
-  trigger:
-    include:
-      - local: .appium-stage.yml
-
-postgres_job:
-  stage: environment
-  trigger:
-    include:
-      - local: .postgres-stage.yml
 
 install_job:
   stage: install
@@ -158,6 +159,7 @@ pytest_job:
   tags:
     - android-host
   before_script:
+    - export ANDROID_HOME=$HOME/Android/Sdk
     - rm -r ./allure-results && mkdir ./allure-results || mkdir ./allure-results || true
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-release.apk
