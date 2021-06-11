@@ -126,7 +126,7 @@ install_job:
     - android-host
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S apt-get update || true
-    - echo $ANDROID_HOST_PASSWORD | sudo -S adb install ./app/app-kassa-release.apk
+    - echo $ANDROID_HOST_PASSWORD | sudo -S adb install ./app/app-kassa-release.apk || true
   after_script:
     - python3 telegram_bot/client.py -n install_job
   artifacts:
