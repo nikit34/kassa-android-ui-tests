@@ -85,9 +85,6 @@ logs
 # mkdocs documentation
 /site
 
-app/Kassa.app/
-
 api.log
 tank_errors.log
 testrail_log.log
-/app/Kassa.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib

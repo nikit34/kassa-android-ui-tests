@@ -3,7 +3,6 @@ APPIUM_LOCAL = 'http://0.0.0.0:4723/wd/hub'  # local
 
 DESIRED_CAPS_NO_CACHE_HOST = {
   'platformName': 'Android',
-  'app': './app/app-kassa-release.apk',
   'appPackage': 'ru.rambler.kassa.beta',
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'appWaitActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
@@ -14,7 +13,6 @@ DESIRED_CAPS_NO_CACHE_HOST = {
 
 DESIRED_CAPS_HOST = {
   'platformName': 'Android',
-  'app': './app/app-kassa-release.apk',
   'appPackage': 'ru.rambler.kassa.beta',
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'noReset': True,
