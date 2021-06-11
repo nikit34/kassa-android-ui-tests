@@ -240,7 +240,6 @@ upload_job:
     - lsof -P | grep ':8080' | awk '{print $2}' | xargs kill -9 || true
     - rm -r ./allure-results.zip || true
   script:
-    - lsof -i :8080
     - zip -r allure-results.zip ./allure-results
     - 'response=$(curl -X POST http://10.60.17.45:8080/api/result -H  "Content-Type: multipart/form-data"  -F "allureResults=@allure-results.zip;type=application/x-zip-compressed")'
     - python3 telegram_bot/client.py -r \"${response:41:36}\"

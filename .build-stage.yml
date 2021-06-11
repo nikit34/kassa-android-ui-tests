@@ -10,6 +10,5 @@ build_job:
     - echo y ; echo y ; echo y ; echo y ; echo y ; echo y | /home/npermyakov/Android/Sdk/tools/bin/sdkmanager --licenses
   script:
     - DISPLAY=:0 xterm -e '/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_3a_API_30'
-    - echo 111
   after_script:
     - python3 telegram_bot/client.py -n build_job

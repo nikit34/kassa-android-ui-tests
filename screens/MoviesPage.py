@@ -9,7 +9,7 @@ from locators.movies_locators import MoviesPageLocators
 from locators.popup_locators import PopupLocators
 
 
-class MoviesPage(Page, Wait):
+class MoviesPage(RecordTimeout, Wait):
     def __init__(self, driver):
         super().__init__(driver)
 
@@ -59,7 +59,7 @@ class MoviesPage(Page, Wait):
                     break
             except AssertionError:
                 if self.matching_text(*self.movies_locators.title_tv, pattern='Билеты закончились'):
-                    self.click(*self.movies_locators.right_btn, text='Понятно')
+                    self.click(*self.movies_locators.right_btn)
             except StaleElementReferenceException as error:
                 print(f'No available sessions found: {error}')
 
