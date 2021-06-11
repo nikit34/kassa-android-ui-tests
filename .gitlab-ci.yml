@@ -97,10 +97,10 @@ compile_job:
   tags:
     - android-host
   before_script:
-    - export ANDROID_HOME=$HOME/Android/Sdk
     - export PATH=$PATH:$ANDROID_HOME/tools
     - export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
   script:
+    - export ANDROID_HOME=$HOME/Android/Sdk
     - cd project
     - ./gradlew clean
     - ./gradlew app:assembleKassa
