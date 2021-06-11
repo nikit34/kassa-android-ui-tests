@@ -3,16 +3,16 @@ stages:
   - intro
   - clear
   - clone
-#  - build
-#  - environment
-#  - compile
-#  - install
-#  - setup
-#  - test
-#  - history
-#  - generate
-#  - upload
-#  - deploy
+  - build
+  - environment
+  - compile
+  - install
+  - setup
+  - test
+  - history
+  - generate
+  - upload
+  - deploy
 
 
 variables:
@@ -73,206 +73,206 @@ app_job:
   retry: 2
   rules:
     - if: '$WITHOUT_TESTS != "True"'
-#
-#build_job:
-#  stage: build
-#  trigger:
-#    include:
-#      - local: .build-stage.yml
-#
-#appium_job:
-#  stage: environment
-#  trigger:
-#    include:
-#      - local: .appium-stage.yml
-#
-#postgres_job:
-#  stage: environment
-#  trigger:
-#    include:
-#      - local: .postgres-stage.yml
-#
-#compile_job:
-#  stage: compile
-#  tags:
-#    - android-host
-#  before_script:
-#    - export PATH="$PATH:$ANDROID_HOME/tools"
-#    - export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
-#    - export ANDROID_HOME="$HOME/Android/Sdk"
-#  script:
-#    - cd project
-#    - ./gradlew clean
-#    - ./gradlew app:assembleKassa
-#    - mv app/build/outputs/apk/kassa/release/app-kassa-release.apk ../app/
-#  after_script:
-#    - python3 telegram_bot/client.py -n compile_job
-#  artifacts:
-#    when: always
-#    paths:
-#      - ./app/app-kassa-release.apk
-#    expire_in: 3 days
-#  cache:
-#    untracked: true
-#    key: ${CI_COMMIT_REF_SLUG}
-#    paths:
-#      - ./project
-#    policy: pull
-#  rules:
-#    - if: '$WITHOUT_TESTS != "True"'
-#
-#install_job:
-#  stage: install
-#  tags:
-#    - android-host
-#  script:
-#    - echo $ANDROID_HOST_PASSWORD | sudo -S apt-get update || true
-#    - echo $ANDROID_HOST_PASSWORD | sudo -S adb install ./app/app-kassa-release.apk || true
-#  after_script:
-#    - python3 telegram_bot/client.py -n install_job
-#  artifacts:
-#    when: always
-#    paths:
-#      - ./app/app-kassa-release.apk
-#    expire_in: 3 days
-#  rules:
-#    - if: '$WITHOUT_TESTS != "True"'
-#
-#setup_job:
-#  stage: setup
-#  tags:
-#    - android-host
-#  script:
-#    - python3 -m pip install wheel
-#    - python3 -m pip install -r requirements.txt
-#    - python3 -m pip install Pillow
-#  after_script:
-#    - python3 telegram_bot/client.py -n setup_job
-#  cache:
-#    untracked: true
-#    key: ${CI_JOB_NAME}
-#    paths:
-#      - "$CI_PROJECT_DIR/pip-cache"
-#
-#pytest_job:
-#  stage: test
-#  tags:
-#    - android-host
-#  before_script:
-#    - rm -r ./allure-results && mkdir ./allure-results || mkdir ./allure-results || true
-#  script:
-#    - export ANDROID_HOME="$HOME/Android/Sdk"
-#    - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-release.apk
-#    - python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host
-#    - coverage xml
-#  after_script:
-#    - adb logcat > ./logcat.log
-#    - adb -s emulator-5554 emu kill
-#    - adb kill-server
-#    - killall appium || true
-#    - python3 telegram_bot/client.py -n pytest_job
-#  artifacts:
-#    when: always
-#    paths:
-#      - ./allure-results
-#    expire_in: 3 days
-#    reports:
-#      cobertura: coverage.xml
-#  allow_failure: true
-#  rules:
-#    - if: '$WITHOUT_TESTS != "True"'
-#
-#history_job:
-#  stage: history
-#  tags:
-#    - android-host
-#  before_script:
-#    - mkdir -p ./public/history || true
-#  script:
-#    - cp -r ./public/history ./allure-results/history || true
-#  after_script:
-#    - python3 telegram_bot/client.py -n history_job
-#  artifacts:
-#    when: always
-#    paths:
-#      - ./allure-results
-#    expire_in: 3 days
-#  cache:
-#    untracked: true
-#    key: ${CI_COMMIT_REF_SLUG}
-#    paths:
-#      - ./allure-results
-#    policy: push
-#
-#generate_job:
-#  stage: generate
-#  tags:
-#    - android-host
-#  before_script:
-#    - rm -r ./allure-report && mkdir ./allure-report || mkdir ./allure-report || true
-#  script:
-#    - allure generate -c ./allure-results -o ./allure-report
-#  after_script:
-#    - python3 telegram_bot/client.py -n generate_job
-#  artifacts:
-#    when: always
-#    paths:
-#      - ./allure-report
-#      - ./allure-results
-#    expire_in: 3 days
-#  cache:
-#    untracked: true
-#    key: ${CI_COMMIT_REF_SLUG}
-#    paths:
-#      - ./allure-results
-#    policy: pull
-#
-#docker_job:
-#  stage: generate
-#  trigger:
-#    include:
-#      - local: .docker-stage.yml
-#
-#upload_job:
-#  stage: upload
-#  tags:
-#    - android-host
-#  image: kochetkovma/allure-server:latest
-#  before_script:
-#    - lsof -P | grep ':8080' | awk '{print $2}' | xargs kill -9 || true
-#    - rm -r ./allure-results.zip || true
-#  script:
-#    - zip -r allure-results.zip ./allure-results
-#    - 'response=$(curl -X POST http://10.60.17.45:8080/api/result -H  "Content-Type: multipart/form-data"  -F "allureResults=@allure-results.zip;type=application/x-zip-compressed")'
-#    - python3 telegram_bot/client.py -r \"${response:41:36}\"
-#    - python3 jira_pipeline.py \"${response:41:36}\"
-#    - |
-#      curl --location --request POST "http://10.60.17.45:8080/api/report" \
-#      --header "Content-Type: application/json" \
-#      --data-raw "{\"reportSpec\": { \"path\": [ \"last\", \"${response:41:36}\" ], \"executorInfo\": { \"buildName\": \"${response:41:36}\" } }, \"results\": [ \"${response:41:36}\" ], \"deleteResults\": false}"
-#  after_script:
-#    - python3 telegram_bot/client.py -n upload_job
-#  cache:
-#    untracked: true
-#    key: ${CI_COMMIT_REF_SLUG}
-#    paths:
-#      - ./allure-results
-#    policy: pull
-#  rules:
-#    - if: '$WITHOUT_TESTS != "True"'
-#
-#pages:
-#  stage: deploy
-#  tags:
-#    - android-host
-#  before_script:
-#    - rm -r ./public && mkdir ./public || mkdir ./public || true
-#  script:
-#    - mv ./allure-report/* ./public || true
-#  after_script:
-#    - python3 telegram_bot/client.py -n pages
-#  artifacts:
-#    when: always
-#    paths:
-#      - public
-#    expire_in: 10 days
+
+build_job:
+  stage: build
+  trigger:
+    include:
+      - local: .build-stage.yml
+
+appium_job:
+  stage: environment
+  trigger:
+    include:
+      - local: .appium-stage.yml
+
+postgres_job:
+  stage: environment
+  trigger:
+    include:
+      - local: .postgres-stage.yml
+
+compile_job:
+  stage: compile
+  tags:
+    - android-host
+  before_script:
+    - export PATH="$PATH:$ANDROID_HOME/tools"
+    - export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
+    - export ANDROID_HOME="$HOME/Android/Sdk"
+  script:
+    - cd project
+    - ./gradlew clean
+    - ./gradlew app:assembleKassa
+    - mv app/build/outputs/apk/kassa/release/app-kassa-release.apk ../app/
+  after_script:
+    - python3 telegram_bot/client.py -n compile_job
+  artifacts:
+    when: always
+    paths:
+      - ./app/app-kassa-release.apk
+    expire_in: 3 days
+  cache:
+    untracked: true
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - ./project
+    policy: pull
+  rules:
+    - if: '$WITHOUT_TESTS != "True"'
+
+install_job:
+  stage: install
+  tags:
+    - android-host
+  script:
+    - echo $ANDROID_HOST_PASSWORD | sudo -S apt-get update || true
+    - echo $ANDROID_HOST_PASSWORD | sudo -S adb install ./app/app-kassa-release.apk || true
+  after_script:
+    - python3 telegram_bot/client.py -n install_job
+  artifacts:
+    when: always
+    paths:
+      - ./app/app-kassa-release.apk
+    expire_in: 3 days
+  rules:
+    - if: '$WITHOUT_TESTS != "True"'
+
+setup_job:
+  stage: setup
+  tags:
+    - android-host
+  script:
+    - python3 -m pip install wheel
+    - python3 -m pip install -r requirements.txt
+    - python3 -m pip install Pillow
+  after_script:
+    - python3 telegram_bot/client.py -n setup_job
+  cache:
+    untracked: true
+    key: ${CI_JOB_NAME}
+    paths:
+      - "$CI_PROJECT_DIR/pip-cache"
+
+pytest_job:
+  stage: test
+  tags:
+    - android-host
+  before_script:
+    - rm -r ./allure-results && mkdir ./allure-results || mkdir ./allure-results || true
+  script:
+    - export ANDROID_HOME="$HOME/Android/Sdk"
+    - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-release.apk
+    - python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host
+    - coverage xml
+  after_script:
+    - adb logcat > ./logcat.log
+    - adb -s emulator-5554 emu kill
+    - adb kill-server
+    - killall appium || true
+    - python3 telegram_bot/client.py -n pytest_job
+  artifacts:
+    when: always
+    paths:
+      - ./allure-results
+    expire_in: 3 days
+    reports:
+      cobertura: coverage.xml
+  allow_failure: true
+  rules:
+    - if: '$WITHOUT_TESTS != "True"'
+
+history_job:
+  stage: history
+  tags:
+    - android-host
+  before_script:
+    - mkdir -p ./public/history || true
+  script:
+    - cp -r ./public/history ./allure-results/history || true
+  after_script:
+    - python3 telegram_bot/client.py -n history_job
+  artifacts:
+    when: always
+    paths:
+      - ./allure-results
+    expire_in: 3 days
+  cache:
+    untracked: true
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - ./allure-results
+    policy: push
+
+generate_job:
+  stage: generate
+  tags:
+    - android-host
+  before_script:
+    - rm -r ./allure-report && mkdir ./allure-report || mkdir ./allure-report || true
+  script:
+    - allure generate -c ./allure-results -o ./allure-report
+  after_script:
+    - python3 telegram_bot/client.py -n generate_job
+  artifacts:
+    when: always
+    paths:
+      - ./allure-report
+      - ./allure-results
+    expire_in: 3 days
+  cache:
+    untracked: true
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - ./allure-results
+    policy: pull
+
+docker_job:
+  stage: generate
+  trigger:
+    include:
+      - local: .docker-stage.yml
+
+upload_job:
+  stage: upload
+  tags:
+    - android-host
+  image: kochetkovma/allure-server:latest
+  before_script:
+    - lsof -P | grep ':8080' | awk '{print $2}' | xargs kill -9 || true
+    - rm -r ./allure-results.zip || true
+  script:
+    - zip -r allure-results.zip ./allure-results
+    - 'response=$(curl -X POST http://10.60.17.45:8080/api/result -H  "Content-Type: multipart/form-data"  -F "allureResults=@allure-results.zip;type=application/x-zip-compressed")'
+    - python3 telegram_bot/client.py -r \"${response:41:36}\"
+    - python3 jira_pipeline.py \"${response:41:36}\"
+    - |
+      curl --location --request POST "http://10.60.17.45:8080/api/report" \
+      --header "Content-Type: application/json" \
+      --data-raw "{\"reportSpec\": { \"path\": [ \"last\", \"${response:41:36}\" ], \"executorInfo\": { \"buildName\": \"${response:41:36}\" } }, \"results\": [ \"${response:41:36}\" ], \"deleteResults\": false}"
+  after_script:
+    - python3 telegram_bot/client.py -n upload_job
+  cache:
+    untracked: true
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - ./allure-results
+    policy: pull
+  rules:
+    - if: '$WITHOUT_TESTS != "True"'
+
+pages:
+  stage: deploy
+  tags:
+    - android-host
+  before_script:
+    - rm -r ./public && mkdir ./public || mkdir ./public || true
+  script:
+    - mv ./allure-report/* ./public || true
+  after_script:
+    - python3 telegram_bot/client.py -n pages
+  artifacts:
+    when: always
+    paths:
+      - public
+    expire_in: 10 days
