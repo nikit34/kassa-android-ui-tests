@@ -20,7 +20,7 @@ def compilation_description(part_link):
     return f'Link to last report in Docker:\n' \
            f'{link_report}\n' \
            f'connect to remote resource through cmd:\n' \
-           f'ssh -L 8080:10.60.17.45:8080 jira.bot.kasmain@mac645rds.rambler.ramblermedia.com'
+           f'ssh -L 8080:10.60.21.50:8080 jira.bot.kasmain@mac645rds.rambler.ramblermedia.com'
 
 
 def get_sprint_id():

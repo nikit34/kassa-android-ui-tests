@@ -244,11 +244,11 @@ upload_job:
     - rm -r ./allure-results.zip || true
   script:
     - zip -r allure-results.zip ./allure-results
-    - 'response=$(curl -X POST http://10.60.17.45:8080/api/result -H  "Content-Type: multipart/form-data"  -F "allureResults=@allure-results.zip;type=application/x-zip-compressed")'
+    - 'response=$(curl -X POST http://10.60.21.50:8080/api/result -H  "Content-Type: multipart/form-data"  -F "allureResults=@allure-results.zip;type=application/x-zip-compressed")'
     - python3 telegram_bot/client.py -r \"${response:41:36}\"
     - python3 jira_pipeline.py \"${response:41:36}\"
     - |
-      curl --location --request POST "http://10.60.17.45:8080/api/report" \
+      curl --location --request POST "http://10.60.21.50:8080/api/report" \
       --header "Content-Type: application/json" \
       --data-raw "{\"reportSpec\": { \"path\": [ \"last\", \"${response:41:36}\" ], \"executorInfo\": { \"buildName\": \"${response:41:36}\" } }, \"results\": [ \"${response:41:36}\" ], \"deleteResults\": false}"
   after_script:
