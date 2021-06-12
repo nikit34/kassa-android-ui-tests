@@ -5,7 +5,7 @@ import requests
 
 from jira_api import JiraAPI
 from telegram_bot.client import TGClient
-
+from templates.error import base_error
 
 def compilation_summary():
     data = datetime.now()
@@ -24,8 +24,14 @@ def compilation_description(part_link):
 
 
 def get_sprint_id():
-    body_sprints = requests.get('https://jira.rambler-co.ru/rest/agile/1.0/board/747/sprint?state=future', auth=('n.permyakov', os.environ['ANDROID_HOST_PASSWORD']))
-    values_sprints = body_sprints.json()['values']
+    response = None
+    try:
+        response = requests.get('https://jira.rambler-co.ru/rest/agile/1.0/board/747/sprint?state=future', auth=('n.permyakov', os.environ['ANDROID_HOST_PASSWORD']))
+    except requests.exceptions.RequestException as error:
+        print(f'[ERROR] get_sprint_id -> GET request failed\nstatus code: {response.status_code}',
+              error)
+        error.args += (f'get_sprint_id: {response.status_code}',)
+    values_sprints = response.json()['values']
     max_num_sprint = 0
     current_id = 0
     for sprint in values_sprints:
