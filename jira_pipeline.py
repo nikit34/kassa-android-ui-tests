@@ -5,7 +5,6 @@ import requests
 
 from jira_api import JiraAPI
 from telegram_bot.client import TGClient
-from templates.error import base_error
 
 def compilation_summary():
     data = datetime.now()
