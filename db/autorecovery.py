@@ -8,7 +8,7 @@ def create_dashboards():
     response = ''
     try:
         response = requests.post(
-            f'http://n.permyakov:{os.environ["IOS_HOST_PASSWORD"]}@localhost:3000/api/dashboards/db',
+            f'http://n.permyakov:{os.environ["ANDROID_HOST_PASSWORD"]}@localhost:3000/api/dashboards/db',
             headers={'Content-Type': 'application/json'},
             data=open('db/setting_dashboards.json')
         )
@@ -35,13 +35,13 @@ def create_db_connection(ip_docker_postgres):
         'basicAuthUser': 'n.permyakov',
         'secureJsonData': {}
     }
-    data['secureJsonData']['basicAuthPassword'] = os.environ['IOS_HOST_PASSWORD']
+    data['secureJsonData']['basicAuthPassword'] = os.environ['ANDROID_HOST_PASSWORD']
     data['url'] = ip_docker_postgres + ':5432'
 
     response = ''
     try:
         response = requests.post(
-            f'http://n.permyakov:{os.environ["IOS_HOST_PASSWORD"]}@localhost:3000/api/datasources',
+            f'http://n.permyakov:{os.environ["ANDROID_HOST_PASSWORD"]}@localhost:3000/api/datasources',
             headers={'Content-Type': 'application/json'}, data=json.dumps(data)
         )
     except requests.exceptions.RequestException as error:
@@ -52,7 +52,7 @@ def create_db_connection(ip_docker_postgres):
 def get_db_id():
     response = ''
     try:
-        response = requests.get(f'http://n.permyakov:{os.environ["IOS_HOST_PASSWORD"]}@localhost:3000/api/datasources/id/autotest')
+        response = requests.get(f'http://n.permyakov:{os.environ["ANDROID_HOST_PASSWORD"]}@localhost:3000/api/datasources/id/autotest')
     except requests.exceptions.RequestException as error:
         print(f'[ERROR] db/autorecovery.get_db_id -> GET request failed\nstatus code: {response.status_code}', error)
         error.args += (f'db/autorecovery.get_db_id: {response.status_code}',)
@@ -85,7 +85,7 @@ def create_db_queries(db_id):
     response = ''
     try:
         response = requests.post(
-            f'http://n.permyakov:{os.environ["IOS_HOST_PASSWORD"]}@localhost:3000/api/tsdb/query',
+            f'http://n.permyakov:{os.environ["ANDROID_HOST_PASSWORD"]}@localhost:3000/api/tsdb/query',
             headers={'Content-Type': 'application/json'}, data=json.dumps(data)
         )
         print(response, response.text)
