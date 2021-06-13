@@ -97,9 +97,9 @@ compile_job:
   tags:
     - android-host
   before_script:
+    - export ANDROID_HOME=$HOME/Android/Sdk
     - export PATH=$PATH:$ANDROID_HOME/tools
     - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
-    - export ANDROID_HOME=$HOME/Android/Sdk
   script:
     - cd project
     - ./gradlew clean
@@ -161,12 +161,6 @@ pytest_job:
   before_script:
     - rm -r ./allure-results && mkdir ./allure-results || mkdir ./allure-results || true
   script:
-    - export ANDROID_HOME=$HOME/Android/Sdk
-    - export ANDROID_SDK_ROOT=$HOME/Android/Sdk
-    - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
-    - echo $ANDROID_HOME
-    - echo $ANDROID_SDK_ROOT
-    - echo $JAVA_HOME
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-release.apk
     - python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host
     - coverage xml

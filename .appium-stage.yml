@@ -6,6 +6,10 @@ appium_job:
   stage: appium
   tags:
     - android-host-1
+  before_script:
+    - export ANDROID_HOME=$HOME/Android/Sdk
+    - export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+    - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
   script:
     - appium --address 0.0.0.0 --port 4723 &
   after_script:
