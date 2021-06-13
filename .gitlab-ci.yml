@@ -260,6 +260,7 @@ upload_job:
     paths:
       - ./allure-results
     policy: pull
+  allow_failure: true
   rules:
     - if: '$WITHOUT_TESTS != "True"'
 
