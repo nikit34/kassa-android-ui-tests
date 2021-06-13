@@ -164,7 +164,8 @@ pytest_job:
     - export ANDROID_HOME=$HOME/Android/Sdk
     - export ANDROID_SDK_ROOT=$HOME/Android/Sdk
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-release.apk
-    - python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host
+    - python3 -m pytest -v -s --tb=long ./tests --alluredir=./allure-results --cov=./app --host
+#    - python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host
     - coverage xml
   after_script:
     - adb logcat > ./logcat.log
