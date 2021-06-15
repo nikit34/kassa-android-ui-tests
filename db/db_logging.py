@@ -14,7 +14,7 @@ def connect_db():
         )
         pytest.cursor = pytest.connection.cursor()
     except (Exception, Error) as error:
-        raise Error('[ERROR] PostgreSQL - pytest_configure: ', error)
+        print('[ERROR] PostgreSQL - pytest_configure: ', error)
 
 
 def disconnect_db():
