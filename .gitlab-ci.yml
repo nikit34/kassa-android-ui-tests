@@ -249,7 +249,7 @@ upload_job:
       curl --location --request POST "http://localhost:8080/api/report" \
       --header "Content-Type: application/json" \
       --data-raw "{\"reportSpec\": { \"path\": [ \"last\", \"${response:41:36}\" ], \"executorInfo\": { \"buildName\": \"${response:41:36}\" } }, \"results\": [ \"${response:41:36}\" ], \"deleteResults\": false}"
-      - python3 jira_pipeline.py \"${response:41:36}\"
+    - python3 jira_pipeline.py \"${response:41:36}\"
   after_script:
     - python3 telegram_bot/client.py -n upload_job
   cache:
