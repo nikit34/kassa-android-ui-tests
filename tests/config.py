@@ -3,7 +3,7 @@ APPIUM_LOCAL = 'http://0.0.0.0:4723/wd/hub'  # local
 
 DESIRED_CAPS_NO_CACHE_HOST = {
   'platformName': 'Android',
-  'appPackage': 'ru.rambler.kassa.beta',
+  'appPackage': 'ru.rambler.kassa',
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'appWaitActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'noReset': False,
@@ -13,7 +13,7 @@ DESIRED_CAPS_NO_CACHE_HOST = {
 
 DESIRED_CAPS_HOST = {
   'platformName': 'Android',
-  'appPackage': 'ru.rambler.kassa.beta',
+  'appPackage': 'ru.rambler.kassa',
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'noReset': True,
   'wdaLocalPort': 8100,
@@ -23,7 +23,7 @@ DESIRED_CAPS_HOST = {
 DESIRED_CAPS_NO_CACHE_LOCAL = {
   'platformName': 'Android',
   'app': './app/app-kassa-release.apk',
-  'appPackage': 'ru.rambler.kassa.beta',
+  'appPackage': 'ru.rambler.kassa',
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'appWaitActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'noReset': False,
@@ -35,7 +35,7 @@ DESIRED_CAPS_NO_CACHE_LOCAL = {
 DESIRED_CAPS_LOCAL = {
   'platformName': 'Android',
   'app': './app/app-kassa-release.apk',
-  'appPackage': 'ru.rambler.kassa.beta',
+  'appPackage': 'ru.rambler.kassa',
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'noReset': True,
   'wdaLocalPort': 8100,

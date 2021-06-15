@@ -168,6 +168,7 @@ pytest_job:
     - adb logcat > ./logcat.log
     - adb -s emulator-5554 emu kill
     - adb kill-server
+    - ps aux | grep 'Pixel_3a_API_30' | awk '{print $2}' | xargs kill -9
     - killall appium || true
     - python3 telegram_bot/client.py -n pytest_job
   artifacts:
