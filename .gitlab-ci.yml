@@ -26,6 +26,7 @@ telegram_job:
     - android-host
   before_script:
     - python3 telegram_bot/starter.py start
+    - ifconfig
   script:
     - python3 -m pip install virtualenv
     - python3 -m venv env --without-pip

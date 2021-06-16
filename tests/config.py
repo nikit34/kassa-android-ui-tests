@@ -8,7 +8,8 @@ DESIRED_CAPS_NO_CACHE_HOST = {
   'appWaitActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'noReset': False,
   'wdaLocalPort': 8100,
-  'wdaBaseUrl': 'http://10.60.21.50'
+  'wdaBaseUrl': 'http://10.60.21.50',
+  'ignoreHiddenApiPolicyError': True
 }
 
 DESIRED_CAPS_HOST = {
@@ -17,7 +18,8 @@ DESIRED_CAPS_HOST = {
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'noReset': True,
   'wdaLocalPort': 8100,
-  'wdaBaseUrl': 'http://10.60.21.50'
+  'wdaBaseUrl': 'http://10.60.21.50',
+  'ignoreHiddenApiPolicyError': True
 }
 
 DESIRED_CAPS_NO_CACHE_LOCAL = {
