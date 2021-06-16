@@ -42,6 +42,7 @@ clear_job:
     - adb -s localhost:5555 emu kill || true
     - adb kill-server || true
   script:
+    - lsof -P | grep ':5432' | awk '{print $2}' | xargs kill -9 || true
     - killall appium || true
     - yes | rm -r ./app && mkdir ./app || mkdir ./app || true
   after_script:
