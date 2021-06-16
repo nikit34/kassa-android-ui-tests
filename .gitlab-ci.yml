@@ -42,7 +42,6 @@ clear_job:
     - adb -s localhost:5555 emu kill || true
     - adb kill-server || true
   script:
-    - lsof -P | grep ':5432' | awk '{print $2}' | xargs kill -9 || true
     - killall appium || true
     - yes | rm -r ./app && mkdir ./app || mkdir ./app || true
   after_script:
@@ -241,7 +240,6 @@ upload_job:
     - android-host
   image: kochetkovma/allure-server:latest
   before_script:
-    - lsof -P | grep ':8080' | awk '{print $2}' | xargs kill -9 || true
     - rm -r ./allure-results.zip || true
   script:
     - zip -r allure-results.zip ./allure-results
