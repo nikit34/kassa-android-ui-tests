@@ -5,4 +5,4 @@ class PaymentPageLocators(By):
     def __init__(self):
         super(By, self).__init__()
 
-        self.payment_button = (self.ID, 'ru.rambler.kassa.beta:id/inPaymentBtn')
+        self.payment_button = (self.ID, 'ru.rambler.kassa:id/inPaymentBtn')

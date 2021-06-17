@@ -26,7 +26,6 @@ DESIRED_CAPS_HOST = {
 
 DESIRED_CAPS_NO_CACHE_LOCAL = {
   'platformName': 'Android',
-  'app': './app/app-kassa-release.apk',
   'appPackage': 'ru.rambler.kassa',
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'appWaitActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
@@ -38,7 +37,6 @@ DESIRED_CAPS_NO_CACHE_LOCAL = {
 
 DESIRED_CAPS_LOCAL = {
   'platformName': 'Android',
-  'app': './app/app-kassa-release.apk',
   'appPackage': 'ru.rambler.kassa',
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'noReset': True,

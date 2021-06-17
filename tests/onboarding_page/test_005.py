@@ -17,12 +17,12 @@ class TestOnboardingPage:
         self.onboarding_page.find_element(*self.onboarding_locators.go_button)
         self.onboarding_page.find_element(*self.onboarding_locators.page_title)
         self.onboarding_page.find_element(*self.onboarding_locators.page_label)
-#
-#     def test_onboarding_choice_is_enabled(self, driver):
-#         self.onboarding_page = OnboardingPage(driver)
-#         self.onboarding_page.set_custom_wait(15)
-#         self.onboarding_page.click(*self.onboarding_locators.go_button)
-#         self.onboarding_page.click(*self.onboarding_locators.allow_location_button)
+
+    def test_onboarding_choice_is_enabled(self, driver):
+        self.onboarding_page = OnboardingPage(driver)
+        self.onboarding_page.set_custom_wait(15)
+        self.onboarding_page.click(*self.onboarding_locators.go_button)
+        self.onboarding_page.click(*self.onboarding_locators.allow_location_button)
 #
 #     def test_city_selection_is_enabled(self, driver):
 #         self.onboarding_page = OnboardingPage(driver)

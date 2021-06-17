@@ -43,6 +43,7 @@ clear_job:
     - adb kill-server || true
   script:
     - killall appium || true
+    - killall java || true
     - yes | rm -r ./app && mkdir ./app || mkdir ./app || true
   after_script:
     - adb start-server
