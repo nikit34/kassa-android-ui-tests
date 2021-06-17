@@ -41,8 +41,8 @@ clear_job:
     - adb -s localhost:5555 emu kill || true
     - adb kill-server || true
   script:
-    - killall appium || true
-    - killall java || true
+    - echo $ANDROID_HOST_PASSWORD | sudo -S killall appium || true
+    - echo $ANDROID_HOST_PASSWORD | sudo -S killall java || true
     - yes | rm -r ./app && mkdir ./app || mkdir ./app || true
   after_script:
     - adb start-server
