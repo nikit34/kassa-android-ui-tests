@@ -5,18 +5,18 @@ from screens.OnboardingPage import OnboardingPage
 from locators.onboarding_locators import OnboardingPageLocators
 
 
-# @pytest.mark.usefixtures('driver_noCache')
-# class TestOnboardingPage:
-#     @classmethod
-#     def setup_class(cls):
-#         cls.onboarding_locators = OnboardingPageLocators()
-#
-#     def test_onboarding_is_enabled(self, driver):
-#         self.onboarding_page = OnboardingPage(driver)
-#         self.onboarding_page.set_custom_wait(15)
-#         self.onboarding_page.find_element(*self.onboarding_locators.go_button)
-#         self.onboarding_page.find_element(*self.onboarding_locators.page_title)
-#         self.onboarding_page.find_element(*self.onboarding_locators.page_label)
+@pytest.mark.usefixtures('driver_noCache')
+class TestOnboardingPage:
+    @classmethod
+    def setup_class(cls):
+        cls.onboarding_locators = OnboardingPageLocators()
+
+    def test_onboarding_is_enabled(self, driver):
+        self.onboarding_page = OnboardingPage(driver)
+        self.onboarding_page.set_custom_wait(15)
+        self.onboarding_page.find_element(*self.onboarding_locators.go_button)
+        self.onboarding_page.find_element(*self.onboarding_locators.page_title)
+        self.onboarding_page.find_element(*self.onboarding_locators.page_label)
 #
 #     def test_onboarding_choice_is_enabled(self, driver):
 #         self.onboarding_page = OnboardingPage(driver)

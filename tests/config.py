@@ -9,7 +9,8 @@ DESIRED_CAPS_NO_CACHE_HOST = {
   'noReset': False,
   'wdaLocalPort': 8100,
   'wdaBaseUrl': 'http://10.60.21.50',
-  'ignoreHiddenApiPolicyError': True
+  'ignoreHiddenApiPolicyError': True,
+  'newCommandTimeout': 120
 }
 
 DESIRED_CAPS_HOST = {
@@ -19,7 +20,8 @@ DESIRED_CAPS_HOST = {
   'noReset': True,
   'wdaLocalPort': 8100,
   'wdaBaseUrl': 'http://10.60.21.50',
-  'ignoreHiddenApiPolicyError': True
+  'ignoreHiddenApiPolicyError': True,
+  'newCommandTimeout': 120
 }
 
 DESIRED_CAPS_NO_CACHE_LOCAL = {
