@@ -103,7 +103,6 @@ compile_job:
     - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
   script:
     - cd project
-    - ./gradlew clean
     - ./gradlew app:assembleKassa
     - mv app/build/outputs/apk/kassa/release/app-kassa-release.apk ../app/
   after_script:
@@ -161,6 +160,7 @@ pytest_job:
     - android-host
   before_script:
     - rm -r ./allure-results && mkdir ./allure-results || mkdir ./allure-results || true
+    - echo $ANDROID_HOST_PASSWORD | sudo -S killall java || true
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-release.apk
     - python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host
