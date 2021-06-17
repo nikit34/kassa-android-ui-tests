@@ -163,7 +163,7 @@ pytest_job:
     - echo $ANDROID_HOST_PASSWORD | sudo -S killall java || true
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-release.apk
-    - python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host
+    - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host'
     - coverage xml
   after_script:
     - adb logcat > ./logcat.log
