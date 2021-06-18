@@ -1,4 +1,5 @@
 import pytest
+import allure
 
 from screens.MoviesPage import MoviesPage
 from screens.EventDetailsPage import EventsDetailsPage
@@ -14,16 +15,17 @@ class TestEventDetailsPage:
         cls.events_details_locators = EventsDetailsPageLocators()
 
     def test_check_event_details(self, driver):
-        self.movies_page = MoviesPage(driver)
-        self.movies_page.set_custom_wait(15)
-        self.movies_page.click(*self.movies_locators.event_name)
-        self.event_details_page = EventsDetailsPage(driver)
-        self.event_details_page.set_custom_wait(15)
-        self.event_details_page.pass_allow_photo_media()
-        self.event_details_page.find_element(*self.events_details_locators.like_button)
-        self.event_details_page.find_element(*self.events_details_locators.description)
-        self.event_details_page.find_element(*self.events_details_locators.back_button)
-        self.event_details_page.find_element(*self.events_details_locators.event_trailer)
+        with allure.step('MoviesPage'):
+            self.movies_page = MoviesPage(driver)
+            self.movies_page.set_custom_wait(15)
+            self.movies_page.click(*self.movies_locators.event_name)
+        with allure.step('EventsDetailsPage'):
+            self.event_details_page = EventsDetailsPage(driver)
+            self.event_details_page.set_custom_wait(15)
+            self.event_details_page.find_element(*self.events_details_locators.like_button)
+            self.event_details_page.find_element(*self.events_details_locators.description)
+            self.event_details_page.find_element(*self.events_details_locators.back_button)
+            self.event_details_page.find_element(*self.events_details_locators.event_trailer)
 
     def test_closing_events_details_by_back_button_(self, driver):
         self.movies_page = MoviesPage(driver)

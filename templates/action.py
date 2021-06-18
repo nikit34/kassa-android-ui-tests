@@ -33,7 +33,7 @@ class Action(Page):
         action = TouchAction(self.driver)
         action.press(None, x1, y1)
         action.wait(400)
-        action.move_to(None, (x2 - x1), (y2 - y1))
+        action.move_to(None, x2, y2)
         action.release()
         action.perform()
         return True
@@ -44,21 +44,4 @@ class Action(Page):
         action.tap(None, x, y)
         action.release()
         action.perform()
-
-    @staticmethod
-    def rotate_simulator(direction='right', timeout=10):
-        path_starter = os.path.abspath(os.path.join(os.path.dirname(__file__), "../kassa-ui-tests", "utils"))
-
-        if direction not in ['right', 'left']:
-            raise ValueError('[ERROR] invalid argument')
-        os.system(f'echo "#!/bin/bash\n/usr/local/bin/python3 {path_starter}/rotate_simulator.py {direction}" > {path_starter}/starter.sh')
-
-        os.system(f'chmod +x {path_starter}/starter.sh')
-        proc = Popen(['open', '-W', '-a', 'Terminal.app', f'{path_starter}/starter.sh'], stdin=None, stderr=PIPE, universal_newlines=True)
-        try:
-            outs, errs = proc.communicate(timeout=timeout)
-        except TimeoutExpired:
-            proc.kill()
-
-
 
