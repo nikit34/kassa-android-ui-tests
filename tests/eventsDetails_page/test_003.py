@@ -14,9 +14,9 @@ class TestEventDetailsPage:
         cls.events_details_locators = EventsDetailsPageLocators()
 
     def test_check_event_details(self, driver):
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.click(*self.movies_locators.event_name)
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.click(*self.movies_locators.event_name)
         self.event_details_page = EventsDetailsPage(driver)
         self.event_details_page.set_custom_wait(15)
         self.event_details_page.pass_allow_photo_media()
@@ -26,11 +26,11 @@ class TestEventDetailsPage:
         self.event_details_page.find_element(*self.events_details_locators.event_trailer)
 
     def test_closing_events_details_by_back_button_(self, driver):
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.click(*self.movies_locators.event_name)
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.click(*self.movies_locators.event_name)
         self.event_details_page = EventsDetailsPage(driver)
         self.event_details_page.set_custom_wait(10)
         self.event_details_page.find_element(*self.events_details_locators.title)
         self.event_details_page.click(*self.events_details_locators.back_button)
-        self.movie_page.find_element(*self.movies_locators.movies_title)
+        self.movies_page.find_element(*self.movies_locators.movies_title)

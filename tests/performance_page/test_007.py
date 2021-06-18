@@ -15,17 +15,17 @@ class TestPerformancePage:
         cls.performance_locators = PerformancePageLocators()
 
     def test_performance_page_is_opened(self, driver):
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.find_element(*self.movies_locators.event_name)
-        old_movie_title = self.movie_page.find_element(*self.movies_locators.movies_title).text
-        self.movie_page.click(*self.performance_locators.events, text='Театры')
-        self.movie_page.matching_text(*self.performance_locators.event_name, equal=False, pattern=old_movie_title)
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.find_element(*self.movies_locators.event_name)
+        old_movie_title = self.movies_page.find_element(*self.movies_locators.movies_title).text
+        self.movies_page.click(*self.performance_locators.events, text='Театры')
+        self.movies_page.matching_text(*self.performance_locators.event_name, equal=False, pattern=old_movie_title)
 
     def test_check_feature_content(self, driver):
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.click(*self.performance_locators.events, text='Театры')
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.click(*self.performance_locators.events, text='Театры')
         performance_base_canvas = self.performance_page.find_element(*self.performance_locators.carousel_rv)
         performance_base_canvas_row = self.performance_page.find_element(*self.performance_locators.single_session_view)
 
@@ -45,18 +45,18 @@ class TestPerformancePage:
             random_num //= 4
             if random_num == 0:
                 break
-            self.movie_page.act.swipe(80, 30, 20, 30)
+            self.movies_page.act.swipe(80, 30, 20, 30)
 
     def test_popular_performances_are_visible(self, driver):
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.click(*self.performance_locators.events, text='Театры')
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.click(*self.performance_locators.events, text='Театры')
         sleep(5)
-        self.movie_page.act.swipe(50, 80, 50, 20)
-        self.movie_page.act.swipe(50, 60, 50, 40)
+        self.movies_page.act.swipe(50, 80, 50, 20)
+        self.movies_page.act.swipe(50, 60, 50, 40)
         sleep(1)
-        self.movie_page.matching_text(*self.performance_locators.title, pattern='Популярно сейчас')
-        self.movie_page.find_element(*self.performance_locators.compilation_img)
-        self.movie_page.find_element(*self.performance_locators.event_title)
-        self.movie_page.find_element(*self.performance_locators.event_genre)
+        self.movies_page.matching_text(*self.performance_locators.title, pattern='Популярно сейчас')
+        self.movies_page.find_element(*self.performance_locators.compilation_img)
+        self.movies_page.find_element(*self.performance_locators.event_title)
+        self.movies_page.find_element(*self.performance_locators.event_genre)
 

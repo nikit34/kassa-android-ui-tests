@@ -11,6 +11,7 @@ class MoviesPageLocators(By):
         self.event_name = (self.ID, 'ru.rambler.kassa:id/eventName')
         self.back_button = (self.ID, 'ru.rambler.kassa:id/leftIcon')
         self.tabs_events_id = (self.ID, 'ru.rambler.kassa:id/tabsRv')
+        self.tab = (self.ID, 'ru.rambler.kassa:id/tab')
         self.carousel_rv = (self.ID, 'ru.rambler.kassa:id/carouselRv')
         self.list_session_view = (self.ID, 'ru.rambler.kassa:id/listSessionView')
         self.fastbuy_ticket_id = (self.ID, 'ru.rambler.kassa:id/buyTicket')

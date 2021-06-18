@@ -13,9 +13,9 @@ class TestTicketsPage:
         cls.tickets_locators = TicketsPageLocators()
 
     def test_tickets_tab_are_opened(self, driver):
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.click(*self.common_locators.tab_ticket)
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.click(*self.common_locators.tab_ticket)
         self.tickets_page = TicketsPage(driver)
         self.tickets_page.set_custom_wait(10)
         self.tickets_page.pass_popup()

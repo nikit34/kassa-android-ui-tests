@@ -23,10 +23,10 @@ class TestPerformancePage:
         cls.checkout_locators = CheckoutPageLocators()
 
     def test_seat_selections_are_opened(self, driver):
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.select_session()
-        if not self.movie_page.not_displayed(*self.info_locators.tv_covid_term_btn):
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.select_session()
+        if not self.movies_page.not_displayed(*self.info_locators.tv_covid_term_btn):
             self.info_page = InfoPage(driver)
             self.info_page.act.swipe(50, 80, 50, 20)
             self.info_page.click(*self.info_locators.cb_covid_term_btn)
@@ -50,12 +50,12 @@ class TestPerformancePage:
     def test_seat_selections_are_opened(self, driver):
         now = datetime.now().strftime("%d_%m_%Y__%H_%M_%S")
         path = os.getcwd() + f'/screenshots/session_{now}.png'
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.waiting_main()
-        self.movie_page.pass_popup()
-        self.movie_page.select_session()
-        if not self.movie_page.not_displayed(*self.info_locators.tv_covid_term_btn):
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.waiting_main()
+        self.movies_page.pass_popup()
+        self.movies_page.select_session()
+        if not self.movies_page.not_displayed(*self.info_locators.tv_covid_term_btn):
             self.info_page = InfoPage(driver)
             self.info_page.act.swipe(50, 80, 50, 20)
             self.info_page.click(*self.info_locators.cb_covid_term_btn)

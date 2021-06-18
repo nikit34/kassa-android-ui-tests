@@ -17,9 +17,9 @@ class TestSettingsPage:
         cls.settings_locators = SettingsPageLocators()
 
     def test_check_open_settings_page(self, driver):
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.click(*self.common_locators.tab_profile)
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.click(*self.common_locators.tab_profile)
         self.auth_page = AuthPage(driver)
         self.auth_page.set_custom_wait(10)
         self.auth_page.click(*self.auth_locators.profile_settings_icon)
@@ -29,9 +29,9 @@ class TestSettingsPage:
         self.settings_page.matching_text(*self.settings_locators.title, pattern='Настройки')
 
     def test_check_open_settings_page_and_return_to_profile(self, driver):
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.click(*self.common_locators.tab_profile)
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.click(*self.common_locators.tab_profile)
         self.auth_page = AuthPage(driver)
         self.auth_page.set_custom_wait(10)
         self.auth_page.click(*self.auth_locators.profile_settings_icon)
@@ -41,9 +41,9 @@ class TestSettingsPage:
         # self.auth_page.find_element(*self.auth_locators.profile_name)
 
     def test_check_open_settings_page_has_all_tags(self, driver):
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.click(*self.common_locators.tab_profile)
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.click(*self.common_locators.tab_profile)
         self.auth_page = AuthPage(driver)
         self.auth_page.set_custom_wait(10)
         self.auth_page.click(*self.auth_locators.profile_settings_icon)
@@ -52,9 +52,9 @@ class TestSettingsPage:
         self.settings_page.check_settings_list()
 
     def test_check_open_search_city_page(self, driver):
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.click(*self.common_locators.tab_profile)
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.click(*self.common_locators.tab_profile)
         self.auth_page = AuthPage(driver)
         self.auth_page.set_custom_wait(10)
         self.auth_page.click(*self.auth_locators.profile_settings_icon)

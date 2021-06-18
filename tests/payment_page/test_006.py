@@ -19,10 +19,10 @@ class TestPerformancePage:
         '''Выбор места открыт'''
         now = datetime.now().strftime("%d_%m_%Y__%H_%M_%S")
         path = os.getcwd() + f'/screenshots/session_{now}.png'
-        self.movie_page = MoviesPage(driver)
-        self.movie_page.set_custom_wait(15)
-        self.movie_page.select_session()
-        if not self.movie_page.not_displayed(*InfoPageLocators.tv_covid_term_btn):
+        self.movies_page = MoviesPage(driver)
+        self.movies_page.set_custom_wait(15)
+        self.movies_page.select_session()
+        if not self.movies_page.not_displayed(*InfoPageLocators.tv_covid_term_btn):
             self.info_page = InfoPage(driver)
             self.info_page.act.swipe(50, 80, 50, 20)
             self.info_page.click(*InfoPageLocators.cb_covid_term_btn)

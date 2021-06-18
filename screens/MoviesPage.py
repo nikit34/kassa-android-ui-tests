@@ -69,3 +69,10 @@ class MoviesPage(RecordTimeout, Wait):
         except AssertionError:
             pass
 
+    def click_tab(self, num):
+        tabs_elem = self.driver.find_elements(*self.movies_locators.tab)
+        len_tabs_elem = len(tabs_elem)
+        if num < len_tabs_elem:
+            self.click_elem(tabs_elem[num])
+        else:
+            raise IndexError(f'[ERROR] num: {num} beyond limit of number of elements count: {len_tabs_elem}')
