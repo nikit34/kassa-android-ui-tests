@@ -20,7 +20,7 @@ class TestPerformancePage:
         now = datetime.now().strftime("%d_%m_%Y__%H_%M_%S")
         path = os.getcwd() + f'/screenshots/session_{now}.png'
         self.movies_page = MoviesPage(driver)
-        self.movies_page.set_custom_wait(15)
+        self.movies_page.set_custom_wait(20)
         self.movies_page.select_session()
         if not self.movies_page.not_displayed(*InfoPageLocators.tv_covid_term_btn):
             self.info_page = InfoPage(driver)
@@ -29,7 +29,7 @@ class TestPerformancePage:
             self.info_page.find_element(*InfoPageLocators.covid_cancel_btn)
             self.info_page.click(*InfoPageLocators.covid_next_btn)
         self.seat_selection_page = SeatSelectionPage(driver)
-        self.seat_selection_page.set_custom_wait(10)
+        self.seat_selection_page.set_custom_wait(15)
         sleep(5)
         driver.get_screenshot_as_file(path)
         allure.attach.file(path, attachment_type=allure.attachment_type.PNG)
@@ -37,6 +37,6 @@ class TestPerformancePage:
         os.remove(path)
         self.seat_selection_page.click(*SeatSelectionLocators.continue_btn)
         self.check_out_page = CheckOutPage(driver)
-        self.check_out_page.set_custom_wait(10)
+        self.check_out_page.set_custom_wait(15)
         self.check_out_page.find_element(*CheckoutPageLocators.total_price)
         self.check_out_page.find_element(*CheckoutPageLocators.continue_btn)

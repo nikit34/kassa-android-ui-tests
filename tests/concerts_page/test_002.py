@@ -18,7 +18,7 @@ class TestConcertsPage:
     def test_concerts_page_is_opened(self, driver):
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
-            self.movies_page.set_custom_wait(15)
+            self.movies_page.set_custom_wait(20)
             old_name_event = self.movies_page.find_element(*self.movies_locators.event_name).text
             self.movies_page.click_tab(2)
         with allure.step('ConcertsPage'):
@@ -29,7 +29,7 @@ class TestConcertsPage:
     def test_check_feature_content(self, driver):
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
-            self.movies_page.set_custom_wait(15)
+            self.movies_page.set_custom_wait(20)
             concert_base_canvas = self.movies_page.find_element(*self.concerts_locators.carousel_rv)
             concert_base_canvas_row = self.movies_page.find_element(*self.concerts_locators.single_session_view)
 

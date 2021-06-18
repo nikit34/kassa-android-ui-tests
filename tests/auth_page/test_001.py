@@ -24,7 +24,7 @@ class TestAuthPage:
             self.onboarding_page.set_custom_wait(20)
         with allure.step("MoviesPage"):
             self.movies_page = MoviesPage(driver)
-            self.movies_page.set_custom_wait(15)
+            self.movies_page.set_custom_wait(20)
             self.movies_page.waiting_main()
             self.movies_page.pass_popup()
             self.movies_page.click(*self.common_locators.tab_profile)

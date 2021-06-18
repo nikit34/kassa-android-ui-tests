@@ -27,7 +27,7 @@ class MoviesPage(RecordTimeout, Wait):
     def waiting_main(self):
         try:
             onboarding = OnboardingPage(self.driver)
-            onboarding.set_custom_wait(15)
+            onboarding.set_custom_wait(20)
             onboarding.skip_onboarding()
         except TimeoutException as error:
             error.args += ('Page has not open', )

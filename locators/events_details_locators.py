@@ -9,5 +9,4 @@ class EventsDetailsPageLocators(By):
         self.like_button = (self.ID, 'ru.rambler.kassa:id/favoriteBtn')
         self.title = (self.ID, 'ru.rambler.kassa:id/title')
         self.description = (self.ID, 'ru.rambler.kassa:id/description')
-        self.event_trailer = (self.ID, 'ru.rambler.kassa:id/eventTrailerPv')
-        self.event_cover = (self.ID, 'ru.rambler.kassa:id/eventCover')
+        self.btn_shedule_ticket = (self.ID, 'ru.rambler.kassa:id/buyTicketBtn')

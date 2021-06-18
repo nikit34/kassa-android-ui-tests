@@ -16,7 +16,7 @@ class TestPerformancePage:
 
     def test_performance_page_is_opened(self, driver):
         self.movies_page = MoviesPage(driver)
-        self.movies_page.set_custom_wait(15)
+        self.movies_page.set_custom_wait(20)
         self.movies_page.find_element(*self.movies_locators.event_name)
         old_movie_title = self.movies_page.find_element(*self.movies_locators.movies_title).text
         self.movies_page.click(*self.performance_locators.events, text='Театры')
@@ -24,7 +24,7 @@ class TestPerformancePage:
 
     def test_check_feature_content(self, driver):
         self.movies_page = MoviesPage(driver)
-        self.movies_page.set_custom_wait(15)
+        self.movies_page.set_custom_wait(20)
         self.movies_page.click(*self.performance_locators.events, text='Театры')
         performance_base_canvas = self.performance_page.find_element(*self.performance_locators.carousel_rv)
         performance_base_canvas_row = self.performance_page.find_element(*self.performance_locators.single_session_view)
@@ -49,7 +49,7 @@ class TestPerformancePage:
 
     def test_popular_performances_are_visible(self, driver):
         self.movies_page = MoviesPage(driver)
-        self.movies_page.set_custom_wait(15)
+        self.movies_page.set_custom_wait(20)
         self.movies_page.click(*self.performance_locators.events, text='Театры')
         sleep(5)
         self.movies_page.act.swipe(50, 80, 50, 20)
