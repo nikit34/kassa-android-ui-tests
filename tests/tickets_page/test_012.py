@@ -17,6 +17,6 @@ class TestTicketsPage:
         self.movies_page.set_custom_wait(20)
         self.movies_page.click(*self.common_locators.tab_ticket)
         self.tickets_page = TicketsPage(driver)
-        self.tickets_page.set_custom_wait(15)
+        self.tickets_page.set_custom_wait(20)
         self.tickets_page.pass_popup()
         self.tickets_page.matching_text(*self.tickets_locators.return_btn, pattern='На главную')

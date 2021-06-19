@@ -36,7 +36,7 @@ class Testrail:
         try:
             runs = self.client.runs.get_runs(project_id)
             for r in runs:
-                if r['name'] == 'Касса X iOs (regress)':
+                if r['name'] == 'Касса X ANDROID (regress)':
                     return r['id']
         except ConnectTimeout as error:
             print('[ERROR] Connection timeout', error)

@@ -21,7 +21,7 @@ class JiraAPI:
             'description': description,
             'issuetype': {'name': type},
             'priority': {'name': priority},
-            'components': [{'name': 'iOS'}],
+            'components': [{'name': 'ANDROID'}],
             'labels': ['auto_created', 'auto_test'],
             'customfield_10101': sprint_id,
         })

@@ -16,7 +16,7 @@ class Screenshot:
     @path.setter
     def path(self, location=None):
         now = datetime.now().strftime('%d_%m_%Y__%H_%M_%S')
-        absolute_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../kassa-ui-tests"))
+        absolute_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
         if location is None:
             self._path = absolute_path + f'/screenshots/session_{now}.png'
         else:

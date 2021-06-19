@@ -7,4 +7,4 @@ class CheckoutPageLocators(By):
 
         self.total_price = (self.ID, 'ru.rambler.kassa:id/totalPriceTv')
         self.checkout_section_title = (self.ID, 'ru.rambler.kassa:id/checkoutSectionTitle')
-        self.continue_btn = (self.ID, 'ru.rambler.kassa:id/continueBtn')
+        self.btn_continue = (self.ID, 'ru.rambler.kassa:id/continueBtn')

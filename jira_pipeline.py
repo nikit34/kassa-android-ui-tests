@@ -9,7 +9,7 @@ from telegram_bot.client import TGClient
 
 def compilation_summary():
     data = datetime.now()
-    return f'iOS. AUTOTEST. {data.year}.{data.month}.{data.day}_{data.hour}:{data.minute}'
+    return f'ANDROID. AUTOTEST. {data.year}.{data.month}.{data.day}_{data.hour}:{data.minute}'
 
 
 def compilation_description(part_link):

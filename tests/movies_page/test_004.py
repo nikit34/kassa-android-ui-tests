@@ -137,11 +137,11 @@ class TestMoviePage:
         self.movies_page.set_custom_wait(20)
         self.movies_page.click(*self.movies_locators.fastbuy_ticket_id)
         self.shedule_page = ShedulePage(driver)
-        self.shedule_page.set_custom_wait(15)
+        self.shedule_page.set_custom_wait(20)
         self.shedule_page.pass_allow_photo_media()
         self.shedule_page.click(*self.shedule_locators.back_button)
         self.event_details_page = EventsDetailsPage(driver)
-        self.event_details_page.set_custom_wait(15)
+        self.event_details_page.set_custom_wait(20)
         self.event_details_page.find_element(*self.events_details_locators.description)
 
     def test_popular_movies_are_visible(self, driver):
@@ -197,7 +197,7 @@ class TestMoviePage:
         self.movies_page.click(*self.movies_locators.movies_title)
         self.movies_page.click(*self.movies_locators.event_name)
         self.events_details_page = EventsDetailsPage(driver)
-        self.movies_page.set_custom_wait(15)
+        self.movies_page.set_custom_wait(20)
         self.events_details_page.find_element(*self.events_details_locators.title)
 
     def test_premiers_are_available_(self, driver):

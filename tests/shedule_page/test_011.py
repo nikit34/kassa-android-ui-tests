@@ -17,7 +17,7 @@ class TestShedulePage:
         self.movies_page.set_custom_wait(20)
         self.movies_page.click(*self.movies_locators.fastbuy_ticket_id)
         self.shedule_page = ShedulePage(driver)
-        self.shedule_page.set_custom_wait(15)
+        self.shedule_page.set_custom_wait(20)
         self.shedule_page.pass_allow_photo_media()
         self.shedule_page.find_element(*self.shedule_locators.event_name)
         self.shedule_page.find_element(*self.shedule_locators.back_bar_button)
@@ -31,7 +31,7 @@ class TestShedulePage:
         self.movies_page.set_custom_wait(20)
         self.movies_page.click(*self.movies_locators.fastbuy_ticket_id)
         self.shedule_page = ShedulePage(driver)
-        self.shedule_page.set_custom_wait(15)
+        self.shedule_page.set_custom_wait(20)
         self.shedule_page.find_element(*self.shedule_locators.filters)
 
     def test_shedule_has_input_field(self, driver):
@@ -39,5 +39,5 @@ class TestShedulePage:
         self.movies_page.set_custom_wait(20)
         self.movies_page.click(*self.movies_locators.fastbuy_ticket_id)
         self.shedule_page = ShedulePage(driver)
-        self.shedule_page.set_custom_wait(15)
+        self.shedule_page.set_custom_wait(20)
         self.shedule_page.find_element(*self.shedule_locators.search_field)

@@ -13,4 +13,5 @@ class SeatSelectionLocators(By):
         self.place_session_time = (self.ID, 'ru.rambler.kassa:id/tvPlaceSessionTime')
         self.place_session_price = (self.ID, 'ru.rambler.kassa:id/tvPlaceSessionPrice')
         self.hall_scheme = (self.ID, 'ru.rambler.kassa:id/fragmentContainer')
-        self.continue_btn = (self.ID, 'ru.rambler.kassa:id/continueBtn')
+        self.btn_continue = (self.ID, 'ru.rambler.kassa:id/continueBtn')
+        self.text_count_ticket = (self.ID, 'ru.rambler.kassa:id/seatsAmount')

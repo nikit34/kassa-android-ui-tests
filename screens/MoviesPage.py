@@ -1,7 +1,10 @@
 import random
-from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
+from time import sleep
+
+from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, NoSuchElementException
 
 from templates.base import Wait
+from templates.error import base_error
 from templates.statistic import RecordTimeout
 from templates.action import Action
 from .OnboardingPage import OnboardingPage
@@ -50,18 +53,16 @@ class MoviesPage(RecordTimeout, Wait):
         elements = self.driver.find_elements(*locator[:2])
         elements[rand_index].click()
 
-    def select_session(self):
-        sessions = self.driver.find_elements(*self.movies_locators.session_date)
-        for session in sessions:
-            try:
-                session.click()
-                if self.not_displayed(*self.movies_locators.right_btn):
-                    break
-            except AssertionError:
-                if self.matching_text(*self.movies_locators.title_tv, pattern='Билеты закончились'):
-                    self.click(*self.movies_locators.right_btn)
-            except StaleElementReferenceException as error:
-                print(f'No available sessions found: {error}')
+    def select_session(self, _number_session=0, _number_slide=0):
+        for i in range(_number_slide):
+            sleep(5)
+            self.act.swipe(80, 30, 20, 30)
+        locator = self.movies_locators.session_date
+        sessions = self.driver.find_elements(*locator)
+        len_sessions = len(sessions)
+        if len_sessions == 0 or len_sessions < _number_session:
+            raise base_error(self.driver, ValueError, *locator, crash_site='click_elem', msg='No session buttons found')
+        self.click_elem(sessions[_number_session])
 
     def pass_allow_photo_media(self):
         try:
