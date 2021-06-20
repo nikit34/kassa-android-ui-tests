@@ -10,12 +10,13 @@ from locators.checkout_locators import CheckoutPageLocators
 
 
 @pytest.mark.usefixtures('driver')
-class TestPerformancePage:
+class TestTheatersPage:
     @classmethod
     def setup_class(cls):
         cls.seat_selection_locators = SeatSelectionLocators()
         cls.checkout_locators = CheckoutPageLocators()
 
+    # TODO:
     def test_001_payment_page_is_open(self, driver):
         """Выбор места открыт"""
         with allure.step('MoviesPage'):

@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 
-class PerformancePageLocators(By):
+class TheatersPageLocators(By):
     def __init__(self):
         super(By, self).__init__()
 

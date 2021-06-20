@@ -38,4 +38,7 @@ class TestEventDetailsPage:
             self.event_details_page.set_custom_wait(20)
             self.event_details_page.find_element(*self.events_details_locators.title)
             self.event_details_page.click(*self.events_details_locators.back_button)
+        with allure.step('MoviesPage'):
+            self.movies_page = MoviesPage(driver)
+            self.movies_page.set_custom_wait(20)
             self.movies_page.find_element(*self.movies_locators.movies_title)

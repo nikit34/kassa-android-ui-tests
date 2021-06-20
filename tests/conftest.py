@@ -22,7 +22,7 @@ def pytest_addoption(parser):
 
 def pytest_configure():
     connect_db()
-    Testrail.logging_start()
+    # TODO: Testrail.logging_start()
     pytest.count_call_unique_func = 0
 
 

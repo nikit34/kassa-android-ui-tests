@@ -15,7 +15,7 @@ from locators.info_locators import InfoPageLocators
 
 
 @pytest.mark.usefixtures('driver')
-class TestPerformancePage:
+class TestTheatersPage:
     @classmethod
     def setup_class(cls):
         cls.info_locators = InfoPageLocators()
@@ -46,7 +46,7 @@ class TestPerformancePage:
 
 
 @pytest.mark.usefixtures('driver_noCache')
-class TestPerformancePage:
+class TestTheatersPage:
     def test_seat_selections_are_opened(self, driver):
         now = datetime.now().strftime("%d_%m_%Y__%H_%M_%S")
         path = os.getcwd() + f'/screenshots/session_{now}.png'

@@ -23,6 +23,7 @@ class TestConcertsPage:
             self.movies_page.click_tab(2)
         with allure.step('ConcertsPage'):
             self.concerts_page = ConcertsPage(driver)
+            self.concerts_page.set_custom_wait(20)
             self.concerts_page.matching_text(*self.concerts_locators.event_name, equal=False, pattern=old_name_event)
             self.concerts_page.matching_text(*self.concerts_locators.title, pattern='Популярное')
 

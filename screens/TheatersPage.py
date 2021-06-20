@@ -1,11 +1,11 @@
-from locators.concerts_locators import ConcertsPageLocators
+from locators.theaters_locators import TheatersPageLocators
 
 from templates.action import Action
 from templates.base import Wait
 from templates.statistic import RecordTimeout
 
 
-class ConcertsPage(RecordTimeout, Wait):
+class TheatersPage(RecordTimeout, Wait):
     def __init__(self, driver):
         super().__init__(driver)
 
@@ -14,7 +14,7 @@ class ConcertsPage(RecordTimeout, Wait):
         self.repeat = '0'
         self.extra_interval = 50
 
-        self.concerts_locators = ConcertsPageLocators()
+        self.theaters_locators = TheatersPageLocators()
 
     def set_custom_wait(self, wait):
         self.set_wait(self.driver, wait)
