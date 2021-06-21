@@ -80,6 +80,14 @@ def create_db_queries(db_id):
             'datasourceId': db_id,
             'rawSql': "SELECT fet.date_time as \"time\", fet.find_element, nt.name_test FROM find_element_timeout fet, name_test nt WHERE fet.id_test = nt.id_test;",
             'format': 'time_series'
+        },{
+            'datasourceId': db_id,
+            'rawSql': "SELECT MIN(ct.click), MAX(ct.click), AVG(ct.click), nt.name_test FROM click_timeout ct, name_test nt WHERE ct.id_test = nt.id_test GROUP BY nt.name_test;",
+            'format': 'time_series'
+        },{
+            'datasourceId': db_id,
+            'rawSql': "SELECT MIN(fet.find_element), MAX(fet.find_element), AVG(fet.find_element), nt.name_test FROM find_element_timeout fet, name_test nt WHERE fet.id_test = nt.id_test GROUP BY nt.name_test;",
+            'format': 'time_series'
         }]
     }
 
