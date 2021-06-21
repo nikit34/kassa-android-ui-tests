@@ -31,8 +31,12 @@ class TestTheatersPage:
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)
-            theaters_base_canvas = self.movies_page.find_element(*self.theaters_locators.carousel_rv)
-            theaters_base_canvas_row = self.movies_page.find_element(*self.theaters_locators.list_session_view)
+            self.movies_page.click_tab(1)
+        with allure.step('TheatersPage'):
+            self.theaters_page = TheatersPage(driver)
+            self.theaters_page.set_custom_wait(20)
+            theaters_base_canvas = self.theaters_page.find_element(*self.theaters_locators.carousel_rv)
+            theaters_base_canvas_row = theaters_base_canvas.find_element(*self.theaters_locators.single_session_view)
 
             random_num = randrange(64, 255)  # 1000 to 3333 in 4 notation
             while True:
@@ -41,9 +45,9 @@ class TestTheatersPage:
                 if current_check == 0:
                     theaters_base_canvas.find_element(*self.theaters_locators.event_name)
                 elif current_check == 1:
-                    theaters_base_canvas.find_element(*self.theaters_locators.text_place_label)
+                    theaters_base_canvas_row.find_element(*self.theaters_locators.session_day_week)
                 elif current_check == 2:
-                    theaters_base_canvas_row.find_element(*self.theaters_locators.session_date)
+                    theaters_base_canvas_row.find_element(*self.theaters_locators.session_day_month)
                 elif current_check == 3:
                     theaters_base_canvas_row.find_element(*self.theaters_locators.session_price)
 

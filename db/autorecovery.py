@@ -33,8 +33,7 @@ def create_db_connection(ip_docker_postgres):
         'basicAuth': True,
         'database': 'metric_autotests',
         'basicAuthUser': 'n.permyakov',
-        'secureJsonData': {},
-        'sslmode': 'disable'
+        'secureJsonData': {}
     }
     data['secureJsonData']['basicAuthPassword'] = os.environ['ANDROID_HOST_PASSWORD']
     data['url'] = ip_docker_postgres + ':5432'
