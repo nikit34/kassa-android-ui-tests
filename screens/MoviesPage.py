@@ -54,8 +54,9 @@ class MoviesPage(RecordTimeout, Wait):
         elements[rand_index].click()
 
     def select_session(self, _number_session=0, _number_slide=0):
+        sleep(10)
         for i in range(_number_slide):
-            sleep(5)
+            sleep(3)
             self.act.swipe(80, 30, 20, 30)
         locator = self.movies_locators.session_date
         sessions = self.driver.find_elements(*locator)

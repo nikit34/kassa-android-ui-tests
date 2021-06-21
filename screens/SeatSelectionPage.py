@@ -84,7 +84,7 @@ class SeatSelectionPage(RecordTimeout, Wait):
                     r = pix[y, x][0]
                     g = pix[y, x][1]
                     b = pix[y, x][2]
-                    if r < 120 and 180 < g < 220 and b > 230:
+                    if r < 20 and 90 < g < 180 and b > 230:
                         x_normalize = x / width
                         y_normalize = y / height
                         x_screen = round(x_normalize * self.width, 2)

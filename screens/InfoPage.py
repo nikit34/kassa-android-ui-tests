@@ -1,4 +1,4 @@
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import InvalidArgumentException, NoSuchElementException
 
 from locators.info_locators import InfoPageLocators
 from templates.action import Action
@@ -25,10 +25,10 @@ class InfoPage(RecordTimeout, Wait):
             self.click(*self.info_locators.btn_cb_covid_term)
             self.act.swipe(50, 60, 50, 40)
             self.click(*self.info_locators.btn_covid_next)
-        except NoSuchElementException:
+        except (NoSuchElementException, InvalidArgumentException):
             try:
                 self.click(*self.info_locators.btn_covid_next)
-            except NoSuchElementException:
+            except (NoSuchElementException, InvalidArgumentException):
                 pass
             pass
 
