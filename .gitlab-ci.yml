@@ -67,7 +67,7 @@ app_job:
     - python3 telegram_bot/client.py -n app_job
   cache:
     untracked: true
-    key: ${CI_COMMIT_REF_SLUG}
+    key: cache
     paths:
       - ./project
     policy: push
@@ -114,7 +114,7 @@ compile_job:
     expire_in: 3 days
   cache:
     untracked: true
-    key: ${CI_COMMIT_REF_SLUG}
+    key: cache
     paths:
       - ./project
     policy: pull
@@ -200,7 +200,7 @@ history_job:
     expire_in: 3 days
   cache:
     untracked: true
-    key: ${CI_COMMIT_REF_SLUG}
+    key: cache
     paths:
       - ./allure-results
     policy: push
@@ -223,7 +223,7 @@ generate_job:
     expire_in: 3 days
   cache:
     untracked: true
-    key: ${CI_COMMIT_REF_SLUG}
+    key: cache
     paths:
       - ./allure-results
     policy: pull
@@ -254,7 +254,7 @@ upload_job:
     - python3 telegram_bot/client.py -n upload_job
   cache:
     untracked: true
-    key: ${CI_COMMIT_REF_SLUG}
+    key: cache
     paths:
       - ./allure-results
     policy: pull
