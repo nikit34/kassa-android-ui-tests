@@ -139,22 +139,6 @@ class TestMoviePage:
             sleep(1)
             self.movies_page.matching_text(*self.movies_locators.movies_title, pattern='Уже в продаже')
 
-    def test_from_premier_into_event_details(self, driver):
-        with allure.step('MoviesPage'):
-            self.movies_page = MoviesPage(driver)
-            self.movies_page.set_custom_wait(20)
-            sleep(5)
-            self.movies_page.act.swipe(50, 80, 50, 20)
-            self.movies_page.act.swipe(50, 80, 50, 20)
-            self.movies_page.act.swipe(50, 60, 50, 40)
-            sleep(1)
-            self.movies_page.click(*self.movies_locators.movies_title)
-            self.movies_page.click(*self.movies_locators.event_name)
-        with allure.step('EventsDetailsPage'):
-            self.events_details_page = EventsDetailsPage(driver)
-            self.events_details_page.set_custom_wait(20)
-            self.events_details_page.find_element(*self.events_details_locators.title)
-
     def test_premiers_are_available_(self, driver):
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)

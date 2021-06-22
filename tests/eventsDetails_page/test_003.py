@@ -58,3 +58,18 @@ class TestEventDetailsPage:
             self.event_details_page = EventsDetailsPage(driver)
             self.event_details_page.set_custom_wait(20)
             self.event_details_page.find_element(*self.events_details_locators.description)
+
+    def test_004(self, driver):
+        with allure.step('MoviesPage'):
+            self.movies_page = MoviesPage(driver)
+            self.movies_page.set_custom_wait(20)
+            sleep(5)
+            self.movies_page.act.swipe(50, 80, 50, 20)
+            sleep(1)
+            old_event_title = self.movies_page.find_element(*self.movies_locators.event_title).text
+            self.movies_page.click(*self.movies_locators.event_title)
+        with allure.step('EventsDetailsPage'):
+            self.events_details_page = EventsDetailsPage(driver)
+            self.events_details_page.set_custom_wait(20)
+            self.events_details_page.matching_text(*self.events_details_locators.title, equal=True, pattern=old_event_title)
+
