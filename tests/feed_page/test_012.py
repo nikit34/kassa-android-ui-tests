@@ -21,7 +21,7 @@ class TestFeedPage:
             self.movies_page.set_custom_wait(20)
             sleep(5)
             self.movies_page.act.swipe(50, 80, 50, 20)
-            self.movies_page.act.swipe(50, 80, 50, 20)
+            self.movies_page.act.swipe(50, 60, 50, 40)
             sleep(1)
             self.movies_page.click(*self.movies_locators.movies_title)
         with allure.step('FeedPage'):

@@ -33,3 +33,4 @@ class MoviesPageLocators(By):
         self.event_title = (self.ID, 'ru.rambler.kassa:id/eventTitle')
         self.right_btn = (self.ID, 'ru.rambler.kassa:id/rightBtn')
         self.title_tv = (self.ID, 'ru.rambler.kassa:id/titleTv')
+        self.img_event = (self.ID, 'ru.rambler.kassa:id/eventImg')

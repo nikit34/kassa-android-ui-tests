@@ -109,7 +109,7 @@ class TestMoviePage:
             self.event_details_page.set_custom_wait(20)
             self.event_details_page.find_element(*self.events_details_locators.description)
 
-    def test_popular_movies_are_visible_(self, driver):
+    def test_009(self, driver):
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)
@@ -119,17 +119,6 @@ class TestMoviePage:
             sleep(1)
             self.movies_page.click(*self.movies_locators.arrow_right)
             self.movies_page.find_element(*self.shedule_locators.event_name)
-
-    def test_popular_movies_are_visible__(self, driver):
-        with allure.step('MoviesPage'):
-            self.movies_page = MoviesPage(driver)
-            self.movies_page.set_custom_wait(20)
-            sleep(5)
-            self.movies_page.act.swipe(50, 80, 50, 20)
-            self.movies_page.act.swipe(50, 80, 50, 20)
-            sleep(1)
-            self.movies_page.click(*self.movies_locators.event_title)
-            self.movies_page.find_element(*self.events_details_locators.description)
 
     def test_premiers_are_available(self, driver):
         with allure.step('MoviesPage'):
