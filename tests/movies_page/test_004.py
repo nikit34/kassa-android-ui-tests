@@ -21,7 +21,7 @@ class TestMoviePage:
         cls.events_details_locators = EventsDetailsPageLocators()
         cls.shedule_locators = ShedulePageLocators()
 
-    def test_tab_movie_is_selected_when_app_opened(self, driver):
+    def test_001(self, driver):
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)

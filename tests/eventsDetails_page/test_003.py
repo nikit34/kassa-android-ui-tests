@@ -14,7 +14,7 @@ class TestEventDetailsPage:
         cls.movies_locators = MoviesPageLocators()
         cls.events_details_locators = EventsDetailsPageLocators()
 
-    def test_check_event_details(self, driver):
+    def test_001(self, driver):
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)
@@ -28,7 +28,7 @@ class TestEventDetailsPage:
             self.event_details_page.find_element(*self.events_details_locators.back_button)
             self.event_details_page.find_element(*self.events_details_locators.btn_shedule_ticket)
 
-    def test_closing_events_details_by_back_button_(self, driver):
+    def test_002(self, driver):
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)
