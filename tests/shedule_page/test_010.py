@@ -14,7 +14,7 @@ class TestShedulePage:
         cls.movies_locators = MoviesPageLocators()
         cls.shedule_locators = ShedulePageLocators()
 
-    def test_shedule_page_is_opened(self, driver):
+    def test_001(self, driver):
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)

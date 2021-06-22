@@ -14,7 +14,7 @@ class TestTicketsPage:
         cls.common_locators = CommonLocators()
         cls.tickets_locators = TicketsPageLocators()
 
-    def test_tickets_tab_are_opened(self, driver):
+    def test_001(self, driver):
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)

@@ -17,7 +17,7 @@ class TestTheatersPage:
         cls.seat_selection_locators = SeatSelectionLocators()
         cls.checkout_locators = CheckoutPageLocators()
 
-    def test_seat_selections_are_opened(self, driver):
+    def test_001(self, driver):
         with allure.step('MoviesPage'):
             self.movie_page = MoviesPage(driver)
             self.movie_page.set_custom_wait(20)
