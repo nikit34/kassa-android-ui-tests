@@ -10,7 +10,7 @@ class TheatersPageLocators(By):
         self.session_day_month = (self.ID, 'ru.rambler.kassa:id/sessionDayOfMonth')
         self.session_day_week = (self.ID, 'ru.rambler.kassa:id/sessionDayOfWeekHourMinutes')
         self.session_price = (self.ID, 'ru.rambler.kassa:id/sessionMinPrice')
-        self.compilation_img = (self.ID, 'ru.rambler.kassa:id/compilationImg')
+        self.img_popular_movies = (self.ID, 'ru.rambler.kassa:id/compilationImg')
         self.event_title = (self.ID, 'ru.rambler.kassa:id/eventTitle')
         self.event_genre = (self.ID, 'ru.rambler.kassa:id/eventGenre')
         self.carousel_rv = (self.ID, 'ru.rambler.kassa:id/carouselRv')

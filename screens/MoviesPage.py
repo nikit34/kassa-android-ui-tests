@@ -1,6 +1,6 @@
 import random
 from time import sleep
-
+from random import randrange
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, NoSuchElementException
 
 from templates.base import Wait
@@ -78,3 +78,25 @@ class MoviesPage(RecordTimeout, Wait):
             self.click_elem(tabs_elem[num])
         else:
             raise IndexError(f'[ERROR] num: {num} beyond limit of number of elements count: {len_tabs_elem}')
+
+    def check_carousel(self):
+        movie_base_canvas = self.find_element(*self.movies_locators.carousel_rv)
+        movie_base_canvas_row = self.find_element(*self.movies_locators.list_session_view)
+
+        random_num = randrange(64, 255)  # 1000 to 3333 in 4 notation
+        while True:
+            current_check = random_num % 4
+
+            if current_check == 0:
+                movie_base_canvas.find_element(*self.movies_locators.event_name)
+            elif current_check == 1:
+                movie_base_canvas.find_element(*self.movies_locators.place_label)
+            elif current_check == 2:
+                movie_base_canvas_row.find_element(*self.movies_locators.session_date)
+            elif current_check == 3:
+                movie_base_canvas_row.find_element(*self.movies_locators.session_price)
+
+            random_num //= 4
+            if random_num == 0:
+                break
+            self.act.swipe(80, 30, 20, 30)
