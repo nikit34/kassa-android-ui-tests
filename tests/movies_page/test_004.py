@@ -120,18 +120,24 @@ class TestMoviePage:
             self.movies_page.click(*self.movies_locators.arrow_right)
             self.movies_page.find_element(*self.shedule_locators.event_name)
 
-    def test_premiers_are_available(self, driver):
+    def test_010(self, driver):
+        with allure.step('MoviesPage'):
+            self.movies_page = MoviesPage(driver)
+            self.movies_page.set_custom_wait(20)
+            sleep(5)
+            self.movies_page.act.swipe(50, 60, 50, 40)
+            sleep(1)
+            self.movies_page.matching_text(*self.movies_locators.movies_title, pattern='Популярное')
+
+    def test_011(self, driver):
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)
             sleep(5)
             self.movies_page.act.swipe(50, 80, 50, 20)
             self.movies_page.act.swipe(50, 80, 50, 20)
-            self.movies_page.act.swipe(50, 60, 50, 40)
             sleep(1)
-            self.movies_page.matching_text(*self.movies_locators.movies_title, pattern='Скоро в кино')
-            self.movies_page.click(*self.movies_locators.movies_title)
-            self.movies_page.find_element(*self.movies_locators.event_name)
+            self.movies_page.matching_text(*self.movies_locators.movies_title, pattern='Уже в продаже')
 
     def test_from_premier_into_event_details(self, driver):
         with allure.step('MoviesPage'):
