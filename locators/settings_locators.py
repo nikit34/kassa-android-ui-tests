@@ -12,6 +12,5 @@ class SettingsPageLocators(By):
         self.input = (self.ID, 'ru.rambler.kassa:id/input')
         self.list_of_cities = (self.ID, 'ru.rambler.kassa:id/citiesRv')
         self.city = (self.ID, 'ru.rambler.kassa:id/cityTitle')
-
-
-
+        self.img_card_empty = (self.ID, 'ru.rambler.kassa:id/itemCardImage')
+        self.text_support_contacts = (self.ID, 'ru.rambler.kassa:id/profileItemTitle')

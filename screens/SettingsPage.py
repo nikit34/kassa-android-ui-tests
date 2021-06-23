@@ -20,14 +20,23 @@ class SettingsPage(RecordTimeout, Wait):
 
     def check_settings_list(self):
         rows_settings = self.driver.find_elements(*self.settings_locators.profile_item_title)
-        valid_rows = ['Мои карты', 'Бонусные карты', 'Техподдержка', 'FAQ', 'Геолокация', 'Москва', 'Уведомления', 'Темы', 'О приложении', 'Выход']
+        valid_rows = ['Мои карты', 'Бонусные карты', 'Техподдержка', 'FAQ', 'Геолокация', 'Москва', 'Уведомления', 'Темы', 'О приложении']
         for i, row_templates in enumerate(valid_rows):
             assert rows_settings[i].text == row_templates, f'no comparison: {rows_settings[i].text} - {row_templates}'
 
     def check_switch_city(self, input_city, valid_city, old_city=None):
-        self.click(*self.settings_locators.profile_item_title, text=old_city)
+        elem_city = self.driver.find_elements(*self.settings_locators.profile_item_title)[5]
+        assert elem_city.text == old_city, f'[ERROR] invalid city: {elem_city.text} != {old_city}'
+        self.click_elem(elem_city)
         self.input(input_city, *self.settings_locators.input)
-        cities = self.driver.find_elements(*self.settings_locators.city)
-        assert valid_city == cities[0].text, f'invalid sent {cities[0]}'
+        cities = self.find_element(*self.settings_locators.city)
+        assert valid_city == cities.text, f'[ERROR] invalid city: {cities}'
         self.click(*self.settings_locators.city)
+        elem_city = self.driver.find_elements(*self.settings_locators.profile_item_title)[5]
+        assert elem_city.text == valid_city, f'[ERROR] invalid city: {elem_city.text} != {old_city}'
 
+    def check_techsupport_contacts(self):
+        elem_contacts = self.driver.find_elements(*self.settings_locators.text_support_contacts)
+        valid_rows = ['8 (800) 505 67 91', 'kassa@rambler-co.ru', 'Instagram', 'Facebook', 'Vk', 'Twitter', 'm.kassa@rambler-co.ru']
+        for i, row_templates in enumerate(valid_rows):
+            assert elem_contacts[i].text == row_templates, f'no comparison: {elem_contacts[i].text} - {row_templates}'
