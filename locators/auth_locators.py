@@ -5,7 +5,7 @@ class AuthPageLocators(By):
     def __init__(self):
         super(By, self).__init__()
 
-        self.profile_settings_icon = (self.ID, 'ru.rambler.kassa:id/profileSettingIcon')
-        self.settings_btn = (self.ID, 'ru.rambler.kassa:id/settingBtn')
-        self.login_button = (self.ID, 'ru.rambler.kassa:id/loginBtn')
-        self.profile_name = (self.ID, 'ru.rambler.kassa:id/profileName')
+        self.btn_settings = (self.ID, 'ru.rambler.kassa:id/settingBtn')
+        self.btn_login = (self.ID, 'ru.rambler.kassa:id/loginBtn')
+        self.btn_sber_login = (self.ID, 'ru.rambler.kassa:id/loginSberbankBtn')
+        self.text_conditions = (self.ID, 'ru.rambler.kassa:id/tvTermsAndConditionsAgreements')

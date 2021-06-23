@@ -31,5 +31,7 @@ class TestAuthPage:
         with allure.step("AuthPage"):
             self.auth_page = AuthPage(driver)
             self.auth_page.pass_popup()
-            self.auth_page.find_element(*self.auth_locators.settings_btn)
-            self.auth_page.find_element(*self.auth_locators.login_button)
+            self.auth_page.find_element(*self.auth_locators.btn_settings)
+            self.auth_page.find_element(*self.auth_locators.btn_login)
+            self.auth_page.find_element(*self.auth_locators.btn_sber_login)
+            self.auth_page.find_element(*self.auth_locators.text_conditions)
