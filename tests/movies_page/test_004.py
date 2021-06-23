@@ -9,6 +9,7 @@ from screens.EventDetailsPage import EventsDetailsPage
 from screens.MoviesPage import MoviesPage
 from locators.common_locators import CommonLocators
 from screens.ShedulePage import ShedulePage
+from utils.internet import switch_airplane_mode
 
 
 @pytest.mark.usefixtures('driver')
@@ -138,3 +139,13 @@ class TestMoviePage:
             self.movies_page.act.swipe(50, 80, 50, 20)
             sleep(1)
             self.movies_page.matching_text(*self.movies_locators.movies_title, pattern='Уже в продаже')
+
+    def test_012(self, driver):
+        with allure.step('MoviesPage'):
+            self.movies_page = MoviesPage(driver)
+            self.movies_page.set_custom_wait(20)
+            switch_airplane_mode(driver, to_state=True)
+            self.movies_page.click(*self.movies_locators.tab)
+            self.movies_page.find_element(*self.movies_locators.movies_title)
+            self.movies_page.find_element(*self.movies_locators.fastbuy_ticket_id)
+            switch_airplane_mode(driver, to_state=False)
