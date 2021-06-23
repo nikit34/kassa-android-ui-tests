@@ -2,6 +2,7 @@ from locators.settings_locators import SettingsPageLocators
 from templates.action import Action
 from templates.base import Wait
 from templates.statistic import RecordTimeout
+from utils.factory_screenshots import Screenshot
 
 
 class SettingsPage(RecordTimeout, Wait):
@@ -40,3 +41,25 @@ class SettingsPage(RecordTimeout, Wait):
         valid_rows = ['8 (800) 505 67 91', 'kassa@rambler-co.ru', 'Instagram', 'Facebook', 'Vk', 'Twitter', 'm.kassa@rambler-co.ru']
         for i, row_templates in enumerate(valid_rows):
             assert elem_contacts[i].text == row_templates, f'no comparison: {elem_contacts[i].text} - {row_templates}'
+
+    def check_text_theme(self):
+        elem_switchers = self.driver.find_elements(*self.settings_locators.rows_text_theme_switcher)
+        assert elem_switchers[0].text == 'Системная тема', f'[ERROR] text system theme is not valid'
+        assert elem_switchers[1].text == 'Светлая тема', f'[ERROR] text light theme is not valid'
+        assert elem_switchers[2].text == 'Тмная тема', f'[ERROR] text dark theme is not valid'
+
+    def switch_theme(self, num_mode_theme):
+        if num_mode_theme > 2:
+            raise ValueError('Application has only three modes')
+        elem_switchers = self.driver.find_elements(*self.settings_locators.rows_text_theme_switcher)
+        self.click_elem(elem_switchers[num_mode_theme])
+
+    def check_dark_theme(self, dark):
+        screenshot = Screenshot(self.driver)
+        pixs = Screenshot.convert_img_pixels(screenshot.path)
+        if dark:
+            if pixs.sum() > 250000000:
+                raise AssertionError('[FAILED] light theme app')
+        else:
+            if pixs.sum() < 1500000000:
+                raise AssertionError('[FAILED] dark theme app')

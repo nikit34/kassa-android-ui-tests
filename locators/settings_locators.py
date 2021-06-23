@@ -14,3 +14,4 @@ class SettingsPageLocators(By):
         self.city = (self.ID, 'ru.rambler.kassa:id/cityTitle')
         self.img_card_empty = (self.ID, 'ru.rambler.kassa:id/itemCardImage')
         self.text_support_contacts = (self.ID, 'ru.rambler.kassa:id/profileItemTitle')
+        self.rows_text_theme_switcher = (self.ID, 'ru.rambler.kassa:id/themeSwitch')
