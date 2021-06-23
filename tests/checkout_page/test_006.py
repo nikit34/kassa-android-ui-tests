@@ -36,3 +36,25 @@ class TestTheatersPage:
             self.check_out_page.find_element(*self.checkout_locators.text_total_price)
             self.check_out_page.find_element(*self.checkout_locators.text_event_title)
             self.check_out_page.find_element(*self.checkout_locators.btn_continue)
+
+    def test_002(self, driver):
+        with allure.step('MoviesPage'):
+            self.movie_page = MoviesPage(driver)
+            self.movie_page.set_custom_wait(20)
+            self.movie_page.select_session()
+        with allure.step('InfoPage'):
+            self.info_page = InfoPage(driver)
+            self.info_page.set_custom_wait(20)
+            self.info_page.pass_without_info()
+        with allure.step('SeatSelectionPage'):
+            self.seat_selection_page = SeatSelectionPage(driver)
+            self.seat_selection_page.set_custom_wait(20)
+            self.seat_selection_page.skip_seat_selection()
+            self.seat_selection_page.click(*self.seat_selection_locators.btn_continue)
+        with allure.step('CheckOutPage'):
+            self.check_out_page = CheckOutPage(driver)
+            self.check_out_page.set_custom_wait(20)
+            self.check_out_page.act.swipe(50, 70, 50, 30)
+            self.check_out_page.input(*self.checkout_locators.input_email, 'n.permyakov@rambler-co.ru')
+            self.check_out_page.input(*self.checkout_locators.input_phone, '9779918074')
+            self.check_out_page.click(*self.checkout_locators.btn_continue)
