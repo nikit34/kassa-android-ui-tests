@@ -118,7 +118,7 @@ class SeatSelectionPage(RecordTimeout, Wait):
             else:
                 raise ValueError(f'[FAILED] count_places: {count_places} - invalid interval counts')
             try:
-                elem = self.driver.find_element(self.valid_locator)
+                elem = self.driver.find_element(*self.valid_locator)
                 assert elem.text == valid_str_tap
                 return True
             except (NoSuchElementException, AssertionError) as error:

@@ -66,7 +66,7 @@ class TestMoviePage:
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)
-            self.movies_page.click_random(*self.movies_locators.img_popular_movies, 2)
+            self.movies_page.click_random(*self.movies_locators.img_popular_movies, 1)
         with allure.step('EventsDetailsPage'):
             self.event_detail_page = EventsDetailsPage(driver)
             self.event_detail_page.set_custom_wait(20)

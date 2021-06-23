@@ -33,6 +33,6 @@ class TestTheatersPage:
         with allure.step('CheckOutPage'):
             self.check_out_page = CheckOutPage(driver)
             self.check_out_page.set_custom_wait(20)
-            self.check_out_page.find_element(*self.checkout_locators.total_price)
-            self.check_out_page.find_element(*self.checkout_locators.btn_buy_ipay)
-            self.check_out_page.click(*self.checkout_locators.btn_buy)
+            self.check_out_page.find_element(*self.checkout_locators.text_total_price)
+            self.check_out_page.find_element(*self.checkout_locators.text_event_title)
+            self.check_out_page.find_element(*self.checkout_locators.btn_continue)
