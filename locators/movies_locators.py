@@ -31,6 +31,7 @@ class MoviesPageLocators(By):
         self.text_location = (self.ID, 'ru.rambler.kassa:id/location')
         self.filters_carousel = (self.ID, 'ru.rambler.kassa:id/filtersRv')
         self.event_title = (self.ID, 'ru.rambler.kassa:id/eventTitle')
+        self.event_genre = (self.ID, 'ru.rambler.kassa:id/eventGenre')
         self.right_btn = (self.ID, 'ru.rambler.kassa:id/rightBtn')
         self.title_tv = (self.ID, 'ru.rambler.kassa:id/titleTv')
         self.img_event = (self.ID, 'ru.rambler.kassa:id/eventImg')

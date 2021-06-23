@@ -6,6 +6,8 @@ from screens.MoviesPage import MoviesPage
 from locators.theaters_locators import TheatersPageLocators
 from locators.movies_locators import MoviesPageLocators
 from screens.TheatersPage import TheatersPage
+from utils.internet import switch_airplane_mode
+from locators.nointernet_locators import NoInternetPageLocators
 
 
 @pytest.mark.usefixtures('driver')
@@ -14,6 +16,7 @@ class TestTheatersPage:
     def setup_class(cls):
         cls.movies_locators = MoviesPageLocators()
         cls.theaters_locators = TheatersPageLocators()
+        cls.nointernet_locators = NoInternetPageLocators()
 
     def test_001(self, driver):
         with allure.step('MoviesPage'):
@@ -40,11 +43,11 @@ class TestTheatersPage:
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)
-            sleep(5)
-            self.movies_page.act.swipe(50, 80, 50, 20)
-            self.movies_page.act.swipe(50, 60, 50, 40)
-            sleep(1)
-            self.movies_page.matching_text(*self.theaters_locators.title, pattern='Уже в продаже')
-            self.movies_page.find_element(*self.theaters_locators.event_title)
-            self.movies_page.find_element(*self.theaters_locators.event_genre)
-
+            switch_airplane_mode(driver, to_state=True)
+            self.movies_page.click_tab(1)
+        with allure.step('TheatersPage'):
+            self.theaters_page = TheatersPage(driver)
+            self.theaters_page.set_custom_wait(20)
+            self.theaters_page.find_element(*self.nointernet_locators.btn_reload)
+            self.theaters_page.find_element(*self.nointernet_locators.img_reload)
+            switch_airplane_mode(driver, to_state=False)

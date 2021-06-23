@@ -139,6 +139,8 @@ class TestMoviePage:
             self.movies_page.act.swipe(50, 80, 50, 20)
             sleep(1)
             self.movies_page.matching_text(*self.movies_locators.movies_title, pattern='Уже в продаже')
+            self.movies_page.find_element(*self.movies_locators.event_title)
+            self.movies_page.find_element(*self.movies_locators.event_genre)
 
     def test_012(self, driver):
         with allure.step('MoviesPage'):
