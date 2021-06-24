@@ -53,9 +53,9 @@ class TestTheatersPage:
             self.seat_selection_page.skip_seat_selection()
             dbg_api = DebugAPI.run(request=True, response=True)
             self.seat_selection_page.click(*self.seat_selection_locators.btn_continue)
+        with allure.step('CheckOutPage'):
             dbg_api.kill()
             dbg_api.clear_buffer()
-        with allure.step('CheckOutPage'):
             self.check_out_page = CheckOutPage(driver)
             self.check_out_page.set_custom_wait(20)
             self.check_out_page.click(*self.checkout_locators.btn_continue)

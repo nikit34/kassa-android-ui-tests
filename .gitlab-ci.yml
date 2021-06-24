@@ -1,4 +1,4 @@
-# ssh npermyakov@10.60.21.50
+# ssh npermyakov@10.60.20.108
 stages:
   - intro
   - clear

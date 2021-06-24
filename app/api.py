@@ -7,6 +7,8 @@ import requests
 import threading
 import asyncio
 
+from utils.internet import contains_ip
+
 
 def handle_errors_http(msg=''):
     def decorator(func):
@@ -110,7 +112,8 @@ class DebugAPI:
         m.run_loop(loop.run_forever)
 
     def _setup(self):
-        options = Options(listen_host='0.0.0.0', listen_port=8080, http2=True)
+        current_ip = contains_ip()
+        options = Options(listen_host=current_ip, listen_port=8080, http2=True)
         m = DumpMaster(options, with_termlog=False, with_dumper=False)
         config = ProxyConfig(options)
         m.server = ProxyServer(config)

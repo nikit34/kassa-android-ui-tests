@@ -1,4 +1,5 @@
 from appium.webdriver.common.mobileby import MobileBy
+import os
 
 from templates.action import Action
 
@@ -18,3 +19,13 @@ def switch_airplane_mode(driver, to_state=True):
         assert elem.text == 'On', f'[ERROR] state Internet connection is not valid'
     elem.click()
     act.swipe(50, 90, 50, 30)
+
+
+def contains_ip():
+    supposed_ip = ['10.60.20.152', '10.60.20.108']
+    output = os.popen('ifconfig').read()
+    for s_ip in supposed_ip:
+        if s_ip in output:
+            return s_ip
+    else:
+        raise ValueError('ip has been changed')
