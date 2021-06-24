@@ -104,13 +104,14 @@ compile_job:
   script:
     - cd project
     - ./gradlew app:assembleKassa
+    - ls app/build/outputs/apk/kassa/debug
     - mv app/build/outputs/apk/kassa/debug/app-kassa-debug.apk ../app/
   after_script:
     - python3 telegram_bot/client.py -n compile_job
   artifacts:
     when: always
     paths:
-      - ./app/app-kassa-release.apk
+      - ./app/app-kassa-debug.apk
     expire_in: 3 days
   cache:
     untracked: true
@@ -127,13 +128,13 @@ install_job:
     - android-host
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S apt-get update || true
-    - echo $ANDROID_HOST_PASSWORD | sudo -S adb install ./app/app-kassa-release.apk || true
+    - echo $ANDROID_HOST_PASSWORD | sudo -S adb install ./app/app-kassa-debug.apk || true
   after_script:
     - python3 telegram_bot/client.py -n install_job
   artifacts:
     when: always
     paths:
-      - ./app/app-kassa-release.apk
+      - ./app/app-kassa-debug.apk
     expire_in: 3 days
   rules:
     - if: '$WITHOUT_TESTS != "True"'
@@ -162,7 +163,7 @@ pytest_job:
     - rm -r ./allure-results && mkdir ./allure-results || mkdir ./allure-results || true
     - echo $ANDROID_HOST_PASSWORD | sudo -S killall java || true
   script:
-    - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-release.apk
+    - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-debug.apk
     - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host'
     - coverage xml
   after_script:

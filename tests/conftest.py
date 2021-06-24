@@ -37,7 +37,7 @@ def pytest_runtest_makereport(item, call):
 @pytest.fixture(scope='function')
 def driver_noCache(request):
     if request.config.getoption('--host'):
-        DESIRED_CAPS_NO_CACHE_HOST['app'] = os.getcwd() + '/app/app-kassa-release.apk'
+        DESIRED_CAPS_NO_CACHE_HOST['app'] = os.getcwd() + '/app/app-kassa-debug.apk'
         driver = webdriver.Remote(APPIUM_HOST, desired_capabilities=DESIRED_CAPS_NO_CACHE_HOST)
     else:
         driver = webdriver.Remote(APPIUM_LOCAL, desired_capabilities=DESIRED_CAPS_NO_CACHE_LOCAL)
@@ -50,7 +50,7 @@ def driver_noCache(request):
 @pytest.fixture(scope='function')
 def driver(request):
     if request.config.getoption('--host'):
-        DESIRED_CAPS_HOST['app'] = os.getcwd() + '/app/app-kassa-release.apk'
+        DESIRED_CAPS_HOST['app'] = os.getcwd() + '/app/app-kassa-debug.apk'
         driver = webdriver.Remote(APPIUM_HOST, desired_capabilities=DESIRED_CAPS_HOST)
     else:
         driver = webdriver.Remote(APPIUM_LOCAL, desired_capabilities=DESIRED_CAPS_LOCAL)
