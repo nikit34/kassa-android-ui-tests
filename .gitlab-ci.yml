@@ -104,7 +104,7 @@ compile_job:
   script:
     - cd project
     - ./gradlew app:assembleKassa
-    - mv app/build/outputs/apk/kassa/release/app-kassa-release.apk ../app/
+    - mv app/build/outputs/apk/kassa/debug/app-kassa-debug.apk ../app/
   after_script:
     - python3 telegram_bot/client.py -n compile_job
   artifacts:

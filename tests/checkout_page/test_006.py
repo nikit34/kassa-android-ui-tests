@@ -54,7 +54,8 @@ class TestTheatersPage:
         with allure.step('CheckOutPage'):
             self.check_out_page = CheckOutPage(driver)
             self.check_out_page.set_custom_wait(20)
-            self.check_out_page.act.swipe(50, 70, 50, 30)
+            self.check_out_page.click(*self.checkout_locators.btn_continue)
+            self.check_out_page.act.swipe(50, 40, 50, 60)
             self.check_out_page.input(*self.checkout_locators.input_email, 'n.permyakov@rambler-co.ru')
             self.check_out_page.input(*self.checkout_locators.input_phone, '9779918074')
             self.check_out_page.click(*self.checkout_locators.btn_continue)
