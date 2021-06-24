@@ -5,8 +5,8 @@ class EventsDetailsPageLocators(By):
     def __init__(self):
         super(By, self).__init__()
 
-        self.back_button = (self.ID, 'ru.rambler.kassa:id/leftIcon')
-        self.like_button = (self.ID, 'ru.rambler.kassa:id/favoriteBtn')
-        self.title = (self.ID, 'ru.rambler.kassa:id/title')
-        self.description = (self.ID, 'ru.rambler.kassa:id/description')
-        self.btn_shedule_ticket = (self.ID, 'ru.rambler.kassa:id/buyTicketBtn')
+        self.back_button = (self.ID, 'ru.rambler.kassa.dev:id/leftIcon')
+        self.like_button = (self.ID, 'ru.rambler.kassa.dev:id/favoriteBtn')
+        self.title = (self.ID, 'ru.rambler.kassa.dev:id/title')
+        self.description = (self.ID, 'ru.rambler.kassa.dev:id/description')
+        self.btn_shedule_ticket = (self.ID, 'ru.rambler.kassa.dev:id/buyTicketBtn')

@@ -7,6 +7,7 @@ from screens.CheckOutPage import CheckOutPage
 from screens.InfoPage import InfoPage
 from locators.seat_selection_locators import SeatSelectionLocators
 from locators.checkout_locators import CheckoutPageLocators
+from app.api import DebugAPI
 
 
 @pytest.mark.usefixtures('driver')
@@ -50,7 +51,10 @@ class TestTheatersPage:
             self.seat_selection_page = SeatSelectionPage(driver)
             self.seat_selection_page.set_custom_wait(20)
             self.seat_selection_page.skip_seat_selection()
+            dbg_api = DebugAPI.run(request=True, response=True)
             self.seat_selection_page.click(*self.seat_selection_locators.btn_continue)
+            dbg_api.kill()
+            dbg_api.clear_buffer()
         with allure.step('CheckOutPage'):
             self.check_out_page = CheckOutPage(driver)
             self.check_out_page.set_custom_wait(20)

@@ -5,9 +5,9 @@ class PopupLocators(By):
     def __init__(self):
         super(By, self).__init__()
 
-        self.header = (self.ID, 'ru.rambler.kassa:id/headerTv')
-        self.next_btn = (self.ID, 'ru.rambler.kassa:id/nextBtn')
-        self.description = (self.ID, 'ru.rambler.kassa:id/descriptionTv')
+        self.header = (self.ID, 'ru.rambler.kassa.dev:id/headerTv')
+        self.next_btn = (self.ID, 'ru.rambler.kassa.dev:id/nextBtn')
+        self.description = (self.ID, 'ru.rambler.kassa.dev:id/descriptionTv')
         self.permission_msg = (self.ID, 'com.android.permissioncontroller:id/permission_message')
         self.permission_allow_btn = (self.ID, 'com.android.permissioncontroller:id/permission_allow_button')
         self.permission_deny_btn = (self.ID, 'com.android.permissioncontroller:id/permission_deny_button')
