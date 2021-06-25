@@ -113,7 +113,7 @@ class DebugAPI:
 
     def _setup(self):
         current_ip = contains_ip()
-        options = Options(listen_host=current_ip, listen_port=8080, http2=True)
+        options = Options(listen_host=current_ip, listen_port=8080)
         m = DumpMaster(options, with_termlog=False, with_dumper=False)
         config = ProxyConfig(options)
         m.server = ProxyServer(config)

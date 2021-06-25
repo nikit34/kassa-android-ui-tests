@@ -77,10 +77,8 @@ def switch_proxy_mode(driver, to_state=True):
             driver.find_element(*BTN_ROW_PROXY_NETWORK_DETAILS).click()
             driver.find_elements(*BTN_ROW_PROXY_MODES_NETWORK_DETAILS)[0].click()
     except NoSuchElementException:
-        pass
+        print('proxy mode has already been set')
     driver.find_element(*BTN_SAVE_MODIFY).click()
-    driver.back()
-    driver.back()
-    driver.back()
-    driver.back()
+    for _ in range(4):
+        driver.back()
 
