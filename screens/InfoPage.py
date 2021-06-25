@@ -32,3 +32,6 @@ class InfoPage(RecordTimeout, Wait):
                 pass
             pass
 
+    def recognize_next_page(self, dbg_api):
+        for line in dbg_api.read_buffer():
+            print(line)

@@ -131,7 +131,6 @@ class DebugAPI:
     def run(cls, request=True, response=True):
         self = cls(request, response)
         m = self._setup()
-        self.enable_proxy(mode=True)
         loop = asyncio.get_event_loop()
         t = threading.Thread(target=self._loop_in_thread, args=(loop, m))
         t.start()
@@ -142,16 +141,6 @@ class DebugAPI:
     def kill(self):
         self.m.shutdown()
         self.t.join()
-        self.enable_proxy(mode=False)
-
-    @staticmethod
-    def enable_proxy(mode=True):
-        pass
-        # TODO: automate for android
-        # if mode:
-        #     os.system(f'echo "{os.environ["IOS_HOST_PASSWORD"]}" | sudo -S networksetup -setsecurewebproxy Wi-Fi 0.0.0.0 8080')
-        # else:
-        #     os.system(f'echo "{os.environ["IOS_HOST_PASSWORD"]}" | sudo -S networksetup -setsecurewebproxystate Wi-Fi off')
 
     def read_buffer(self):
         with open(self.path_log, 'r') as reader:
