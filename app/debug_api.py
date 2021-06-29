@@ -101,6 +101,7 @@ class DebugAPI:
         self.t.join()
         if bool(self.switch_proxy_driver):
             switch_proxy_mode(self.switch_proxy_driver, False)
+        self.clear_buffer()
 
     def read_buffer(self, read_mapi=True):
         file = self.path_log
@@ -114,8 +115,8 @@ class DebugAPI:
 
     @staticmethod
     def get_content_response(line):
-        split_line = line.split(';')
-        if len(split_line) != 5:
+        split_line = line.split(';', 4)
+        if len(split_line) < 5:
             raise ValueError('response is not valid')
         return json.loads(split_line[4])
 

@@ -11,3 +11,4 @@ class InfoPageLocators(By):
         self.btn_covid_next = (self.ID, 'ru.rambler.kassa.dev:id/btnCovidNext')
         self.btn_cancel = (self.ID, 'ru.rambler.kassa.dev:id/bannerYearCloseBtn')
         self.btn_accept_years = (self.ID, 'ru.rambler.kassa.dev:id/bannerYearAcceptBtn')
+        self.btn_accept_3d = (self.ID, 'ru.rambler.kassa.dev:id/acceptBtn')

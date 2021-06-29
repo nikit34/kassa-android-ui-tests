@@ -56,6 +56,8 @@ class TestTheatersPage:
                 self.info_page.click(*self.info_locators.btn_accept_years)
             if 'covidNotification' in self.info_page.recognize_page(dbg_api):
                 self.info_page.pass_without_info()
+            if 'infoAbout3DGlasses' in self.info_page.recognize_page(dbg_api):
+                self.info_page.click(*self.info_page.info_locators.btn_accept_3d)
             dbg_api.kill()
         with allure.step('SeatSelectionPage'):
             self.seat_selection_page = SeatSelectionPage(driver)

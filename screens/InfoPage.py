@@ -38,20 +38,25 @@ class InfoPage(RecordTimeout, Wait):
     def recognize_page(self, dbg_api):
         type_page = []
         for line in dbg_api.read_buffer(read_mapi=True):
-            if CheckAPI.check_single_page_url('/creations/movie/', line=line, dbg_api=dbg_api):
+            if CheckAPI.check_single_page_url('/creations/movie/', line=line, num_after=6):
                 content = dbg_api.get_content_response(line)
                 try:
                     if content['ageRestriction'] >= 18:
                         type_page.append('ageRestriction')
                 except KeyError as error:
                     print('key \"ageRestriction\" is not exist: ', error)
-            if CheckAPI.check_single_page_url('/hall/', line=line, dbg_api=dbg_api):
+            if CheckAPI.check_single_page_url('/hall/', line=line, num_after=8):
                 content = dbg_api.get_content_response(line)
                 try:
                     if 'covidNotification' in content:
                         type_page.append('covidNotification')
                 except KeyError as error:
                     print('key \"covidNotification\" is not exist: ', error)
+                try:
+                    if 'infoAbout3DGlasses' in content:
+                        type_page.append('infoAbout3DGlasses')
+                except KeyError as error:
+                    print('key \"infoAbout3DGlasses\" is not exist: ', error)
         return type_page
 
 
