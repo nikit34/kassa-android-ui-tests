@@ -123,3 +123,6 @@ class DebugAPI:
     def clear_buffer(self):
         open(self.path_log + 'mapi.log', 'w').close()
         open(self.path_log + 'other.log', 'w').close()
+
+    def keep_buffer(self, old_name='mapi.log', new_name=''):
+        os.rename(self.path_log + old_name, self.path_log + new_name)

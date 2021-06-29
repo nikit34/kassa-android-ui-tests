@@ -12,3 +12,4 @@ class InfoPageLocators(By):
         self.btn_cancel = (self.ID, 'ru.rambler.kassa.dev:id/bannerYearCloseBtn')
         self.btn_accept_years = (self.ID, 'ru.rambler.kassa.dev:id/bannerYearAcceptBtn')
         self.btn_accept_3d = (self.ID, 'ru.rambler.kassa.dev:id/acceptBtn')
+        self.btn_tickets_ended = (self.ID, 'ru.rambler.kassa.dev:id/rightBtn')

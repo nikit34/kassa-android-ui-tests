@@ -58,12 +58,14 @@ class TestTheatersPage:
                 self.info_page.pass_without_info()
             if 'infoAbout3DGlasses' in self.info_page.recognize_page(dbg_api):
                 self.info_page.click(*self.info_page.info_locators.btn_accept_3d)
-            dbg_api.kill()
+            dbg_api.keep_buffer('mapi.log', 'mapi_old.log')
+            dbg_api.clear_buffer()
         with allure.step('SeatSelectionPage'):
             self.seat_selection_page = SeatSelectionPage(driver)
             self.seat_selection_page.set_custom_wait(20)
             self.seat_selection_page.skip_seat_selection(dbg_select_seat=False)
             self.seat_selection_page.click(*self.seat_selection_locators.btn_continue)
+            dbg_api.kill()
         with allure.step('CheckOutPage'):
             self.check_out_page = CheckOutPage(driver)
             self.check_out_page.set_custom_wait(20)
