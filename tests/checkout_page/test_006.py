@@ -1,5 +1,6 @@
 import pytest
 import allure
+from time import sleep
 
 from screens.MoviesPage import MoviesPage
 from screens.SeatSelectionPage import SeatSelectionPage
@@ -46,13 +47,15 @@ class TestTheatersPage:
             self.movie_page = MoviesPage(driver)
             self.movie_page.set_custom_wait(20)
             self.movie_page.select_session()
+            sleep(2)
         with allure.step('InfoPage'):
             self.info_page = InfoPage(driver)
             self.info_page.set_custom_wait(20)
-            if self.info_page.recognize_page(dbg_api) == 'ageRestriction':
+            if 'ageRestriction' in self.info_page.recognize_page(dbg_api):
                 self.info_page.find_element(*self.info_locators.btn_cancel)
                 self.info_page.click(*self.info_locators.btn_accept_years)
-            self.info_page.pass_without_info()
+            if 'covidNotification' in self.info_page.recognize_page(dbg_api):
+                self.info_page.pass_without_info()
             dbg_api.kill()
         with allure.step('SeatSelectionPage'):
             self.seat_selection_page = SeatSelectionPage(driver)
@@ -62,8 +65,8 @@ class TestTheatersPage:
         with allure.step('CheckOutPage'):
             self.check_out_page = CheckOutPage(driver)
             self.check_out_page.set_custom_wait(20)
-            self.check_out_page.click(*self.checkout_locators.btn_continue)
-            self.check_out_page.act.swipe(50, 40, 50, 60)
-            self.check_out_page.input(*self.checkout_locators.input_email, 'n.permyakov@rambler-co.ru')
-            self.check_out_page.input(*self.checkout_locators.input_phone, '9779918074')
+            sleep(2)
+            self.check_out_page.act.swipe(50, 60, 50, 40)
+            self.check_out_page.input('n.permyakov@rambler-co.ru', *self.checkout_locators.input_email)
+            self.check_out_page.input('9779918074', *self.checkout_locators.input_phone)
             self.check_out_page.click(*self.checkout_locators.btn_continue)
