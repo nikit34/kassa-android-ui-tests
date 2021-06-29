@@ -1,7 +1,6 @@
-from time import sleep
-
 import pytest
 import allure
+from time import sleep
 
 from screens.MoviesPage import MoviesPage
 from screens.SeatSelectionPage import SeatSelectionPage
@@ -10,7 +9,6 @@ from screens.InfoPage import InfoPage
 from locators.seat_selection_locators import SeatSelectionLocators
 from locators.checkout_locators import CheckoutPageLocators
 from app.api import DebugAPI
-from utils.internet import switch_proxy_mode
 
 
 @pytest.mark.usefixtures('driver')
@@ -43,25 +41,22 @@ class TestTheatersPage:
 
     def test_002(self, driver):
         with allure.step('MoviesPage'):
+            dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=False)
             self.movie_page = MoviesPage(driver)
             self.movie_page.set_custom_wait(20)
-            switch_proxy_mode(driver, True)
-            dbg_api = DebugAPI.run(request=True, response=True)
             self.movie_page.select_session()
         with allure.step('InfoPage'):
             self.info_page = InfoPage(driver)
             self.info_page.set_custom_wait(20)
-            self.info_page.pass_without_info()
             self.info_page.recognize_next_page(dbg_api)
-            switch_proxy_mode(driver, False)
+            self.info_page.pass_without_info()
+            dbg_api.kill()
         with allure.step('SeatSelectionPage'):
             self.seat_selection_page = SeatSelectionPage(driver)
             self.seat_selection_page.set_custom_wait(20)
-            self.seat_selection_page.skip_seat_selection()
+            self.seat_selection_page.skip_seat_selection(dbg_select_seat=False)
             self.seat_selection_page.click(*self.seat_selection_locators.btn_continue)
         with allure.step('CheckOutPage'):
-            dbg_api.kill()
-            dbg_api.clear_buffer()
             self.check_out_page = CheckOutPage(driver)
             self.check_out_page.set_custom_wait(20)
             self.check_out_page.click(*self.checkout_locators.btn_continue)

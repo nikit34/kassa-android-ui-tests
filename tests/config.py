@@ -26,8 +26,6 @@ DESIRED_CAPS_NO_CACHE_LOCAL = {
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'appWaitActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'noReset': False,
-  'wdaLocalPort': 8100,
-  'wdaBaseUrl': 'http://localhost',
 
 }
 
@@ -36,7 +34,5 @@ DESIRED_CAPS_LOCAL = {
   'appPackage': 'ru.rambler.kassa.dev',
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'noReset': True,
-  'wdaLocalPort': 8100,
-  'wdaBaseUrl': 'http://localhost',
 }
 

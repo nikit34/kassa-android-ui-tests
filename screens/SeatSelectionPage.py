@@ -126,13 +126,13 @@ class SeatSelectionPage(RecordTimeout, Wait):
                 print('[ERROR] tickets count is invalid')
             return False
 
-    def skip_seat_selection(self, count_places=1):
+    def skip_seat_selection(self, count_places=1, dbg_select_seat=False):
         sleep(1)
         screenshot = Screenshot(self.driver)
-        self.select_seat(screenshot.path, count_places=count_places)
+        self.select_seat(screenshot.path, count_places=count_places, dbg_select_seat=dbg_select_seat)
         del screenshot.file
 
-    def select_seat(self, path, count_places=1):
+    def select_seat(self, path, count_places=1, dbg_select_seat=False):
         selector_seat = self.SelectorSeat(self.driver)
 
         pix = Screenshot.convert_img_pixels(path)
@@ -142,7 +142,8 @@ class SeatSelectionPage(RecordTimeout, Wait):
         last_wait = self.get_last_wait()
         self.set_custom_wait(5)
 
-        selector_seat.validate_select_seat(path, clusters)
+        if dbg_select_seat:
+            selector_seat.validate_select_seat(path, clusters)
 
         act_selector = self.ActionSelector(self.driver, self.seat_selection_locators.text_count_ticket)
         if not act_selector.tap_places(clusters, count_places=count_places):

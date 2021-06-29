@@ -10,6 +10,7 @@ from templates.action import Action
 from .OnboardingPage import OnboardingPage
 from locators.movies_locators import MoviesPageLocators
 from locators.popup_locators import PopupLocators
+from locators.nointernet_locators import NoInternetPageLocators
 
 
 class MoviesPage(RecordTimeout, Wait):
@@ -23,6 +24,7 @@ class MoviesPage(RecordTimeout, Wait):
 
         self.movies_locators = MoviesPageLocators()
         self.popup_locators = PopupLocators()
+        self.nointernet_locators = NoInternetPageLocators()
 
     def set_custom_wait(self, wait):
         self.set_wait(self.driver, wait)
@@ -64,6 +66,15 @@ class MoviesPage(RecordTimeout, Wait):
         if len_sessions == 0 or len_sessions < _number_session:
             raise base_error(self.driver, ValueError, *locator, crash_site='click_elem', msg='No session buttons found')
         self.click_elem(sessions[_number_session])
+
+    def pass_connection_popup(self):
+        last_timeout = self.get_last_wait()
+        self.set_custom_wait(5)
+        try:
+            self.click(*self.nointernet_locators.btn_reload)
+        except NoSuchElementException:
+            pass
+        self.set_custom_wait(last_timeout)
 
     def pass_allow_photo_media(self):
         try:

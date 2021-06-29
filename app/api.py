@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from mitmproxy.options import Options
 from mitmproxy.proxy.config import ProxyConfig
 from mitmproxy.proxy.server import ProxyServer
@@ -7,7 +8,7 @@ import requests
 import threading
 import asyncio
 
-from utils.internet import contains_ip
+from utils.internet import contains_ip, switch_proxy_mode
 
 
 def handle_errors_http(msg=''):
@@ -64,16 +65,23 @@ class API:
 
 
 def _logging(this, method, url, content=''):
-    path_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/app/api.log'
+    path_dir_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/app/'
+    logging_time = datetime.now().strftime("%H:%M:%S")
+    if 'mapi.kassa.rambler.ru' in url:
+        path_log = path_dir_log + 'mapi.log'
+        line = logging_time + ';' + this + ';' + method + ';' + url + ';' + content + '\n'
+    else:
+        path_log = path_dir_log + 'other.log'
+        line = logging_time + ';' + this + ';' + method + ';' + url + '\n'
     with open(path_log, 'a+') as f:
-        f.write(this + ' ' + method + ' ' + url + ' ' + content + '\n')
+        f.write(line)
 
 
 class DebugAPI:
     def __init__(self, request=True, response=True):
         self.request = request
         self.response = response
-        self.path_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/app/api.log'
+        self.path_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/app/'
 
     class AddonReqRes:
         def request(self, flow):
@@ -128,8 +136,11 @@ class DebugAPI:
         return m
 
     @classmethod
-    def run(cls, request=True, response=True):
+    def run(cls, request=True, response=True, switch_proxy_driver=False):
         self = cls(request, response)
+        if bool(switch_proxy_driver):
+            switch_proxy_mode(switch_proxy_driver, True)
+            setattr(self, 'switch_proxy_driver', switch_proxy_driver)
         m = self._setup()
         loop = asyncio.get_event_loop()
         t = threading.Thread(target=self._loop_in_thread, args=(loop, m))
@@ -141,13 +152,20 @@ class DebugAPI:
     def kill(self):
         self.m.shutdown()
         self.t.join()
+        switch_proxy_mode(self.switch_proxy_driver, False)
 
-    def read_buffer(self):
-        with open(self.path_log, 'r') as reader:
+    def read_buffer(self, read_mapi=True):
+        file = self.path_log
+        if read_mapi:
+            file += 'mapi.log'
+        else:
+            file += 'other.log'
+        with open(file, 'r') as reader:
             for line in reader.readlines():
                 yield line
 
     def clear_buffer(self):
-        open(self.path_log, 'w').close()
+        open(self.path_log + 'mapi.log', 'w').close()
+        open(self.path_log + 'other.log', 'w').close()
 
 
