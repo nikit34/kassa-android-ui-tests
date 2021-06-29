@@ -2,6 +2,7 @@ import pytest
 import allure
 from time import sleep
 
+from screens.ComboPage import ComboPage
 from screens.MoviesPage import MoviesPage
 from screens.SeatSelectionPage import SeatSelectionPage
 from screens.CheckOutPage import CheckOutPage
@@ -65,6 +66,10 @@ class TestTheatersPage:
             self.seat_selection_page.set_custom_wait(20)
             self.seat_selection_page.skip_seat_selection(dbg_select_seat=False)
             self.seat_selection_page.click(*self.seat_selection_locators.btn_continue)
+        with allure.step('ComboPage'):
+            self.combo_page = ComboPage(driver)
+            self.combo_page.set_custom_wait(20)
+            self.combo_page.recognize_page(dbg_api)
             dbg_api.kill()
         with allure.step('CheckOutPage'):
             self.check_out_page = CheckOutPage(driver)
