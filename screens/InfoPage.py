@@ -1,10 +1,10 @@
 from selenium.common.exceptions import InvalidArgumentException, NoSuchElementException
-import json
 
 from locators.info_locators import InfoPageLocators
 from templates.action import Action
 from templates.base import Wait
 from templates.statistic import RecordTimeout
+from app.check_api import CheckAPI
 
 
 class InfoPage(RecordTimeout, Wait):
@@ -17,6 +17,8 @@ class InfoPage(RecordTimeout, Wait):
         self.act = Action(driver)
 
         self.info_locators = InfoPageLocators()
+
+
 
     def set_custom_wait(self, wait):
         self.set_wait(self.driver, wait)
@@ -33,12 +35,15 @@ class InfoPage(RecordTimeout, Wait):
                 pass
             pass
 
-    def recognize_next_page(self, dbg_api):
+    def recognize_page(self, dbg_api):
         for line in dbg_api.read_buffer(read_mapi=True):
-             if '/creations/movie/' in line:
-                 split_line = line.split(';')
-                 if len(split_line) != 5:
-                     raise ValueError('response is not valid')
-                 content = json.loads(split_line[4])
-                 print(content)
+            if CheckAPI.check_single_page_url('/creations/movie/', line=line, dbg_api=dbg_api):
+                content = dbg_api.get_content_response(line)
+                try:
+                    if content['ageRestriction'] >= 18:
+                        return 'ageRestriction'
+                except KeyError as error:
+                    print('key \"ageRestriction\" is not exist: ', error)
+        return False
+
 

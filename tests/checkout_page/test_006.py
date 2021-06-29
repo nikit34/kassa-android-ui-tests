@@ -1,6 +1,5 @@
 import pytest
 import allure
-from time import sleep
 
 from screens.MoviesPage import MoviesPage
 from screens.SeatSelectionPage import SeatSelectionPage
@@ -8,7 +7,8 @@ from screens.CheckOutPage import CheckOutPage
 from screens.InfoPage import InfoPage
 from locators.seat_selection_locators import SeatSelectionLocators
 from locators.checkout_locators import CheckoutPageLocators
-from app.api import DebugAPI
+from locators.info_locators import InfoPageLocators
+from app.debug_api import DebugAPI
 
 
 @pytest.mark.usefixtures('driver')
@@ -17,6 +17,7 @@ class TestTheatersPage:
     def setup_class(cls):
         cls.seat_selection_locators = SeatSelectionLocators()
         cls.checkout_locators = CheckoutPageLocators()
+        cls.info_locators = InfoPageLocators()
 
     def test_001(self, driver):
         with allure.step('MoviesPage'):
@@ -48,7 +49,9 @@ class TestTheatersPage:
         with allure.step('InfoPage'):
             self.info_page = InfoPage(driver)
             self.info_page.set_custom_wait(20)
-            self.info_page.recognize_next_page(dbg_api)
+            if self.info_page.recognize_page(dbg_api) == 'ageRestriction':
+                self.info_page.find_element(*self.info_locators.btn_cancel)
+                self.info_page.click(*self.info_locators.btn_accept_years)
             self.info_page.pass_without_info()
             dbg_api.kill()
         with allure.step('SeatSelectionPage'):

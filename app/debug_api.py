@@ -4,64 +4,11 @@ from mitmproxy.options import Options
 from mitmproxy.proxy.config import ProxyConfig
 from mitmproxy.proxy.server import ProxyServer
 from mitmproxy.tools.dump import DumpMaster
-import requests
 import threading
 import asyncio
+import json
 
 from utils.internet import contains_ip, switch_proxy_mode
-
-
-def handle_errors_http(msg=''):
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            try:
-                return func(*args, **kwargs)
-            except requests.exceptions.HTTPError as error:
-                print('[ERROR]', msg, '\n', error)
-        return wrapper
-    return decorator
-
-
-class API:
-    v = 'v21'
-    headers = {'X-Application-Key': os.environ['X_Application_Key']}
-
-    @classmethod
-    @handle_errors_http('/creations/movie/featured')
-    def get_session_id_movies_featured(cls, name, id_city, _number_place=0, _number_session=0):
-        cls.headers['X-CityID'] = str(id_city)
-        response = requests.get(
-            f'https://mapi.kassa.rambler.ru/api/{cls.v}/creations/movie/featured',
-            headers=cls.headers)
-        response.raise_for_status()
-        answer = response.json()
-        for teaser in answer['teaser']:
-            if name == teaser['creation']['name']:
-                return teaser['placeSchedules'][_number_place]['sessions'][_number_session]['id']
-        else:
-            raise KeyError(f'[FAILED] movie {name} not found in server responses')
-
-    @classmethod
-    @handle_errors_http(msg='/cities')
-    def get_id_city(cls, name):
-        response = requests.get(
-            f'https://mapi.kassa.rambler.ru/api/{cls.v}/cities',
-            headers=cls.headers)
-        response.raise_for_status()
-        answer = response.json()
-        for city in answer:
-            if name == city['name']:
-                return city['id']
-        else:
-            raise KeyError(f'[FAILED] city {name} not found in server responses')
-
-    @classmethod
-    @handle_errors_http(msg='/hall/{sessionId}')
-    def get_json_hall(cls, session_id):
-        response = requests.get(
-            f'https://mapi.kassa.rambler.ru/api/{cls.v}/hall/{session_id}',
-            headers=cls.headers)
-        return response.json()
 
 
 def _logging(this, method, url, content=''):
@@ -78,9 +25,10 @@ def _logging(this, method, url, content=''):
 
 
 class DebugAPI:
-    def __init__(self, request=True, response=True):
+    def __init__(self, request=True, response=True, switch_proxy_driver=False):
         self.request = request
         self.response = response
+        self.switch_proxy_driver = switch_proxy_driver
         self.path_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/app/'
 
     class AddonReqRes:
@@ -137,10 +85,9 @@ class DebugAPI:
 
     @classmethod
     def run(cls, request=True, response=True, switch_proxy_driver=False):
-        self = cls(request, response)
+        self = cls(request, response, switch_proxy_driver)
         if bool(switch_proxy_driver):
             switch_proxy_mode(switch_proxy_driver, True)
-            setattr(self, 'switch_proxy_driver', switch_proxy_driver)
         m = self._setup()
         loop = asyncio.get_event_loop()
         t = threading.Thread(target=self._loop_in_thread, args=(loop, m))
@@ -152,7 +99,8 @@ class DebugAPI:
     def kill(self):
         self.m.shutdown()
         self.t.join()
-        switch_proxy_mode(self.switch_proxy_driver, False)
+        if bool(self.switch_proxy_driver):
+            switch_proxy_mode(self.switch_proxy_driver, False)
 
     def read_buffer(self, read_mapi=True):
         file = self.path_log
@@ -164,8 +112,13 @@ class DebugAPI:
             for line in reader.readlines():
                 yield line
 
+    @staticmethod
+    def get_content_response(line):
+        split_line = line.split(';')
+        if len(split_line) != 5:
+            raise ValueError('response is not valid')
+        return json.loads(split_line[4])
+
     def clear_buffer(self):
         open(self.path_log + 'mapi.log', 'w').close()
         open(self.path_log + 'other.log', 'w').close()
-
-
