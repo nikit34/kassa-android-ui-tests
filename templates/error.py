@@ -1,10 +1,19 @@
 import allure
 from allure_commons.types import AttachmentType
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 from telegram_bot.client import TGClient
 
 
+BTN_SYSTEM_CLOSE_APP = (By.ID, ' android:id/aerr_close')
+
 def base_error(driver, error, *object_except, crash_site=None, msg=None):
+    try:
+        driver.click(*BTN_SYSTEM_CLOSE_APP)
+    except NoSuchElementException:
+        pass
+
     if None in [msg, crash_site]:
         raise ValueError("Improper use of custom exception class")
 

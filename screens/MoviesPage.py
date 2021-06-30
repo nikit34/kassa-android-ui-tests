@@ -1,7 +1,7 @@
 import random
 from time import sleep
 from random import randrange
-from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 from templates.base import Wait
 from templates.error import base_error

@@ -44,7 +44,7 @@ class TestTheatersPage:
 
     def test_002(self, driver):
         with allure.step('MoviesPage'):
-            dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=False)
+            dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=driver)
             self.movie_page = MoviesPage(driver)
             self.movie_page.set_custom_wait(20)
             self.movie_page.select_session()

@@ -33,7 +33,7 @@ class TestFeedPage:
 
     def test_002(self, driver):
         with allure.step('MoviesPage'):
-            dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=False)
+            dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=driver)
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)
             self.movies_page.click(*self.common_locators.tab_search)
