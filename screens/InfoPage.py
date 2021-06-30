@@ -18,8 +18,6 @@ class InfoPage(RecordTimeout, Wait):
 
         self.info_locators = InfoPageLocators()
 
-
-
     def set_custom_wait(self, wait):
         self.set_wait(self.driver, wait)
 
