@@ -79,3 +79,4 @@ class TestTheatersPage:
             self.check_out_page.input('n.permyakov@rambler-co.ru', *self.checkout_locators.input_email)
             self.check_out_page.input('9779918074', *self.checkout_locators.input_phone)
             self.check_out_page.click(*self.checkout_locators.btn_continue)
+

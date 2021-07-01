@@ -25,10 +25,11 @@ def _logging(this, method, url, content=''):
 
 
 class DebugAPI:
-    def __init__(self, request=True, response=True, switch_proxy_driver=False):
+    def __init__(self, request=True, response=True, switch_proxy_driver=False, start_recard=True):
         self.request = request
         self.response = response
         self.switch_proxy_driver = switch_proxy_driver
+        self.start_recard = start_recard
         self.path_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/app/'
 
     class AddonReqRes:
@@ -73,19 +74,20 @@ class DebugAPI:
         m = DumpMaster(options, with_termlog=False, with_dumper=False)
         config = ProxyConfig(options)
         m.server = ProxyServer(config)
-        if self.request and self.response:
-            m.addons.add(self.AddonReqRes())
-        elif self.request:
-            m.addons.add(self.AddonReq())
-        elif self.response:
-            m.addons.add(self.AddonRes())
-        else:
-            raise KeyError('[ERROR] Addon will not be exist')
+        if self.start_recard:
+            if self.request and self.response:
+                m.addons.add(self.AddonReqRes())
+            elif self.request:
+                m.addons.add(self.AddonReq())
+            elif self.response:
+                m.addons.add(self.AddonRes())
+            else:
+                raise KeyError('[ERROR] Addon will not be exist')
         return m
 
     @classmethod
-    def run(cls, request=True, response=True, switch_proxy_driver=False):
-        self = cls(request, response, switch_proxy_driver)
+    def run(cls, request=True, response=True, switch_proxy_driver=False, start_recard=True):
+        self = cls(request, response, switch_proxy_driver, start_recard)
         if bool(switch_proxy_driver):
             switch_proxy_mode(switch_proxy_driver, True)
         m = self._setup()

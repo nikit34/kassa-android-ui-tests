@@ -16,6 +16,7 @@ BTN_ROW_PROXY_MODES_NETWORK_DETAILS = (MobileBy.ID, 'android:id/text1')
 BTN_SAVE_MODIFY = (MobileBy.ID, 'android:id/button1')
 INPUT_PROXY_HOSTNAME = (MobileBy.ID, 'com.android.settings:id/proxy_hostname')
 INPUT_PROXY_PORT = (MobileBy.ID, 'com.android.settings:id/proxy_port')
+BTN_SYSTEM_CLOSE_APP = (MobileBy.ID, ' android:id/aerr_close')
 
 
 def switch_airplane_mode(driver, to_state=True):
@@ -33,14 +34,18 @@ def switch_airplane_mode(driver, to_state=True):
 
 
 def contains_ip():
-    supposed_ip = ['10.60.20.152', '10.60.20.108']
     output = os.popen('ifconfig').read()
-    for s_ip in supposed_ip:
-        if s_ip in output:
-            return s_ip
-    else:
-        raise ValueError('ip has been changed')
-
+    left_index = 0
+    right_index = 17
+    while right_index - left_index != 18:
+        try:
+            while right_index - left_index > 18:
+                left_index = output.index('inet', left_index + 1)
+            while right_index - left_index < 18:
+                right_index = output.index('netmask', right_index + 1)
+        except ValueError as error:
+            print('[ERROR] ip has been changed', error)
+    return output[left_index+5:right_index-1]
 
 def _click_by_text(driver, *locator, text):
     elems = driver.find_elements(*locator)
@@ -61,7 +66,11 @@ def switch_proxy_mode(driver, to_state=True):
     _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='Wi‑Fi')
     sleep(1)
     _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='AndroidWifi')
-    driver.find_element(*BTN_MODIFY_NETWORK).click()
+    try:
+        driver.find_element(*BTN_MODIFY_NETWORK).click()
+    except NoSuchElementException:
+        driver.find_element(*BTN_SYSTEM_CLOSE_APP).click()
+        driver.find_element(*BTN_MODIFY_NETWORK).click()
     try:
         if to_state:
             driver.find_element(*BTN_ROW_ADVANCED_NETWORK_DETAILS).click()

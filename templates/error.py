@@ -8,9 +8,11 @@ from telegram_bot.client import TGClient
 
 BTN_SYSTEM_CLOSE_APP = (By.ID, ' android:id/aerr_close')
 
+
 def base_error(driver, error, *object_except, crash_site=None, msg=None):
     try:
-        driver.click(*BTN_SYSTEM_CLOSE_APP)
+        driver.find_element(*BTN_SYSTEM_CLOSE_APP).click()
+        return
     except NoSuchElementException:
         pass
 
