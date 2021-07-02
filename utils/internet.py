@@ -47,6 +47,7 @@ def contains_ip():
             print('[ERROR] ip has been changed', error)
     return output[left_index+5:right_index-1]
 
+
 def _click_by_text(driver, *locator, text):
     elems = driver.find_elements(*locator)
     for elem in elems:

@@ -7,6 +7,7 @@ from mitmproxy.tools.dump import DumpMaster
 import threading
 import asyncio
 import json
+from time import time
 
 from utils.internet import contains_ip, switch_proxy_mode
 
@@ -25,43 +26,59 @@ def _logging(this, method, url, content=''):
 
 
 class DebugAPI:
-    def __init__(self, request=True, response=True, switch_proxy_driver=False, start_recard=True):
+    def __init__(self, request=True, response=True, switch_proxy_driver=False, timeout_recard=0):
         self.request = request
         self.response = response
         self.switch_proxy_driver = switch_proxy_driver
-        self.start_recard = start_recard
+        self.timeout_recard = timeout_recard
         self.path_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/app/'
 
     class AddonReqRes:
+        def __init__(self, timeout_recard):
+            self.timeout_recard = timeout_recard
+            self.timeout_now = time()
+
         def request(self, flow):
             this = 'request'
             method = flow.request.method
             url = flow.request.url
             content = flow.request.content.decode('UTF-8')
-            _logging(this, method, url, content)
+            if time() - self.timeout_now > self.timeout_recard:
+                _logging(this, method, url, content)
 
         def response(self, flow):
             this = 'response'
             method = flow.request.method
             url = flow.request.url
             content = flow.response.content.decode('UTF-8')
-            _logging(this, method, url, content)
+            if time() - self.timeout_now > self.timeout_recard:
+                _logging(this, method, url, content)
 
     class AddonReq:
+        def __init__(self, timeout_recard):
+            self.timeout_recard = timeout_recard
+            self.timeout_now = time()
+
         def request(self, flow):
             this = 'request'
             method = flow.request.method
             url = flow.request.url
             content = flow.request.content.decode('UTF-8')
-            _logging(this, method, url, content)
+            if time() - self.timeout_now > self.timeout_recard:
+                _logging(this, method, url, content)
 
     class AddonRes:
+        def __init__(self, timeout_recard):
+            self.timeout_recard = timeout_recard
+            self.timeout_now = time()
+
         def response(self, flow):
             this = 'response'
             method = flow.request.method
             url = flow.request.url
             content = flow.response.content.decode('UTF-8')
-            _logging(this, method, url, content)
+            if time() - self.timeout_now > self.timeout_recard:
+                _logging(this, method, url, content)
 
     @staticmethod
     def _loop_in_thread(loop, m):
@@ -74,20 +91,28 @@ class DebugAPI:
         m = DumpMaster(options, with_termlog=False, with_dumper=False)
         config = ProxyConfig(options)
         m.server = ProxyServer(config)
-        if self.start_recard:
-            if self.request and self.response:
-                m.addons.add(self.AddonReqRes())
-            elif self.request:
-                m.addons.add(self.AddonReq())
-            elif self.response:
-                m.addons.add(self.AddonRes())
-            else:
-                raise KeyError('[ERROR] Addon will not be exist')
+        self._addon_setup(m)
         return m
 
+    def _start_logging(self):
+        start_time = datetime.now().strftime("%H:%M:%S")
+        with open(self.path_log + 'mapi.log', 'a+') as f:
+            f.write(start_time + '\n')
+
+    def _addon_setup(self, m):
+        if self.request and self.response:
+            m.addons.add(self.AddonReqRes(self.timeout_recard))
+        elif self.request:
+            m.addons.add(self.AddonReq(self.timeout_recard))
+        elif self.response:
+            m.addons.add(self.AddonRes(self.timeout_recard))
+        else:
+            raise KeyError('[ERROR] Addon will not be exist')
+        self._start_logging()
+
     @classmethod
-    def run(cls, request=True, response=True, switch_proxy_driver=False, start_recard=True):
-        self = cls(request, response, switch_proxy_driver, start_recard)
+    def run(cls, request=True, response=True, switch_proxy_driver=False, timeout_recard=0):
+        self = cls(request, response, switch_proxy_driver, timeout_recard)
         if bool(switch_proxy_driver):
             switch_proxy_mode(switch_proxy_driver, True)
         m = self._setup()
