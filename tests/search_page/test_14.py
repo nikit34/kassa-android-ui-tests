@@ -7,7 +7,6 @@ from locators.common_locators import CommonLocators
 from screens.SearchPage import SearchPage
 from screens.MoviesPage import MoviesPage
 from locators.search_locators import SearchPageLocators
-from utils.internet import switch_proxy_mode
 
 
 @pytest.mark.usefixtures('driver')
@@ -130,6 +129,6 @@ class TestFeedPage:
             self.search_page.set_custom_wait(20)
             sleep(3)
             self.search_page.click_tab(3)
-            sleep(4)
+            sleep(5)
             self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/event/schedule')
             dbg_api.kill()

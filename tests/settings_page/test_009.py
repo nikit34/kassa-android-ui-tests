@@ -79,7 +79,6 @@ class TestSettingsPage:
             self.settings_page.check_switch_city('сарат', 'Саратов', 'Москва')
             self.settings_page.check_switch_city('моск', 'Москва', 'Саратов')
 
-    # TODO id in header
     def test_005(self, driver):
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)

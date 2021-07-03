@@ -20,7 +20,6 @@ class SearchPage(RecordTimeout, Wait):
         self.set_wait(self.driver, wait)
 
     def check_count_btn_filters(self):
-        # TODO: count check
         elems = self.driver.find_elements(*self.search_locators.btn_search_filter)
         assert len(elems) > 0, '[FAILED] Search buttons of filter dont display'
 
@@ -58,6 +57,7 @@ class SearchPage(RecordTimeout, Wait):
                 content_filters = self._get_content_filters(content)
                 self._check_content_btn_filters(content_filters)
                 return
+        dbg_api.kill()
         raise ValueError(f'{url_pattern} has not been found')
 
     def click_tab(self, num):
