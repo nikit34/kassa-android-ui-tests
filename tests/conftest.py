@@ -34,6 +34,8 @@ def pytest_runtest_makereport(item, call):
     result = outcome.get_result()
     if result.when == 'call':
         Testrail.logging_step(result.outcome, result.nodeid, result.duration)
+    if result.outcome == 'failed':
+        reboot_emulator()
 
 
 @pytest.fixture(scope='function')
@@ -60,17 +62,14 @@ def driver(request):
     driver.wait = WebDriverWait(driver, 5)
     yield driver
     driver.quit()
-    reboot_emulator(request)
 
 
-def reboot_emulator(request):
-    if request.node.rep_setup.passed:
-        if request.node.rep_call.failed:
-            p = Popen('adb -s emulator-5554 emu kill', shell=True)
-            if p.wait() != 0:
-                print("[ERROR] adb ended incorrectly")
-            Popen('emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 3072', shell=True)
-            sleep(10)
+def reboot_emulator():
+    p = Popen('adb -s emulator-5554 emu kill', shell=True)
+    if p.wait() != 0:
+        print("[ERROR] adb ended incorrectly")
+    Popen('emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 3072', shell=True)
+    sleep(10)
 
 
 @pytest.fixture(scope='session')
