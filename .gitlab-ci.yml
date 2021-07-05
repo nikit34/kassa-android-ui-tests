@@ -1,4 +1,4 @@
-# ssh npermyakov@10.60.20.108
+# ssh npermyakov@10.60.21.50
 stages:
   - intro
   - clear
@@ -101,10 +101,13 @@ compile_job:
     - export PATH=$PATH:$ANDROID_HOME/tools
     - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
   script:
-    - cd project
-    - ./gradlew app:assembleKassa
-    - ls app/build/outputs/apk/kassa/debug
-    - mv app/build/outputs/apk/kassa/debug/app-kassa-debug.apk ../app/
+    # without compile
+    - mv /home/npermyakov/Downloads/app-kassa-debug.apk ../app/
+    # with compile
+#    - cd project
+#    - ./gradlew app:assembleKassa
+#    - ls app/build/outputs/apk/kassa/debug
+#    - mv app/build/outputs/apk/kassa/debug/app-kassa-debug.apk ../app/
   after_script:
     - python3 telegram_bot/client.py -n compile_job
   artifacts:
