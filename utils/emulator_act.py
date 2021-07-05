@@ -7,6 +7,6 @@ def reboot_emulator():
     sleep(5)
     if p.wait() != 0:
         print("[ERROR] adb ended incorrectly")
-    Popen('/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_3a_API_30 -memory 3072', shell=True)
-    Popen('/Users/n.permyakov/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30 -memory 3072', shell=True)
+    Popen('/home/npermyakov/Android/Sdk/emulator/emulator -avd Nexus_4_API_30 -memory 3072', shell=True)
+    Popen('/Users/n.permyakov/Library/Android/sdk/emulator/emulator -avd Nexus_4_API_30 -memory 3072', shell=True)
     sleep(120)
