@@ -2,9 +2,9 @@ from time import sleep
 from selenium.common.exceptions import NoSuchElementException, InvalidElementStateException
 from appium.webdriver.common.mobileby import MobileBy
 import os
-from subprocess import Popen
 
 from templates.action import Action
+from utils.emulator_act import reboot_emulator
 
 
 AIRPLANE_MODE = (MobileBy.ACCESSIBILITY_ID, 'Airplane mode')
@@ -70,11 +70,7 @@ def switch_proxy_mode(driver, to_state=True):
         _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='AndroidWifi')
         driver.find_element(*BTN_MODIFY_NETWORK).click()
     except (NoSuchElementException, InvalidElementStateException):
-        p = Popen('adb -s emulator-5554 emu kill', shell=True)
-        if p.wait() != 0:
-            print("[ERROR] adb ended incorrectly")
-        Popen('emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 4096', shell=True)
-        sleep(7)
+        reboot_emulator()
         switch_proxy_mode(driver, to_state)
     try:
         if to_state:

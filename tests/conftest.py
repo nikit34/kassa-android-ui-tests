@@ -2,8 +2,8 @@ import pytest
 import os
 from appium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
-from subprocess import Popen
-from time import sleep
+
+from utils.emulator_act import reboot_emulator
 
 from .config import \
     APPIUM_HOST, \
@@ -62,16 +62,6 @@ def driver(request):
     driver.wait = WebDriverWait(driver, 5)
     yield driver
     driver.quit()
-
-
-def reboot_emulator():
-    p = Popen('adb -s emulator-5554 emu kill', shell=True)
-    sleep(5)
-    if p.wait() != 0:
-        print("[ERROR] adb ended incorrectly")
-    Popen('/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 3072', shell=True)
-    Popen('/Users/n.permyakov/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 3072', shell=True)
-    sleep(120)
 
 
 @pytest.fixture(scope='session')
