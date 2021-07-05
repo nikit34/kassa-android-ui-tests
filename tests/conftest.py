@@ -71,7 +71,7 @@ def reboot_emulator():
         print("[ERROR] adb ended incorrectly")
     Popen('/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 3072', shell=True)
     Popen('/Users/n.permyakov/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 3072', shell=True)
-    sleep(60)
+    sleep(120)
 
 
 @pytest.fixture(scope='session')
