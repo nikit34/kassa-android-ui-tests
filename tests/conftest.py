@@ -60,6 +60,7 @@ def driver(request):
     driver.wait = WebDriverWait(driver, 5)
     yield driver
     driver.quit()
+    reboot_emulator(request)
 
 
 def reboot_emulator(request):
@@ -68,8 +69,8 @@ def reboot_emulator(request):
             p = Popen('adb -s emulator-5554 emu kill', shell=True)
             if p.wait() != 0:
                 print("[ERROR] adb ended incorrectly")
-            Popen('emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 4096', shell=True)
-            sleep(7)
+            Popen('emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 3072', shell=True)
+            sleep(10)
 
 
 @pytest.fixture(scope='session')
