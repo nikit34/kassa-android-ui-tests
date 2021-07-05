@@ -24,7 +24,7 @@ def pytest_addoption(parser):
 
 def pytest_configure():
     connect_db()
-    # Testrail.logging_start()
+    Testrail.logging_start()
     pytest.count_call_unique_func = 0
 
 
@@ -36,6 +36,7 @@ def pytest_runtest_makereport(item, call):
         Testrail.logging_step(result.outcome, result.nodeid, result.duration)
     if result.outcome == 'failed':
         reboot_emulator()
+    print(result.outcome)
 
 
 @pytest.fixture(scope='function')
@@ -68,8 +69,9 @@ def reboot_emulator():
     p = Popen('adb -s emulator-5554 emu kill', shell=True)
     if p.wait() != 0:
         print("[ERROR] adb ended incorrectly")
-    Popen('emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 3072', shell=True)
-    sleep(10)
+    Popen('/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 3072', shell=True)
+    Popen('/Users/n.permyakov/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 3072', shell=True)
+    sleep(30)
 
 
 @pytest.fixture(scope='session')
