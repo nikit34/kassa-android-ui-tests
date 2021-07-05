@@ -31,16 +31,19 @@ class TestFeedPage:
             self.search_page.find_element(*self.search_locators.img_movie)
 
     def test_002(self, driver):
-        with allure.step('MoviesPage'):
-            dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=driver)
-            self.movies_page = MoviesPage(driver)
-            self.movies_page.set_custom_wait(20)
-            self.movies_page.click(*self.common_locators.tab_search)
-        with allure.step('SearchPage'):
-            self.search_page = SearchPage(driver)
-            self.search_page.set_custom_wait(20)
-            sleep(4)
-            self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/movie/schedule')
+        dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=driver)
+        try:
+            with allure.step('MoviesPage'):
+                self.movies_page = MoviesPage(driver)
+                self.movies_page.set_custom_wait(20)
+                sleep(4)
+                self.movies_page.click(*self.common_locators.tab_search)
+            with allure.step('SearchPage'):
+                self.search_page = SearchPage(driver)
+                self.search_page.set_custom_wait(20)
+                sleep(4)
+                self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/movie/schedule')
+        finally:
             dbg_api.kill()
 
     def test_003(self, driver):
@@ -59,18 +62,20 @@ class TestFeedPage:
             self.search_page.find_element(*self.search_locators.img_movie)
 
     def test_004(self, driver):
-        with allure.step('MoviesPage'):
-            dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=driver)
-            self.movies_page = MoviesPage(driver)
-            self.movies_page.set_custom_wait(20)
-            self.movies_page.click(*self.common_locators.tab_search)
-        with allure.step('SearchPage'):
-            self.search_page = SearchPage(driver)
-            self.search_page.set_custom_wait(20)
-            sleep(2)
-            self.search_page.click_tab(1)
-            sleep(4)
-            self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/performance/schedule')
+        dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=driver)
+        try:
+            with allure.step('MoviesPage'):
+                self.movies_page = MoviesPage(driver)
+                self.movies_page.set_custom_wait(20)
+                self.movies_page.click(*self.common_locators.tab_search)
+            with allure.step('SearchPage'):
+                self.search_page = SearchPage(driver)
+                self.search_page.set_custom_wait(20)
+                sleep(3)
+                self.search_page.click_tab(1)
+                sleep(4)
+                self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/performance/schedule')
+        finally:
             dbg_api.kill()
 
     def test_005(self, driver):
@@ -89,18 +94,20 @@ class TestFeedPage:
             self.search_page.find_element(*self.search_locators.img_movie)
 
     def test_006(self, driver):
-        with allure.step('MoviesPage'):
-            dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=driver)
-            self.movies_page = MoviesPage(driver)
-            self.movies_page.set_custom_wait(20)
-            self.movies_page.click(*self.common_locators.tab_search)
-        with allure.step('SearchPage'):
-            self.search_page = SearchPage(driver)
-            self.search_page.set_custom_wait(20)
-            sleep(3)
-            self.search_page.click_tab(2)
-            sleep(4)
-            self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/concert/schedule')
+        dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=driver)
+        try:
+            with allure.step('MoviesPage'):
+                self.movies_page = MoviesPage(driver)
+                self.movies_page.set_custom_wait(20)
+                self.movies_page.click(*self.common_locators.tab_search)
+            with allure.step('SearchPage'):
+                self.search_page = SearchPage(driver)
+                self.search_page.set_custom_wait(20)
+                sleep(3)
+                self.search_page.click_tab(2)
+                sleep(4)
+                self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/concert/schedule')
+        finally:
             dbg_api.kill()
 
     def test_007(self, driver):
@@ -119,16 +126,18 @@ class TestFeedPage:
             self.search_page.find_element(*self.search_locators.img_movie)
 
     def test_008(self, driver):
-        with allure.step('MoviesPage'):
-            dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=False)
-            self.movies_page = MoviesPage(driver)
-            self.movies_page.set_custom_wait(20)
-            self.movies_page.click(*self.common_locators.tab_search)
-        with allure.step('SearchPage'):
-            self.search_page = SearchPage(driver)
-            self.search_page.set_custom_wait(20)
-            sleep(3)
-            self.search_page.click_tab(3)
-            sleep(5)
-            self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/event/schedule')
+        dbg_api = DebugAPI.run(request=False, response=True, switch_proxy_driver=driver)
+        try:
+            with allure.step('MoviesPage'):
+                self.movies_page = MoviesPage(driver)
+                self.movies_page.set_custom_wait(20)
+                self.movies_page.click(*self.common_locators.tab_search)
+            with allure.step('SearchPage'):
+                self.search_page = SearchPage(driver)
+                self.search_page.set_custom_wait(20)
+                sleep(4)
+                self.search_page.click_tab(3)
+                sleep(4)
+                self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/event/schedule')
+        finally:
             dbg_api.kill()

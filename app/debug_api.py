@@ -24,6 +24,7 @@ def _logging(this, method, url, content=''):
         line = logging_time + ';' + this + ';' + method + ';' + url + '\n'
     with open(path_log, 'a+') as f:
         f.write(line)
+        f.flush()
 
 
 class DebugAPI:
@@ -102,6 +103,7 @@ class DebugAPI:
         start_time = datetime.now().strftime("%H:%M:%S")
         with open(self.path_log + 'mapi.log', 'a+') as f:
             f.write(start_time + '\n')
+            f.flush()
 
     def _addon_setup(self, m):
         if self.request and self.response:
@@ -138,7 +140,7 @@ class DebugAPI:
         self.t.join()
         if bool(self.switch_proxy_driver):
             switch_proxy_mode(self.switch_proxy_driver, False)
-        # self.clear_buffer()
+        self.clear_buffer()
 
     def read_buffer(self, read_mapi=True):
         file = self.path_log

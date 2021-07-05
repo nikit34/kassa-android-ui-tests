@@ -57,7 +57,6 @@ class SearchPage(RecordTimeout, Wait):
                 content_filters = self._get_content_filters(content)
                 self._check_content_btn_filters(content_filters)
                 return
-        dbg_api.kill()
         raise ValueError(f'{url_pattern} has not been found')
 
     def click_tab(self, num):

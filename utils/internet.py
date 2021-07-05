@@ -1,7 +1,8 @@
 from time import sleep
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, InvalidElementStateException
 from appium.webdriver.common.mobileby import MobileBy
 import os
+from subprocess import Popen
 
 from templates.action import Action
 
@@ -16,7 +17,6 @@ BTN_ROW_PROXY_MODES_NETWORK_DETAILS = (MobileBy.ID, 'android:id/text1')
 BTN_SAVE_MODIFY = (MobileBy.ID, 'android:id/button1')
 INPUT_PROXY_HOSTNAME = (MobileBy.ID, 'com.android.settings:id/proxy_hostname')
 INPUT_PROXY_PORT = (MobileBy.ID, 'com.android.settings:id/proxy_port')
-BTN_SYSTEM_CLOSE_APP = (MobileBy.ID, ' android:id/aerr_close')
 
 
 def switch_airplane_mode(driver, to_state=True):
@@ -37,10 +37,10 @@ def contains_ip():
     output = os.popen('ifconfig').read()
     left_index = 0
     right_index = 17
-    while right_index - left_index != 18:
+    while right_index - left_index != 18 and right_index - left_index != 19:
         try:
             while right_index - left_index > 18:
-                left_index = output.index('inet', left_index + 1)
+                left_index = output.index('inet ', left_index + 1)
             while right_index - left_index < 18:
                 right_index = output.index('netmask', right_index + 1)
         except ValueError as error:
@@ -57,21 +57,25 @@ def _click_by_text(driver, *locator, text):
 
 
 def switch_proxy_mode(driver, to_state=True):
-    act = Action(driver)
-    act.swipe(50, 0, 50, 80)
-    act.swipe(50, 15, 50, 50)
-    driver.find_element(*BTN_SETTINGS).click()
-    sleep(1)
-    _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='Network & internet')
-    sleep(1)
-    _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='Wi‑Fi')
-    sleep(1)
-    _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='AndroidWifi')
     try:
+        act = Action(driver)
+        act.swipe(50, 0, 50, 80)
+        act.swipe(50, 15, 50, 50)
+        driver.find_element(*BTN_SETTINGS).click()
+        sleep(1)
+        _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='Network & internet')
+        sleep(1)
+        _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='Wi‑Fi')
+        sleep(1)
+        _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='AndroidWifi')
         driver.find_element(*BTN_MODIFY_NETWORK).click()
-    except NoSuchElementException:
-        driver.find_element(*BTN_SYSTEM_CLOSE_APP).click()
-        driver.find_element(*BTN_MODIFY_NETWORK).click()
+    except (NoSuchElementException, InvalidElementStateException):
+        p = Popen('adb -s emulator-5554 emu kill', shell=True)
+        if p.wait() != 0:
+            print("[ERROR] adb ended incorrectly")
+        Popen('emulator -avd Pixel_3a_API_30 -no-snapshot-load -memory 4096', shell=True)
+        sleep(7)
+        switch_proxy_mode(driver, to_state)
     try:
         if to_state:
             driver.find_element(*BTN_ROW_ADVANCED_NETWORK_DETAILS).click()
@@ -90,6 +94,6 @@ def switch_proxy_mode(driver, to_state=True):
         print('proxy mode has already been set')
     driver.find_element(*BTN_SAVE_MODIFY).click()
     for _ in range(4):
-        sleep(0.5)
+        sleep(1)
         driver.back()
 
