@@ -45,7 +45,8 @@ class Page:
                 assert elem.is_enabled(), f'[find_element] {locator} is not enabled'
             except (NoSuchElementException, AssertionError) as error:
                 self.driver.implicitly_wait(0)
-                raise base_error(self.driver, error, *locator, crash_site='find_element -> nested except', msg='is not displayed')
+                base_error(self.driver, *locator, crash_site='find_element -> nested except', msg='is not displayed')
+                raise error
         return elem
 
     @_increase_wait_
@@ -58,13 +59,15 @@ class Page:
                 return True
             raise NoSuchElementException("[click -> find_element] dont find")
         except (NoSuchElementException, AssertionError, ProtocolError) as error:
-            raise base_error(self.driver, error, *locator, crash_site='click', msg='don`t click')
+            base_error(self.driver, *locator, crash_site='click', msg='don`t click')
+            raise error
 
     def click_elem(self, elem):
         try:
             elem.click()
         except NoSuchElementException as error:
-            raise base_error(self.driver, error, elem, crash_site='click', msg='don`t click')
+            base_error(self.driver, elem, crash_site='click', msg='don`t click')
+            raise error
 
     def input(self, text, *locator):
         try:
@@ -72,12 +75,13 @@ class Page:
             elem.clear()
             elem.send_keys(text)
         except NoSuchElementException as error:
-            raise base_error(self.driver, error, *locator, crash_site='input', msg='')
+            base_error(self.driver, *locator, crash_site='input', msg='')
+            raise error
 
     def not_displayed(self, *locator):
         try:
             self.driver.find_element(*locator)
-            raise base_error(self.driver, AssertionError, *locator, crash_site='not_displayed', msg='on the Page')
+            base_error(self.driver, *locator, crash_site='not_displayed', msg='on the Page')
         except NoSuchElementException:
             return True
 
@@ -91,7 +95,8 @@ class Page:
                 assert text_elem != pattern, f'{locator} matching text: {text_elem}'
             return True
         except (NoSuchElementException, AssertionError) as error:
-            raise base_error(self.driver, error, *locator, crash_site='matching_text', msg=f'matching text: {text_elem}')
+            base_error(self.driver, *locator, crash_site='matching_text', msg=f'matching text: {text_elem}')
+            raise error
 
     def check_state_selected(self, *locator, state=True):
         elem = self.find_element(*locator)
@@ -101,7 +106,8 @@ class Page:
             else:
                 assert not elem.is_selected(), f'invalid state: {elem}'
         except AssertionError as error:
-            raise base_error(self.driver, error, *locator, crash_site='is_selected', msg='state is not valid')
+            base_error(self.driver, *locator, crash_site='is_selected', msg='state is not valid')
+            raise error
 
 
 class Search:

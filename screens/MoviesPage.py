@@ -66,7 +66,7 @@ class MoviesPage(RecordTimeout, Wait):
         sessions = self.driver.find_elements(*locator)
         len_sessions = len(sessions)
         if len_sessions == 0 or len_sessions < _number_session:
-            raise base_error(self.driver, ValueError, *locator, crash_site='click_elem', msg='No session buttons found')
+            base_error(self.driver, *locator, crash_site='click_elem', msg='No session buttons found')
         self.click_elem(sessions[_number_session])
         if not self.not_displayed(*self.info_locators.btn_tickets_ended):
             self.click(*self.info_locators.btn_tickets_ended)
