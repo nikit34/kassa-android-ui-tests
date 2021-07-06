@@ -174,7 +174,6 @@ pytest_job:
   after_script:
     - adb -s emulator-5554 emu kill
     - adb kill-server
-    - ps aux | grep 'Pixel_4a_API_30' | awk '{print $2}' | xargs kill -9
     - killall node || true
     - python3 telegram_bot/client.py -n pytest_job
   artifacts:
