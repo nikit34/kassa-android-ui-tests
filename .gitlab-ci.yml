@@ -164,13 +164,13 @@ pytest_job:
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-debug.apk
     - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host'
-  after_script:
     - coverage xml
     - adb logcat > ./logcat.log
+  after_script:
     - adb -s emulator-5554 emu kill
     - adb kill-server
     - ps aux | grep 'Pixel_4a_API_30' | awk '{print $2}' | xargs kill -9
-    - killall appium || true
+    - killall node || true
     - python3 telegram_bot/client.py -n pytest_job
   artifacts:
     when: always
