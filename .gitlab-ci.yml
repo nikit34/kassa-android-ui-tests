@@ -101,6 +101,8 @@ compile_job:
     - export PATH=$PATH:$ANDROID_HOME/tools
     - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
   script:
+    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./bootanim.sh
+    - ./bootanim.sh
     - echo $ANDROID_HOST_PASSWORD | chmod 777 ./compile_app.sh
     - ./compile_app.sh
   after_script:

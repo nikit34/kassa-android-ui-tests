@@ -11,7 +11,5 @@ build_job:
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S sysctl -w dev.i915.perf_stream_paranoid=0
     - DISPLAY=:0 xterm -e '/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_4a_API_30 -wipe-data -no-snapshot-load -memory 3072'
-    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./bootanim.sh
-    - ./bootanim.sh
   after_script:
     - python3 telegram_bot/client.py -n build_job
