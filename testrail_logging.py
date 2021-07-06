@@ -50,7 +50,7 @@ class Testrail:
 
     @staticmethod
     def _clear_result_step():
-        with open('testrail_log.log', 'r+') as file:
+        with open('../../testrail_log.log', 'r+') as file:
             file.truncate(0)
 
     @classmethod
@@ -62,7 +62,7 @@ class Testrail:
 
     @staticmethod
     def _write_result_step(outcome: str, comment: str, duration: str):
-        with open('testrail_log.log', 'a', encoding='utf-8') as file:
+        with open('../../testrail_log.log', 'a', encoding='utf-8') as file:
             file.write(outcome + ',' + comment + ',' + duration + '\n')
 
     @classmethod
@@ -88,7 +88,7 @@ class Testrail:
 
     @staticmethod
     def _read_result_step():
-        with open('testrail_log.log', 'r', encoding='utf-8') as file:
+        with open('../../testrail_log.log', 'r', encoding='utf-8') as file:
             for line in file.readlines():
                 yield line.split(',')
 

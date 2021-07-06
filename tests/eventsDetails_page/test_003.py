@@ -43,7 +43,7 @@ class TestEventDetailsPage:
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)
-            self.movies_page.find_element(*self.movies_locators.movies_title)
+            self.movies_page.find_element(*self.movies_locators.arrow_right)
 
     def test_003(self, driver):
         with allure.step('MoviesPage'):

@@ -55,7 +55,8 @@ app_job:
     PROJECT_REPO: "git@gitlab.rambler.ru:android-dev/kassa-2.git"
   before_script:
     - eval "$(ssh-agent -s)"
-    - ssh-add /home/npermyakov/.ssh/id_rsa
+    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./ssh_substitution.sh
+    - DISPLAY=1 SSH_ASKPASS="./ssh_substitution.sh" ssh-add ~/.ssh/id_rsa < /dev/null
     - yes | rm -r ./project && mkdir ./project || mkdir ./project || true
   script:
     - git clone --branch develop $PROJECT_REPO project

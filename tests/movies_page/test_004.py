@@ -40,7 +40,7 @@ class TestMoviePage:
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)
-            self.movies_page.find_element(*self.movies_locators.movies_title)
+            self.movies_page.find_element(*self.movies_locators.arrow_right)
             self.movies_page.check_carousel()
 
     def test_003(self, driver):
@@ -91,6 +91,7 @@ class TestMoviePage:
             sleep(5)
             self.movies_page.act.swipe(50, 80, 50, 20)
             self.movies_page.act.swipe(50, 80, 50, 20)
+            self.movies_page.act.swipe(50, 80, 50, 20)
             sleep(1)
             self.movies_page.find_element(*self.movies_locators.favorite_container)
             self.movies_page.find_element(*self.movies_locators.text_location)
@@ -114,7 +115,7 @@ class TestMoviePage:
         with allure.step('MoviesPage'):
             self.movies_page = MoviesPage(driver)
             self.movies_page.set_custom_wait(20)
-            sleep(2)
+            sleep(5)
             self.movies_page.act.swipe(50, 80, 50, 20)
             self.movies_page.act.swipe(50, 60, 50, 40)
             sleep(1)
@@ -148,6 +149,6 @@ class TestMoviePage:
             self.movies_page.set_custom_wait(20)
             switch_airplane_mode(driver, to_state=True)
             self.movies_page.click(*self.movies_locators.tab)
-            self.movies_page.find_element(*self.movies_locators.movies_title)
+            self.movies_page.find_element(*self.movies_locators.arrow_right)
             self.movies_page.find_element(*self.movies_locators.fastbuy_ticket_id)
             switch_airplane_mode(driver, to_state=False)
