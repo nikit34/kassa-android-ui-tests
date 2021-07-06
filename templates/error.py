@@ -4,7 +4,7 @@ from allure_commons.types import AttachmentType
 from telegram_bot.client import TGClient
 
 
-def base_error(driver, crash_site=None, msg=None):
+def base_error(driver, *object_except, crash_site=None, msg=None):
     if None in [msg, crash_site]:
         raise ValueError("Improper use of custom exception class")
 

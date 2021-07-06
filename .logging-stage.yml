@@ -1,0 +1,12 @@
+stages:
+  - logging
+
+
+logging_job:
+  stage: logging
+  tags:
+    - android-host-1
+  script:
+    - adb logcat > ./logcat.log
+  after_script:
+    - python3 telegram_bot/client.py -n logging_job

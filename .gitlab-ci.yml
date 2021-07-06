@@ -80,6 +80,12 @@ build_job:
     include:
       - local: .build-stage.yml
 
+logging_job:
+  stage: build
+  trigger:
+    include:
+      - local: .logging-stage.yml
+
 appium_job:
   stage: environment
   trigger:
