@@ -102,7 +102,7 @@ compile_job:
     - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
   script:
     # without compile
-    - mv /home/npermyakov/Downloads/app-kassa-debug.apk ../app/
+    - mv /home/npermyakov/Downloads/app-kassa-debug.apk ./app/
     # with compile
 #    - cd project
 #    - ./gradlew app:assembleKassa
