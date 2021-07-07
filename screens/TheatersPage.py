@@ -22,7 +22,7 @@ class TheatersPage(RecordTimeout, Wait):
         self.set_wait(self.driver, wait)
 
     def check_carousel(self):
-        theaters_base_canvas = self.theaters_page.find_element(*self.theaters_locators.carousel_rv)
+        theaters_base_canvas = self.find_element(*self.theaters_locators.carousel_rv)
         theaters_base_canvas_row = theaters_base_canvas.find_element(*self.theaters_locators.single_session_view)
 
         random_num = randrange(64, 255)  # 1000 to 3333 in 4 notation

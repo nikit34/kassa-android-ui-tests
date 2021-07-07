@@ -91,6 +91,7 @@ class TestSettingsPage:
         with allure.step('SettingsPage'):
             self.settings_page = SettingsPage(driver)
             self.settings_page.set_custom_wait(20)
+            sleep(1)
             elem_card = driver.find_elements(*self.settings_locators.profile_item_title)[0]
             self.settings_page.click_elem(elem_card)
             self.settings_page.find_element(*self.settings_locators.img_card_empty)
@@ -109,6 +110,7 @@ class TestSettingsPage:
         with allure.step('SettingsPage'):
             self.settings_page = SettingsPage(driver)
             self.settings_page.set_custom_wait(20)
+            sleep(1)
             elem_card = driver.find_elements(*self.settings_locators.profile_item_title)[1]
             self.settings_page.click_elem(elem_card)
             self.settings_page.find_element(*self.settings_locators.img_card_empty)
@@ -127,6 +129,7 @@ class TestSettingsPage:
         with allure.step('SettingsPage'):
             self.settings_page = SettingsPage(driver)
             self.settings_page.set_custom_wait(20)
+            sleep(1)
             elem_support = driver.find_elements(*self.settings_locators.profile_item_title)[2]
             self.settings_page.click_elem(elem_support)
             self.settings_page.act.swipe(50, 60, 50, 40)
@@ -144,6 +147,7 @@ class TestSettingsPage:
         with allure.step('SettingsPage'):
             self.settings_page = SettingsPage(driver)
             self.settings_page.set_custom_wait(20)
+            sleep(1)
             elem_theme = driver.find_elements(*self.settings_locators.profile_item_title)[7]
             self.settings_page.click_elem(elem_theme)
             self.settings_page.check_text_theme()
@@ -160,6 +164,7 @@ class TestSettingsPage:
         with allure.step('SettingsPage'):
             self.settings_page = SettingsPage(driver)
             self.settings_page.set_custom_wait(20)
+            sleep(1)
             elem_theme = driver.find_elements(*self.settings_locators.profile_item_title)[7]
             self.settings_page.click_elem(elem_theme)
             self.settings_page.switch_theme(2)

@@ -44,9 +44,9 @@ class SettingsPage(RecordTimeout, Wait):
 
     def check_text_theme(self):
         elem_switchers = self.driver.find_elements(*self.settings_locators.rows_text_theme_switcher)
-        assert elem_switchers[0].text == 'Системная тема', f'[ERROR] text system theme is not valid'
-        assert elem_switchers[1].text == 'Светлая тема', f'[ERROR] text light theme is not valid'
-        assert elem_switchers[2].text == 'Тмная тема', f'[ERROR] text dark theme is not valid'
+        assert elem_switchers[0].text == 'Системная тема ON', f'[ERROR] text system theme is not valid'
+        assert elem_switchers[1].text == 'Светлая тема OFF', f'[ERROR] text light theme is not valid'
+        assert elem_switchers[2].text == 'Тёмная тема OFF', f'[ERROR] text dark theme is not valid'
 
     def switch_theme(self, num_mode_theme):
         if num_mode_theme > 2:
