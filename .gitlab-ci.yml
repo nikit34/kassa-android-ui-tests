@@ -73,7 +73,7 @@ app_job:
     policy: push
   retry: 2
   rules:
-    - if: '$WITHOUT_TESTS != "True"'
+    - if: '$WITHOUT_TESTS != "true"'
 
 build_job:
   stage: build
@@ -126,7 +126,7 @@ compile_job:
       - ./project
     policy: pull
   rules:
-    - if: '$WITHOUT_TESTS != "True"'
+    - if: '$WITHOUT_TESTS != "true"'
 
 install_job:
   stage: install
@@ -143,7 +143,7 @@ install_job:
       - ./app/app-kassa-debug.apk
     expire_in: 3 days
   rules:
-    - if: '$WITHOUT_TESTS != "True"'
+    - if: '$WITHOUT_TESTS != "true"'
 
 setup_job:
   stage: setup
@@ -186,7 +186,7 @@ pytest_job:
       cobertura: coverage.xml
   allow_failure: true
   rules:
-    - if: '$WITHOUT_TESTS != "True"'
+    - if: '$WITHOUT_TESTS != "true"'
 
 history_job:
   stage: history
@@ -266,7 +266,7 @@ upload_job:
     policy: pull
   allow_failure: true
   rules:
-    - if: '$WITHOUT_TESTS != "True"'
+    - if: '$WITHOUT_TESTS != "true"'
 
 pages:
   stage: deploy
