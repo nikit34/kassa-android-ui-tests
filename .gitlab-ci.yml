@@ -195,6 +195,7 @@ history_job:
   before_script:
     - mkdir -p ./public/history || true
   script:
+    - ls ./allure-results # TODO: delete dbg
     - cp -r ./public/history ./allure-results || true
     - ls ./allure-results/history # TODO: delete dbg
   after_script:
@@ -275,7 +276,7 @@ pages:
   before_script:
     - rm -r ./public && mkdir ./public || mkdir ./public || true
   script:
-    - ls ./allure-report/history # TODO: delete dbg
+    - cat ./allure-report/history/history-trend.json # TODO: delete dbg
     - mv ./allure-report/* ./public || true
   after_script:
     - python3 telegram_bot/client.py -n pages
