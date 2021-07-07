@@ -195,7 +195,9 @@ history_job:
   before_script:
     - mkdir -p ./public/history || true
   script:
-    - cp -r ./public/history ./allure-results/history || true
+    - ls ./allure-results # TODO: delete dbg
+    - cp -r ./public/history ./allure-results || true
+    - ls ./allure-results # TODO: delete dbg
   after_script:
     - python3 telegram_bot/client.py -n history_job
   artifacts:
@@ -218,6 +220,8 @@ generate_job:
     - rm -r ./allure-report && mkdir ./allure-report || mkdir ./allure-report || true
   script:
     - allure generate -c ./allure-results -o ./allure-report
+    - ls ./allure-results # TODO: delete dbg
+    - ls ./allure-report # TODO: delete dbg
   after_script:
     - python3 telegram_bot/client.py -n generate_job
   artifacts:
@@ -274,6 +278,7 @@ pages:
   before_script:
     - rm -r ./public && mkdir ./public || mkdir ./public || true
   script:
+    - ls ./allure-report # TODO: delete dbg
     - mv ./allure-report/* ./public || true
   after_script:
     - python3 telegram_bot/client.py -n pages
