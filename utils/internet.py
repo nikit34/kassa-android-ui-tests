@@ -1,5 +1,5 @@
 from time import sleep
-from selenium.common.exceptions import NoSuchElementException, InvalidElementStateException
+from selenium.common.exceptions import NoSuchElementException, InvalidElementStateException, StaleElementReferenceException
 from appium.webdriver.common.mobileby import MobileBy
 import os
 
@@ -49,6 +49,7 @@ def contains_ip():
 
 
 def _click_by_text(driver, *locator, text):
+    sleep(1)
     elems = driver.find_elements(*locator)
     for elem in elems:
         if elem.text == text:
@@ -56,39 +57,46 @@ def _click_by_text(driver, *locator, text):
             break
 
 
+def _click(driver, *locator, num=None):
+    sleep(1)
+    if num is None:
+        driver.find_element(*locator).click()
+    else:
+        driver.find_elements(*locator)[num].click()
+
+
+def _input(driver, *locator, text):
+    elem = driver.find_element(*locator)
+    elem.clear()
+    elem.send_keys(text)
+
+
 def switch_proxy_mode(driver, to_state=True):
     try:
         act = Action(driver)
         act.swipe(50, 0, 50, 80)
         act.swipe(50, 15, 50, 50)
-        driver.find_element(*BTN_SETTINGS).click()
-        sleep(1)
+        _click(driver, *BTN_SETTINGS)
         _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='Network & internet')
-        sleep(1)
         _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='Wi‑Fi')
-        sleep(1)
         _click_by_text(driver, *BTN_ROW_TITLE_SETTINGS, text='AndroidWifi')
-        driver.find_element(*BTN_MODIFY_NETWORK).click()
+        _click(driver, *BTN_MODIFY_NETWORK)
     except (NoSuchElementException, InvalidElementStateException):
         reboot_emulator()
         switch_proxy_mode(driver, to_state)
     try:
         if to_state:
-            driver.find_element(*BTN_ROW_ADVANCED_NETWORK_DETAILS).click()
-            driver.find_element(*BTN_ROW_PROXY_NETWORK_DETAILS).click()
-            driver.find_elements(*BTN_ROW_PROXY_MODES_NETWORK_DETAILS)[1].click()
-            elem = driver.find_element(*INPUT_PROXY_HOSTNAME)
-            elem.clear()
-            elem.send_keys(contains_ip())
-            elem = driver.find_element(*INPUT_PROXY_PORT)
-            elem.clear()
-            elem.send_keys('8080')
+            _click(driver, *BTN_ROW_ADVANCED_NETWORK_DETAILS)
+            _click(driver, *BTN_ROW_PROXY_NETWORK_DETAILS)
+            _click(driver, *BTN_ROW_PROXY_MODES_NETWORK_DETAILS, num=1)
+            _input(driver, *INPUT_PROXY_HOSTNAME, text=contains_ip())
+            _input(driver, *INPUT_PROXY_PORT, text='8080')
         else:
-            driver.find_element(*BTN_ROW_PROXY_NETWORK_DETAILS).click()
-            driver.find_elements(*BTN_ROW_PROXY_MODES_NETWORK_DETAILS)[0].click()
+            _click(driver, *BTN_ROW_PROXY_NETWORK_DETAILS)
+            _click(driver, *BTN_ROW_PROXY_MODES_NETWORK_DETAILS, num=0)
     except NoSuchElementException:
         print('proxy mode has already been set')
-    driver.find_element(*BTN_SAVE_MODIFY).click()
+    _click(driver, *BTN_SAVE_MODIFY)
     for _ in range(4):
         sleep(1)
         driver.back()

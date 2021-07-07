@@ -34,7 +34,7 @@ def pytest_runtest_makereport(item, call):
     result = outcome.get_result()
     if result.when == 'call':
         Testrail.logging_step(result.outcome, result.nodeid, result.duration)
-    if result.outcome == 'failed':
+    if result.outcome == 'failed' and item.config.getoption('--host'):
         reboot_emulator()
 
 

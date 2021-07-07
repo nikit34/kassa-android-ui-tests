@@ -10,7 +10,7 @@ from locators.search_locators import SearchPageLocators
 
 
 @pytest.mark.usefixtures('driver')
-class TestFeedPage:
+class TestSearchPage:
     @classmethod
     def setup_class(cls):
         cls.common_locators = CommonLocators()

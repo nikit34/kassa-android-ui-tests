@@ -45,7 +45,7 @@ class DebugAPI:
             method = flow.request.method
             url = flow.request.url
             content = flow.request.content.decode('UTF-8')
-            if time() - self.timeout_now > self.timeout_recard:
+            if time() - self.timeout_now >= self.timeout_recard:
                 _logging(this, method, url, content)
 
         def response(self, flow):
@@ -53,7 +53,7 @@ class DebugAPI:
             method = flow.request.method
             url = flow.request.url
             content = flow.response.content.decode('UTF-8')
-            if time() - self.timeout_now > self.timeout_recard:
+            if time() - self.timeout_now >= self.timeout_recard:
                 _logging(this, method, url, content)
 
     class AddonReq:
@@ -66,7 +66,7 @@ class DebugAPI:
             method = flow.request.method
             url = flow.request.url
             content = flow.request.content.decode('UTF-8')
-            if time() - self.timeout_now > self.timeout_recard:
+            if time() - self.timeout_now >= self.timeout_recard:
                 _logging(this, method, url, content)
 
     class AddonRes:
@@ -79,7 +79,7 @@ class DebugAPI:
             method = flow.request.method
             url = flow.request.url
             content = flow.response.content.decode('UTF-8')
-            if time() - self.timeout_now > self.timeout_recard:
+            if time() - self.timeout_now >= self.timeout_recard:
                 _logging(this, method, url, content)
 
     @staticmethod
