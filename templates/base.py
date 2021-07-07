@@ -46,7 +46,6 @@ class Page:
             except (NoSuchElementException, AssertionError) as error:
                 self.driver.implicitly_wait(0)
                 base_error(self.driver, *locator, crash_site='find_element -> nested except', msg='is not displayed')
-                raise error
         return elem
 
     @_increase_wait_
@@ -60,7 +59,6 @@ class Page:
             raise NoSuchElementException("[click -> find_element] dont find")
         except (NoSuchElementException, AssertionError, ProtocolError) as error:
             base_error(self.driver, *locator, crash_site='click', msg='don`t click')
-            raise error
 
     def click_elem(self, elem):
         try:
