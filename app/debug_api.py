@@ -7,7 +7,6 @@ from mitmproxy.tools.dump import DumpMaster
 import threading
 import asyncio
 import json
-import signal
 from time import time
 
 from utils.internet import contains_ip, switch_proxy_mode
@@ -85,10 +84,10 @@ class DebugAPI:
     @staticmethod
     def _loop_in_thread(loop, m):
         asyncio.set_event_loop(loop)
-        try:
+        t = threading.currentThread()
+        while getattr(t, "open_loop", True):
             m.run_loop(loop.run_forever)
-        finally:
-            loop.close()
+        loop.stop()
 
     def _setup(self):
         current_ip = contains_ip()
@@ -123,20 +122,15 @@ class DebugAPI:
             switch_proxy_mode(switch_proxy_driver, True)
         m = self._setup()
         loop = asyncio.get_event_loop()
-        loop.add_signal_handler(signal.SIGTERM, self.close_loop, loop)
         t = threading.Thread(target=self._loop_in_thread, args=(loop, m))
         t.start()
         setattr(self, 'm', m)
         setattr(self, 't', t)
         return self
 
-    @staticmethod
-    def close_loop(loop):
-        loop.remove_signal_handler(signal.SIGTERM)
-        loop.stop()
-
     def kill(self):
         self.m.shutdown()
+        self.t.open_loop = False
         self.t.join()
         if bool(self.switch_proxy_driver):
             switch_proxy_mode(self.switch_proxy_driver, False)
