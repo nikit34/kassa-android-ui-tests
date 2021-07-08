@@ -108,9 +108,9 @@ compile_job:
     - export PATH=$PATH:$ANDROID_HOME/tools
     - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
   script:
-    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./bootanim.sh
+    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./bootanim.sh || true
     - ./bootanim.sh
-    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./compile_app.sh
+    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./compile_app.sh || true
     - ./compile_app.sh
   after_script:
     - python3 telegram_bot/client.py -n compile_job
