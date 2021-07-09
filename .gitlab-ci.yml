@@ -195,9 +195,8 @@ history_job:
   before_script:
     - mkdir -p ./public/history || true
   script:
-    - DISPLAY=:0 xterm -e 'curl -v --location --output history.zip --request GET --header "PRIVATE-TOKEN: $PRIVATE-TOKEN" "https://gitlab.rambler.ru/api/v4/projects/6933/jobs/artifacts/master/download?job=pages"'
-    - unzip history.zip || true
-    - cp -r ./public/history/ ./allure-results/history || true
+    - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./download_history.sh
+    - ./download_history.sh
     - ls ./allure-results/history  # TODO: dbg
   after_script:
     - python3 telegram_bot/client.py -n history_job
