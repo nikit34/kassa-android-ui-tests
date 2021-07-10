@@ -90,7 +90,7 @@ testrail-api==1.10.0
 tifffile==2021.3.17
 toml==0.10.2
 tornado==6.1
-urllib3==1.25.7
+urllib3==1.26.5
 urwid==2.1.2
 wcwidth==0.1.7
 Werkzeug==1.0.1
