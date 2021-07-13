@@ -176,6 +176,8 @@ pytest_default_job:
   before_script:
     - rm -r ./allure-results && mkdir ./allure-results || mkdir ./allure-results || true
     - echo $ANDROID_HOST_PASSWORD | sudo -S killall java || true
+    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./xterm_pytest.log
+    - echo $ANDROID_HOST_PASSWORD | sudo bash -c '> ./xterm_pytest.log'
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-debug.apk
     - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l -k "DefaultMode" --tb=short ./tests --alluredir=./allure-results --cov=./app --host 2>&1 | tee ./xterm_pytest.log'
@@ -206,6 +208,8 @@ pytest_proxy_job:
     - android-host
   before_script:
     - sleep 150
+    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./xterm_pytest.log
+    - echo $ANDROID_HOST_PASSWORD | sudo bash -c '> ./xterm_pytest.log'
   script:
     - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l -k "ProxyMode" --tb=short ./tests --alluredir=./allure-results --cov=./app --host 2>&1 | tee ./xterm_pytest.log'
     - coverage xml
@@ -213,7 +217,7 @@ pytest_proxy_job:
     - adb -s emulator-5554 emu kill
     - adb kill-server
     - killall node || true
-    - echo $IOS_HOST_PASSWORD | sudo -S pkill redis-server || true
+    - echo $ANDROID_HOST_PASSWORD | sudo -S pkill redis-server || true
     - python3 telegram_bot/client.py -n pytest_proxy_job
   artifacts:
     when: always
