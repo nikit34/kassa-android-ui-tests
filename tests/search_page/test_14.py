@@ -85,7 +85,7 @@ class TestProxyMode:
 
     def test_001(self, driver):
         self.search_page = SearchPage(driver)
-        dbg_api = DebugAPI.run(response=True, mapi_handler=self.search_page.url_creations_movie_schedule_filter, switch_proxy_driver=driver)
+        dbg_api = DebugAPI.run(response=True, mapi_handler=self.search_page.url_creations_movie_schedule_filter)
         try:
             with allure.step('MoviesPage'):
                 self.movies_page = MoviesPage(driver)
