@@ -84,7 +84,7 @@ build_default_job:
       - local: .build-default-stage.yml
 
 logging_job:
-  stage: build
+  stage: build_default
   trigger:
     include:
       - local: .logging-stage.yml
