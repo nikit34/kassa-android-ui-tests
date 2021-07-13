@@ -101,12 +101,6 @@ postgres_job:
     include:
       - local: .postgres-stage.yml
 
-redis_job:
-  stage: environment
-  trigger:
-    include:
-      - local: .redis-stage.yml
-
 compile_job:
   stage: compile
   tags:
@@ -168,6 +162,12 @@ setup_job:
     key: ${CI_JOB_NAME}
     paths:
       - "$CI_PROJECT_DIR/pip-cache"
+
+redis_job:
+  stage: setup
+  trigger:
+    include:
+      - local: .redis-stage.yml
 
 pytest_default_job:
   stage: test_default
