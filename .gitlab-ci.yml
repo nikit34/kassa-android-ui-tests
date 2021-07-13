@@ -178,7 +178,7 @@ pytest_default_job:
     - echo $ANDROID_HOST_PASSWORD | sudo -S killall java || true
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-debug.apk
-    - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l -k "DefaultMode" --tb=short ./tests --alluredir=./allure-results --cov=./app --host'
+    - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l -k "DefaultMode" --tb=short ./tests --alluredir=./allure-results --cov=./app --host 2>&1 | tee ./xterm_pytest.log'
     - coverage xml
   after_script:
     - adb -s emulator-5554 emu kill
@@ -207,7 +207,7 @@ pytest_proxy_job:
   before_script:
     - sleep 150
   script:
-    - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l -k "ProxyMode" --tb=short ./tests --alluredir=./allure-results --cov=./app --host'
+    - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l -k "ProxyMode" --tb=short ./tests --alluredir=./allure-results --cov=./app --host 2>&1 | tee ./xterm_pytest.log'
     - coverage xml
   after_script:
     - adb -s emulator-5554 emu kill
