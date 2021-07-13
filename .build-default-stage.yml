@@ -10,6 +10,6 @@ build_default_job:
     - echo y ; echo y ; echo y ; echo y ; echo y ; echo y | /home/npermyakov/Android/Sdk/tools/bin/sdkmanager --licenses
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S sysctl -w dev.i915.perf_stream_paranoid=0
-    - DISPLAY=:0 xterm -e '/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_3a_XL_API_30 -no-snapshot-load -gpu guest -memory 3072'
+    - DISPLAY=:0 xterm -e '/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_3a_XL_API_30 -no-snapshot-load -gpu guest -memory 3072 2>&1 | tee ./xterm_emulator.log'
   after_script:
     - python3 telegram_bot/client.py -n build_default_job
