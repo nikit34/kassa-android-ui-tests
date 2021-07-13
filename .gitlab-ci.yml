@@ -3,12 +3,14 @@ stages:
   - intro
   - clear
   - clone
-  - build
+  - build_default
   - environment
   - compile
   - install
   - setup
-  - test
+  - test_default
+  - build_proxy
+  - test_proxy
   - history
   - generate
   - upload
@@ -75,11 +77,11 @@ app_job:
   rules:
     - if: '$WITHOUT_TESTS != "true"'
 
-build_job:
-  stage: build
+build_default_job:
+  stage: build_default
   trigger:
     include:
-      - local: .build-stage.yml
+      - local: .build-default-stage.yml
 
 logging_job:
   stage: build
@@ -98,6 +100,12 @@ postgres_job:
   trigger:
     include:
       - local: .postgres-stage.yml
+
+redis_job:
+  stage: environment
+  trigger:
+    include:
+      - local: .redis-stage.yml
 
 compile_job:
   stage: compile
@@ -161,8 +169,8 @@ setup_job:
     paths:
       - "$CI_PROJECT_DIR/pip-cache"
 
-pytest_job:
-  stage: test
+pytest_default_job:
+  stage: test_default
   tags:
     - android-host
   before_script:
@@ -170,13 +178,43 @@ pytest_job:
     - echo $ANDROID_HOST_PASSWORD | sudo -S killall java || true
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-debug.apk
-    - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l --tb=short ./tests --alluredir=./allure-results --cov=./app --host'
+    - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l -k "DefaultMode" --tb=short ./tests --alluredir=./allure-results --cov=./app --host'
+    - coverage xml
+  after_script:
+    - adb -s emulator-5554 emu kill
+    - python3 telegram_bot/client.py -n pytest_default_job
+  artifacts:
+    when: always
+    paths:
+      - ./allure-results
+    expire_in: 3 days
+    reports:
+      cobertura: coverage.xml
+  allow_failure: true
+  rules:
+    - if: '$WITHOUT_TESTS != "true"'
+
+build_proxy_job:
+  stage: build_proxy
+  trigger:
+    include:
+      - local: .build-proxy-stage.yml
+
+pytest_proxy_job:
+  stage: test_proxy
+  tags:
+    - android-host
+  before_script:
+    - sleep 150
+  script:
+    - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l -k "ProxyMode" --tb=short ./tests --alluredir=./allure-results --cov=./app --host'
     - coverage xml
   after_script:
     - adb -s emulator-5554 emu kill
     - adb kill-server
     - killall node || true
-    - python3 telegram_bot/client.py -n pytest_job
+    - echo $IOS_HOST_PASSWORD | sudo -S pkill redis-server || true
+    - python3 telegram_bot/client.py -n pytest_proxy_job
   artifacts:
     when: always
     paths:
@@ -276,6 +314,7 @@ pages:
   before_script:
     - rm -r ./public && mkdir ./public || mkdir ./public || true
   script:
+    - ls ./allure-report
     - mv ./allure-report/* ./public || true
   after_script:
     - python3 telegram_bot/client.py -n pages

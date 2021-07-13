@@ -1,0 +1,13 @@
+stages:
+  - redis
+
+
+redis_job:
+  stage: redis
+  tags:
+    - ios-host-1
+  script:
+    - redis-server &
+  after_script:
+    - python3 telegram_bot/client.py -n redis_job
+

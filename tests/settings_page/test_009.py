@@ -12,7 +12,7 @@ from locators.settings_locators import SettingsPageLocators
 
 
 @pytest.mark.usefixtures('driver')
-class TestSettingsPage:
+class TestDefaultMode:
     @classmethod
     def setup_class(cls):
         cls.common_locators = CommonLocators()

@@ -7,7 +7,7 @@ from locators.onboarding_locators import OnboardingPageLocators
 
 
 @pytest.mark.usefixtures('driver_noCache')
-class TestOnboardingPage:
+class TestDefaultMode:
     @classmethod
     def setup_class(cls):
         cls.onboarding_locators = OnboardingPageLocators()

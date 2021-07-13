@@ -1,9 +1,9 @@
 stages:
-  - build
+  - build_default
 
 
-build_job:
-  stage: build
+build_default_job:
+  stage: build_default
   tags:
     - android-host-1
   before_script:
@@ -12,4 +12,4 @@ build_job:
     - echo $ANDROID_HOST_PASSWORD | sudo -S sysctl -w dev.i915.perf_stream_paranoid=0
     - DISPLAY=:0 xterm -e '/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_3a_XL_API_30 -no-snapshot-load -gpu guest -memory 3072'
   after_script:
-    - python3 telegram_bot/client.py -n build_job
+    - python3 telegram_bot/client.py -n build_default_job

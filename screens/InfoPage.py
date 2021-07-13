@@ -35,7 +35,7 @@ class InfoPage(RecordTimeout, Wait):
 
     def recognize_page(self, dbg_api):
         type_page = []
-        for line in dbg_api.read_buffer(read_mapi=True):
+        for line in dbg_api.read_buffer(name_file='mapi.log'):
             if CheckAPI.check_single_page_url('/creations/movie/', line=line, num_after=6):
                 content = dbg_api.get_content_response(line)
                 try:

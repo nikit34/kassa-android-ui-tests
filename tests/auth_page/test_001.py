@@ -11,7 +11,7 @@ from locators.auth_locators import AuthPageLocators
 
 @allure.feature('noCache')
 @pytest.mark.usefixtures('driver_noCache')
-class TestAuthPage:
+class TestDefaultMode:
     @classmethod
     def setup_class(cls):
         cls.common_locators = CommonLocators()

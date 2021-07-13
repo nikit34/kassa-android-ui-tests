@@ -26,7 +26,6 @@ DESIRED_CAPS_NO_CACHE_LOCAL = {
   'appActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'appWaitActivity': 'ru.rambler.kassa.presentation.LaunchActivity',
   'noReset': False,
-
 }
 
 DESIRED_CAPS_LOCAL = {

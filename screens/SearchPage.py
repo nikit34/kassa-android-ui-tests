@@ -50,14 +50,19 @@ class SearchPage(RecordTimeout, Wait):
             self.act.swipe(70, 23, 30, 23)
         raise IndexError('Count scrolls completed')
 
-    def check_btn_filters(self, dbg_api, url_pattern=''):
-        for line in dbg_api.read_buffer(read_mapi=True):
-            if CheckAPI.check_general_page_url(url_pattern, line=line, params_after='limit'):
-                content = dbg_api.get_content_response(line)
-                content_filters = self._get_content_filters(content)
-                self._check_content_btn_filters(content_filters)
-                return
-        raise ValueError(f'{url_pattern} has not been found')
+    def check_btn_filters(self, dbg_api):
+        for line in dbg_api.read_buffer(name_file='redis_filter.log'):
+            content = dbg_api.get_content_response(line)
+            content_filters = self._get_content_filters(content)
+            self._check_content_btn_filters(content_filters)
+            return
+
+    @staticmethod
+    def url_creations_movie_schedule_filter(msg):
+        line = msg['data'].encode('utf-8')
+        if CheckAPI.check_general_page_url('/creations/movie/schedule', line=line, params_after='limit'):
+            with open('../../app/redis_filter.log', 'w') as f:
+                f.write(line)
 
     def click_tab(self, num):
         tabs_elem = self.driver.find_elements(*self.search_locators.tab)

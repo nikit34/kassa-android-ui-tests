@@ -8,7 +8,7 @@ from locators.movies_locators import MoviesPageLocators
 
 
 @pytest.mark.usefixtures('driver')
-class TestShedulePage:
+class TestDefaultMode:
     @classmethod
     def setup_class(cls):
         cls.movies_locators = MoviesPageLocators()

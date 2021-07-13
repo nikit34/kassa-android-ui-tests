@@ -8,7 +8,7 @@ from locators.concerts_locators import ConcertsPageLocators
 
 
 @pytest.mark.usefixtures('driver')
-class TestConcertsPage:
+class TestDefaultMode:
     @classmethod
     def setup_class(cls):
         cls.concerts_locators = ConcertsPageLocators()

@@ -10,7 +10,7 @@ from locators.info_locators import InfoPageLocators
 
 
 @pytest.mark.usefixtures('driver')
-class TestTheatersPage:
+class TestDefaultMode:
     @classmethod
     def setup_class(cls):
         cls.info_locators = InfoPageLocators()

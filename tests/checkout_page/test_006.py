@@ -14,7 +14,7 @@ from app.debug_api import DebugAPI
 
 
 # @pytest.mark.usefixtures('driver')
-# class TestTheatersPage:
+# class TestDefaultMode:
 #     @classmethod
 #     def setup_class(cls):
 #         cls.seat_selection_locators = SeatSelectionLocators()

@@ -9,7 +9,7 @@ from screens.FeedPage import FeedPage
 
 
 @pytest.mark.usefixtures('driver')
-class TestFeedPage:
+class TestDefaultMode:
     @classmethod
     def setup_class(cls):
         cls.movies_locators = MoviesPageLocators()

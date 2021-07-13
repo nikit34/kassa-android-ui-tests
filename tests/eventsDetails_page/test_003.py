@@ -10,7 +10,7 @@ from locators.events_details_locators import EventsDetailsPageLocators
 
 
 @pytest.mark.usefixtures('driver')
-class TestEventDetailsPage:
+class TestDefaultMode:
     @classmethod
     def setup_class(cls):
         cls.movies_locators = MoviesPageLocators()

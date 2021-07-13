@@ -13,7 +13,7 @@ from utils.internet import switch_airplane_mode
 
 
 @pytest.mark.usefixtures('driver')
-class TestMoviePage:
+class TestDefaultMode:
     @classmethod
     def setup_class(cls):
         cls.common_locators = CommonLocators()

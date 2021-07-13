@@ -2,9 +2,10 @@ from time import sleep
 from selenium.common.exceptions import NoSuchElementException, InvalidElementStateException, StaleElementReferenceException
 from appium.webdriver.common.mobileby import MobileBy
 import os
+from subprocess import Popen
 
 from templates.action import Action
-from utils.emulator_act import reboot_emulator
+from utils.emulator_act import reboot_emulator, shut_down_emulator, run_emulator
 
 
 AIRPLANE_MODE = (MobileBy.ACCESSIBILITY_ID, 'Airplane mode')
@@ -58,7 +59,7 @@ def _click_by_text(driver, *locator, text):
 
 
 def _click(driver, *locator, num=None):
-    sleep(1)
+    sleep(2)
     if num is None:
         driver.find_element(*locator).click()
     else:
@@ -100,4 +101,16 @@ def switch_proxy_mode(driver, to_state=True):
     for _ in range(4):
         sleep(1)
         driver.back()
+
+
+def switch_proxy_mode_reboot(to_state=True):
+    shut_down_emulator()
+
+    if to_state:
+        Popen(f'/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_3a_XL_API_30 -no-snapshot-load -gpu guest -memory 3072 -http-proxy http://{contains_ip()}:8080', shell=True)
+        Popen(f'/Users/n.permyakov/Library/Android/sdk/emulator/emulator -avd Pixel_3a_XL_API_30 -no-snapshot-load -gpu guest -memory 3072 -http-proxy http://{contains_ip()}:8080', shell=True)
+    else:
+        run_emulator()
+
+
 

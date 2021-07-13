@@ -11,7 +11,7 @@ from locators.nointernet_locators import NoInternetPageLocators
 
 
 @pytest.mark.usefixtures('driver')
-class TestTheatersPage:
+class TestDefaultMode:
     @classmethod
     def setup_class(cls):
         cls.movies_locators = MoviesPageLocators()

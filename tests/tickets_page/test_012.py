@@ -8,7 +8,7 @@ from locators.common_locators import CommonLocators
 
 
 @pytest.mark.usefixtures('driver')
-class TestTicketsPage:
+class TestDefaultMode:
     @classmethod
     def setup_class(cls):
         cls.common_locators = CommonLocators()
