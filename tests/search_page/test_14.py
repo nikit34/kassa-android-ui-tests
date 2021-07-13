@@ -98,54 +98,54 @@ class TestProxyMode:
                 self.search_page.check_btn_filters(dbg_api)
         finally:
             dbg_api.kill()
-
-    def test_002(self, driver):
-        dbg_api = DebugAPI.run(response=True, switch_proxy_driver=driver)
-        try:
-            with allure.step('MoviesPage'):
-                self.movies_page = MoviesPage(driver)
-                self.movies_page.set_custom_wait(20)
-                self.movies_page.click(*self.common_locators.tab_search)
-            with allure.step('SearchPage'):
-                self.search_page = SearchPage(driver)
-                self.search_page.set_custom_wait(20)
-                sleep(3)
-                self.search_page.click_tab(1)
-                sleep(4)
-                self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/performance/schedule')
-        finally:
-            dbg_api.kill()
-
-    def test_003(self, driver):
-        dbg_api = DebugAPI.run(response=True, switch_proxy_driver=driver)
-        try:
-            with allure.step('MoviesPage'):
-                self.movies_page = MoviesPage(driver)
-                self.movies_page.set_custom_wait(20)
-                self.movies_page.click(*self.common_locators.tab_search)
-            with allure.step('SearchPage'):
-                self.search_page = SearchPage(driver)
-                self.search_page.set_custom_wait(20)
-                sleep(3)
-                self.search_page.click_tab(2)
-                sleep(4)
-                self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/concert/schedule')
-        finally:
-            dbg_api.kill()
-
-    def test_004(self, driver):
-        dbg_api = DebugAPI.run(response=True, switch_proxy_driver=driver)
-        try:
-            with allure.step('MoviesPage'):
-                self.movies_page = MoviesPage(driver)
-                self.movies_page.set_custom_wait(20)
-                self.movies_page.click(*self.common_locators.tab_search)
-            with allure.step('SearchPage'):
-                self.search_page = SearchPage(driver)
-                self.search_page.set_custom_wait(20)
-                sleep(4)
-                self.search_page.click_tab(3)
-                sleep(4)
-                self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/event/schedule')
-        finally:
-            dbg_api.kill()
+    #
+    # def test_002(self, driver):
+    #     dbg_api = DebugAPI.run(response=True, switch_proxy_driver=driver)
+    #     try:
+    #         with allure.step('MoviesPage'):
+    #             self.movies_page = MoviesPage(driver)
+    #             self.movies_page.set_custom_wait(20)
+    #             self.movies_page.click(*self.common_locators.tab_search)
+    #         with allure.step('SearchPage'):
+    #             self.search_page = SearchPage(driver)
+    #             self.search_page.set_custom_wait(20)
+    #             sleep(3)
+    #             self.search_page.click_tab(1)
+    #             sleep(4)
+    #             self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/performance/schedule')
+    #     finally:
+    #         dbg_api.kill()
+    #
+    # def test_003(self, driver):
+    #     dbg_api = DebugAPI.run(response=True, switch_proxy_driver=driver)
+    #     try:
+    #         with allure.step('MoviesPage'):
+    #             self.movies_page = MoviesPage(driver)
+    #             self.movies_page.set_custom_wait(20)
+    #             self.movies_page.click(*self.common_locators.tab_search)
+    #         with allure.step('SearchPage'):
+    #             self.search_page = SearchPage(driver)
+    #             self.search_page.set_custom_wait(20)
+    #             sleep(3)
+    #             self.search_page.click_tab(2)
+    #             sleep(4)
+    #             self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/concert/schedule')
+    #     finally:
+    #         dbg_api.kill()
+    #
+    # def test_004(self, driver):
+    #     dbg_api = DebugAPI.run(response=True, switch_proxy_driver=driver)
+    #     try:
+    #         with allure.step('MoviesPage'):
+    #             self.movies_page = MoviesPage(driver)
+    #             self.movies_page.set_custom_wait(20)
+    #             self.movies_page.click(*self.common_locators.tab_search)
+    #         with allure.step('SearchPage'):
+    #             self.search_page = SearchPage(driver)
+    #             self.search_page.set_custom_wait(20)
+    #             sleep(4)
+    #             self.search_page.click_tab(3)
+    #             sleep(4)
+    #             self.search_page.check_btn_filters(dbg_api, url_pattern='/creations/event/schedule')
+    #     finally:
+    #         dbg_api.kill()

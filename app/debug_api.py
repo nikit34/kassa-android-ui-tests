@@ -10,7 +10,7 @@ import json
 import redis
 from time import time
 
-from utils.internet import contains_ip, switch_proxy_mode_reboot
+from utils.internet import contains_ip
 
 
 def _logging(this, method, url, content=''):
@@ -38,12 +38,11 @@ def _logging_redis(r2, this, method, url, content):
 
 
 class DebugAPI:
-    def __init__(self, request=True, response=True, mapi_handler=None, other_handler=None, file_logging=False, switch_proxy_driver=False, timeout_recard=0):
+    def __init__(self, request=True, response=True, mapi_handler=None, other_handler=None, file_logging=False, timeout_recard=0):
         self.request = request
         self.response = response
         self.mapi_handler = mapi_handler
         self.other_handler = other_handler
-        self.switch_proxy_driver = switch_proxy_driver
         self.file_logging = file_logging
         self.timeout_recard = timeout_recard
         self.path_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/app/'
@@ -171,9 +170,8 @@ class DebugAPI:
         if self.file_logging: self._start_logging()
 
     @classmethod
-    def run(cls, request=True, response=True, mapi_handler=None, other_handler=None, file_logging=False, switch_proxy_driver=False, timeout_recard=0):
-        self = cls(request, response, mapi_handler, other_handler, file_logging, switch_proxy_driver, timeout_recard)
-        if self.switch_proxy_driver: switch_proxy_mode_reboot(True)
+    def run(cls, request=True, response=True, mapi_handler=None, other_handler=None, file_logging=False, timeout_recard=0):
+        self = cls(request, response, mapi_handler, other_handler, file_logging, timeout_recard)
         m = self._setup()
         loop = asyncio.get_event_loop()
         t = threading.Thread(target=self._loop_in_thread, args=(loop, m))
@@ -188,7 +186,6 @@ class DebugAPI:
         self.t.open_loop = False
         self.t.join()
         if self._check_handlers_redis(): self._kill_redis()
-        if self.switch_proxy_driver: switch_proxy_mode_reboot(False)
         if self.file_logging: self.clear_buffer()
 
     def _kill_redis(self):
