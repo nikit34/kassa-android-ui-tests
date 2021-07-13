@@ -3,8 +3,6 @@ import os
 from appium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
-from utils.emulator_act import reboot_emulator
-
 from .config import \
     APPIUM_HOST, \
     APPIUM_LOCAL, \
@@ -34,8 +32,6 @@ def pytest_runtest_makereport(item, call):
     result = outcome.get_result()
     if result.when == 'call':
         Testrail.logging_step(result.outcome, result.nodeid, result.duration)
-    if result.outcome == 'failed' and item.config.getoption('--host'):
-        reboot_emulator()
 
 
 @pytest.fixture(scope='function')
