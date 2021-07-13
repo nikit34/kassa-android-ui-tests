@@ -15,3 +15,8 @@ build_default_job:
     - DISPLAY=:0 xterm -e '/home/npermyakov/Android/Sdk/emulator/emulator -avd Pixel_3a_XL_API_30 -no-snapshot-load -gpu guest -memory 3072 2>&1 | tee ./xterm_emulator.log'
   after_script:
     - python3 telegram_bot/client.py -n build_default_job
+  artifacts:
+    when: always
+    paths:
+      - ./xterm_emulator.log
+    expire_in: 3 days

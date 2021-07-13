@@ -189,6 +189,7 @@ pytest_default_job:
     when: always
     paths:
       - ./allure-results
+      - ./xterm_pytest.log
     expire_in: 3 days
     reports:
       cobertura: coverage.xml
@@ -208,8 +209,7 @@ pytest_proxy_job:
     - android-host
   before_script:
     - sleep 150
-    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./xterm_pytest.log
-    - echo $ANDROID_HOST_PASSWORD | sudo -S bash -c '> ./xterm_pytest.log'
+    - echo $ANDROID_HOST_PASSWORD | sudo -S echo -e "################# NEW RECARD @@@@@@@@@@@@@@@" >> ./xterm_pytest.log
   script:
     - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l -k "ProxyMode" --tb=short ./tests --alluredir=./allure-results --cov=./app --host 2>&1 | tee ./xterm_pytest.log'
     - coverage xml
@@ -223,6 +223,7 @@ pytest_proxy_job:
     when: always
     paths:
       - ./allure-results
+      - ./xterm_pytest.log
     expire_in: 3 days
     reports:
       cobertura: coverage.xml
