@@ -5,7 +5,7 @@ stages:
 redis_job:
   stage: redis
   tags:
-    - ios-host-1
+    - android-host-1
   script:
     - redis-server &
   after_script:
