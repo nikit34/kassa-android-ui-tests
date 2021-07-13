@@ -14,7 +14,6 @@ packaging==21.0
 pep517==0.10.0
 pkginfo==1.7.1
 Pygments==2.9.0
-pynput==1.7.3
 pyparsing==2.4.7
 readme-renderer==29.0
 redis==3.5.3
