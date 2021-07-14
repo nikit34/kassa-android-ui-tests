@@ -46,7 +46,10 @@ def contains_ip():
                 right_index = output.index('netmask', right_index + 1)
         except ValueError as error:
             print('[ERROR] ip has been changed', error)
-    return output[left_index+5:right_index-1]
+    if right_index - left_index == 18:
+        return output[left_index+5:right_index-2]
+    else:
+        return output[left_index+5:right_index-1]
 
 
 def _click_by_text(driver, *locator, text):

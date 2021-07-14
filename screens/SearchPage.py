@@ -64,6 +64,27 @@ class SearchPage(RecordTimeout, Wait):
             with open('../../app/redis_filter.log', 'w') as f:
                 f.write(line)
 
+    @staticmethod
+    def url_creations_performance_schedule_filter(msg):
+        line = msg['data'].encode('utf-8')
+        if CheckAPI.check_general_page_url('/creations/performance/schedule', line=line, params_after='limit'):
+            with open('../../app/redis_filter.log', 'w') as f:
+                f.write(line)
+
+    @staticmethod
+    def url_creations_concert_schedule_filter(msg):
+        line = msg['data'].encode('utf-8')
+        if CheckAPI.check_general_page_url('/creations/concert/schedule', line=line, params_after='limit'):
+            with open('../../app/redis_filter.log', 'w') as f:
+                f.write(line)
+
+    @staticmethod
+    def url_creations_event_schedule_filter(msg):
+        line = msg['data'].encode('utf-8')
+        if CheckAPI.check_general_page_url('/creations/event/schedule', line=line, params_after='limit'):
+            with open('../../app/redis_filter.log', 'w') as f:
+                f.write(line)
+
     def click_tab(self, num):
         tabs_elem = self.driver.find_elements(*self.search_locators.tab)
         len_tabs_elem = len(tabs_elem)

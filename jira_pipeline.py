@@ -31,6 +31,7 @@ def get_sprint_id():
         print(f'[ERROR] get_sprint_id -> GET request failed\nstatus code: {response.status_code}',
               error)
         error.args += (f'get_sprint_id: {response.status_code}',)
+        raise error
     try:
         values_sprints = response.json()['values']
     except KeyError as error:
