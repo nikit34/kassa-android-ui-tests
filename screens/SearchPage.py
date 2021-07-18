@@ -61,28 +61,28 @@ class SearchPage(RecordTimeout, Wait):
     def url_creations_movie_schedule_filter(msg):
         line = msg['data'].encode('utf-8')
         if CheckAPI.check_general_page_url('/creations/movie/schedule', line=line, params_after='limit'):
-            with open('../../app/redis_filter.log', 'w') as f:
+            with open('../../logs/redis_filter.log', 'w') as f:
                 f.write(line)
 
     @staticmethod
     def url_creations_performance_schedule_filter(msg):
         line = msg['data'].encode('utf-8')
         if CheckAPI.check_general_page_url('/creations/performance/schedule', line=line, params_after='limit'):
-            with open('../../app/redis_filter.log', 'w') as f:
+            with open('../../logs/redis_filter.log', 'w') as f:
                 f.write(line)
 
     @staticmethod
     def url_creations_concert_schedule_filter(msg):
         line = msg['data'].encode('utf-8')
         if CheckAPI.check_general_page_url('/creations/concert/schedule', line=line, params_after='limit'):
-            with open('../../app/redis_filter.log', 'w') as f:
+            with open('../../logs/redis_filter.log', 'w') as f:
                 f.write(line)
 
     @staticmethod
     def url_creations_event_schedule_filter(msg):
         line = msg['data'].encode('utf-8')
         if CheckAPI.check_general_page_url('/creations/event/schedule', line=line, params_after='limit'):
-            with open('../../app/redis_filter.log', 'w') as f:
+            with open('../../logs/redis_filter.log', 'w') as f:
                 f.write(line)
 
     def click_tab(self, num):

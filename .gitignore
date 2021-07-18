@@ -90,6 +90,6 @@ tank_errors.log
 testrail_log.log
 
 app/app-kassa-debug.apk
-app/mapi_old.log
+logs/mapi_old.log
 
 screenshots/

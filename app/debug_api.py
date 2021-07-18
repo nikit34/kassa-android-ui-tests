@@ -14,7 +14,7 @@ from utils.internet import contains_ip
 
 
 def _logging(this, method, url, content=''):
-    path_dir_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/app/'
+    path_dir_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/logs/'
     logging_time = datetime.now().strftime("%H:%M:%S")
     if 'mapi.kassa.rambler.ru' in url:
         path_log = path_dir_log + 'mapi.log'
@@ -45,7 +45,7 @@ class DebugAPI:
         self.other_handler = other_handler
         self.file_logging = file_logging
         self.timeout_recard = timeout_recard
-        self.path_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/app/'
+        self.path_log = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + '/logs/'
 
     class AddonReqRes:
         def __init__(self, timeout_recard, file_logging=False):
