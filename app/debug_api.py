@@ -174,7 +174,7 @@ class DebugAPI:
         self = cls(request, response, mapi_handler, other_handler, file_logging, timeout_recard)
         m = self._setup()
         loop = asyncio.get_event_loop()
-        t = threading.Thread(target=self._loop_in_thread, args=(loop, m))
+        t = threading.Thread(target=self._loop_in_thread, args=(loop, m), daemon=True)
         t.start()
         setattr(self, 'm', m)
         setattr(self, 't', t)
