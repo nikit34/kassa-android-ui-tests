@@ -176,7 +176,7 @@ pytest_default_job:
   before_script:
     - rm -r ./allure-results && mkdir ./allure-results || mkdir ./allure-results || true
     - echo $ANDROID_HOST_PASSWORD | sudo -S killall java || true
-    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./xterm_pytest.log
+    - echo $ANDROID_HOST_PASSWORD | chmod 777 ./xterm_pytest.log || true
     - echo $ANDROID_HOST_PASSWORD | sudo -S bash -c '> ./xterm_pytest.log'
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./app/app-kassa-debug.apk
