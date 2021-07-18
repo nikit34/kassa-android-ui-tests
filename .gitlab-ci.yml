@@ -240,7 +240,6 @@ history_job:
   script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./download_history.sh
     - ./download_history.sh
-    - ls ./allure-results/history  # TODO: dbg
   after_script:
     - python3 telegram_bot/client.py -n history_job
   artifacts:
@@ -319,7 +318,6 @@ pages:
   before_script:
     - rm -r ./public && mkdir ./public || mkdir ./public || true
   script:
-    - ls ./allure-report
     - mv ./allure-report/* ./public || true
   after_script:
     - python3 telegram_bot/client.py -n pages
