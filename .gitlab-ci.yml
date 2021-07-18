@@ -211,7 +211,7 @@ pytest_proxy_job:
     - sleep 150
     - echo $ANDROID_HOST_PASSWORD | sudo -S echo -e "\n################# NEW RECARD @@@@@@@@@@@@@@@\n" >> ./xterm_pytest.log
   script:
-    - DISPLAY=:0 xterm -e 'python3 -m pytest -v -s -l -k "ProxyMode" --tb=short ./tests --alluredir=./allure-results --cov=./app --host 2>&1 | tee -a ./xterm_pytest.log'
+    - DISPLAY=:0 xterm -e 'timeout 30m python3 -m pytest -v -s -l -k "ProxyMode" --tb=short ./tests --alluredir=./allure-results --cov=./app --host 2>&1 | tee -a ./xterm_pytest.log'
     - coverage xml
   after_script:
     - adb -s emulator-5554 emu kill
