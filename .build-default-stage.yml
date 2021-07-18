@@ -7,6 +7,7 @@ build_default_job:
   tags:
     - android-host-1
   before_script:
+    - adb -s emulator-5554 emu kill
     - echo y ; echo y ; echo y ; echo y ; echo y ; echo y | /home/npermyakov/Android/Sdk/tools/bin/sdkmanager --licenses
     - echo $ANDROID_HOST_PASSWORD | chmod 777 ./xterm_emulator.log
     - echo $ANDROID_HOST_PASSWORD | sudo -S bash -c '> ./xterm_emulator.log'
