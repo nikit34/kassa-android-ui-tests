@@ -237,9 +237,10 @@ history_job:
     - android-host
   before_script:
     - mkdir -p ./public/history || true
-  script:
     - echo $ANDROID_HOST_PASSWORD | sudo -S chmod 777 ./download_history.sh
+  script:
     - ./download_history.sh
+    - ./prepare_executor.sh
   after_script:
     - python3 telegram_bot/client.py -n history_job
   artifacts:
